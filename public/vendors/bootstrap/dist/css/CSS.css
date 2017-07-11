@@ -1,0 +1,69 @@
+.circle {
+border-radius: 50% ;
+behavior: url(PIE.htc) ; /* for IE8 */
+width: 50px ;
+height: 50px ;
+border: 3px solid #000 ;
+
+}
+
+.diamonde {
+width: 50px ;
+height: 50px ;
+border: 3px solid #000 ;
+-ms-transform: rotate(45deg); /* IE 9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+}
+
+.parallelogram {
+  width: 100px;
+  height: 50px;
+  -webkit-transform: skew(20deg);
+     -moz-transform: skew(20deg);
+       -o-transform: skew(20deg);
+       border: 3px solid #000 ;
+}
+
+.polygon {
+border-radius: 50% ;
+behavior: url(PIE.htc) ; /* for IE8 */
+width: 100px ;
+height: 50px ;
+border: 3px solid #000 ;
+}
+.rectangle {
+width: 100px ;
+height: 50px ;
+border: 3px solid #000 ;
+}
+
+div.container {
+    width: 100% ;
+    height: 100% ;
+    border: 1px solid gray ;
+}
+
+header {
+    padding: 1em ;
+    color: white ;
+    background-color: black ;
+    clear: left ;
+    text-align: center ;
+}
+
+nav {
+    float: left ;
+    max-width: 160px ;
+    margin: 0 ;
+    padding: 1em ;
+}
+
+article {
+
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+    height: 55vh ;
+    border: 1px solid #000 ;
+}
