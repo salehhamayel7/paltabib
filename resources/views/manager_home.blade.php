@@ -122,6 +122,68 @@ else{
             </div>
 
 
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+
+                    <ul class="nav navbar-left panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+					            <h2 style="float:right;">ملخص مالي للشهر الحالي</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="row" style="border-bottom: 1px solid #E0E0E0; padding-bottom: 5px; margin-bottom: 5px;">
+
+
+                      <div class="col-md-6">
+                        <div class="row" style="text-align: left;">
+							            <div style="text-align: center; margin-bottom: 17px">
+                              <ul class="verticle_bars list-inline">
+                                <li onclick="window.location.href = '/dashboard/manager/allBills';">
+                                  <div class="progress vertical progress_wide bottom">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php echo $billsPercentage ?>"></div>
+                                  </div>
+                                </li>
+                                <li onclick="window.location.href = '/dashboard/manager/allExpenses';">
+                                  <div class="progress vertical progress_wide bottom">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $expencesPercentage ?>"></div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+							          <div class="divider"></div>
+
+                            <ul class="legend list-unstyled">
+
+                              <li onclick="window.location.href = '/dashboard/manager/allBills';">
+                                <p>
+                                  <span class="icon"><i class="fa fa-square blue"></i> <?php echo $billsPercentage."%"; ?></span> <span class="name">الدخل</span>
+                                </p>
+                              </li>
+                              <li onclick="window.location.href = '/dashboard/manager/allExpenses';">
+                                <p>
+                                  <span class="icon"><i class="fa fa-square green"></i> <?php echo $expencesPercentage."%"; ?></span> <span class="name">المصروفات</span>
+                                </p>
+                              </li>
+                            </ul>
+
+							        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+					              <h3 style="margin:18px; float:right;">التقدم المالي الشهري</h3>
+                      </div>
+                         <a style="font-size: 17px;" href="/dashboard/manager/money" class="btn btn-success btn-lg moneyBTN"> انتقل للمالية للمزيد </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
           <div class="row">
               <div class="col-md-12">
@@ -185,66 +247,7 @@ else{
             </div>
 
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_title">
-
-                    <ul class="nav navbar-left panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-					            <h2 style="float:right;">ملخص مالي للشهر الحالي</h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <div class="row" style="border-bottom: 1px solid #E0E0E0; padding-bottom: 5px; margin-bottom: 5px;">
-
-
-                      <div class="col-md-6">
-                        <div class="row" style="text-align: left;">
-							            <div style="text-align: center; margin-bottom: 17px">
-                              <ul class="verticle_bars list-inline">
-                                <li onclick="window.location.href = '/dashboard/manager/allBills';">
-                                  <div class="progress vertical progress_wide bottom">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php echo $billsPercentage ?>"></div>
-                                  </div>
-                                </li>
-                                <li onclick="window.location.href = '/dashboard/manager/allExpenses';">
-                                  <div class="progress vertical progress_wide bottom">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $expencesPercentage ?>"></div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-							          <div class="divider"></div>
-
-                            <ul class="legend list-unstyled">
-
-                              <li onclick="window.location.href = '/dashboard/manager/allBills';">
-                                <p>
-                                  <span class="icon"><i class="fa fa-square blue"></i> <?php echo $billsPercentage."%"; ?></span> <span class="name">الدخل</span>
-                                </p>
-                              </li>
-                              <li onclick="window.location.href = '/dashboard/manager/allExpenses';">
-                                <p>
-                                  <span class="icon"><i class="fa fa-square green"></i> <?php echo $expencesPercentage."%"; ?></span> <span class="name">المصروفات</span>
-                                </p>
-                              </li>
-                            </ul>
-
-							        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-12">
-					              <h3 style="margin:18px; float:right;">التقدم المالي الشهري</h3>
-                      </div>
-                         <a style="font-size: 17px;" href="/dashboard/manager/money" class="btn btn-success btn-lg moneyBTN"> انتقل للمالية للمزيد </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
 
 
                       <div id="showArea" class="" role="tabpanel" data-example-id="togglable-tabs">

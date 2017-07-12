@@ -1,29 +1,12 @@
 <div class="top_nav">
           <div class="nav_menu">
             <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
+              
 
-              <ul class="nav navbar-nav navbar-left">
-               <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/images/users/{{$user->image}}" alt="avatar">{{$user->name}}
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="/dashboard/{{$href}}"> الرئيسية</a></li>
-                    <hr style="margin: 0px;"/>
-                    <li><a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i>تسجيل الخروج</a></li>
-                  </ul>
-                </li>
+              <ul class="nav navbar-nav navbar-left row" style="width:100%; margin: 0px;">
 
-                <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                   <input type="hidden" name="_token" value="{{csrf_token()}}">
-                </form>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <li role="presentation" class="dropdown col-md-1 col-sm-2">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false" style="width: 46px;">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">{{count($new_msgs)}}</span>
                   </a>
@@ -61,7 +44,30 @@
                     </li>
                   </ul>
                 </li>
+
+
+               <li class="col-sm-3 col-md-3" style="text-align:left;padding-right: 0px;">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding: 13px 0px 12px; text-align: center;">
+                    <img src="/images/users/{{$user->image}}" alt="avatar">{{$user->name}}
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="/dashboard/{{$href}}"> الرئيسية</a></li>
+                    <hr style="margin: 0px;"/>
+                    <li><a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i>تسجيل الخروج</a></li>
+                  </ul>
+                </li>
+
+                
+                <div class="nav toggle pull-right">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
               </ul>
+              
             </nav>
           </div>
         </div>
+
+        <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                   <input type="hidden" name="_token" value="{{csrf_token()}}">
+                </form>

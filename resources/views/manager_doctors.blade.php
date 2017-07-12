@@ -20,10 +20,10 @@ else{
 
     <title>الاطباء</title>
 	
-
+@include('includes.links')
     
 	 @include('includes.Datatables_links')
-    @include('includes.links')
+    
   </head>
 
   <body class="nav-md" dir="rtl">

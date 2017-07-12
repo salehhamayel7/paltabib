@@ -24,6 +24,10 @@ footer {
     margin: 0px;
 }
 
+.table {
+    width: 100% !important;
+}
+
 .nav-sm .main_container .top_nav {
     display: block;
     margin-right: 70px;
@@ -350,5 +354,10 @@ th {
     }
     .col-md-55 {
         width: 100%;
+    }
+    .nav-md .container.body .right_col {
+        padding: 10px 20px 0;
+        margin-left: 230px;
+        margin-right: 0px;
     }
 }

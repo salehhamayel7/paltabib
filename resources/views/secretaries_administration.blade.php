@@ -22,8 +22,9 @@ else{
 	
 	  <script type="text/javascript" src="{{asset('js/managerJS.js')}}"></script>
 
-    @include('includes.Datatables_links')
     @include('includes.links')
+    @include('includes.Datatables_links')
+    
   </head>
 
   <body class="nav-md" dir="rtl">
