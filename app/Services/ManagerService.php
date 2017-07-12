@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Image;
+use Auth;
 
 class ManagerService{
 
@@ -22,6 +23,20 @@ class ManagerService{
             return redirect()->back();
 
     }
+
+     public function updateClinic(Request $request)
+	{
+        $clinic =  DB::table('clinics')
+                    ->where('id', '=' , Auth::user()->clinic_id)
+                    ->update([
+                        'name' => $request->clinic_name,
+                        'address' => $request->clinic_address,
+                        'phone' => $request->clinic_phone,
+                        ]);
+
+    }
+
+    
 
    public function editManager(Request $request)
 	{

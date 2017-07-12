@@ -126,7 +126,6 @@ class ManagerController extends Controller
         return view('manager_home' , compact('nextEvents','billsPercentage','expencesPercentage','user','clinic','new_msgs','today_events','appointments','appointmentsx','events_number'));
 
     }
-
     
     public function edit(Request $request)
     {
@@ -136,6 +135,12 @@ class ManagerController extends Controller
     public function changeProfilePic(Request $request)
     {
         return $this->manager->changePic($request);
+    }
+
+    public function updateClinic(Request $request)
+    {
+         $this->manager->updateClinic($request);
+         return redirect()->back();
     }
 
 

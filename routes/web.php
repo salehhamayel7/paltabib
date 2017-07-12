@@ -44,6 +44,9 @@ Route::get('/dashboard/manager/record/{user_name}','PacientController@showRecord
 Route::get('/dashboard/manager/search','DoctorsController@showSearch');
 Route::get('/dashboard/manager/calendar','AppointmentController@showCalendarD');
 Route::get('/dashboard/manager/myCalendar','AppointmentController@showCalendar');
+Route::post('/ajax/clinic/update','ManagerController@updateClinic');
+
+
 //////////////////////////////////////////////////
 
 
