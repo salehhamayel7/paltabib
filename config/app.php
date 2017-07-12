@@ -183,7 +183,7 @@ return [
         App\Providers\NurseServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
-
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -233,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
