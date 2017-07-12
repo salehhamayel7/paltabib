@@ -24,23 +24,8 @@ else{
 
     <title>البحث </title>
 
-    <!-- Bootstrap -->
-    <link href="{{asset('../vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{asset('../vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{asset('../vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    <!-- bootstrap-wysiwyg -->
-    <link href="{{asset('../vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="{{asset('../vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="{{asset('../vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
-     <!-- Switchery -->
-    <link href="{{asset('../vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
-    <!-- Custom styling plus plugins -->
-    <link href="{{asset('../build/css/custom.min.css')}}" rel="stylesheet">
-  <link href="{{asset('css/custumCSS.css')}}" rel="stylesheet">
+    @include('includes.links')
+
   </head>
 
   <body class="nav-md" dir="rtl">
@@ -203,28 +188,10 @@ else{
       </div>
     </div>
 
-
-    <!-- jQuery -->
-    <script src="{{asset('../vendors/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap -->
-    <script src="{{asset('../vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{asset('../vendors/fastclick/lib/fastclick.js')}}"></script>
-    <!-- NProgress -->
-    <script src="{{asset('../vendors/nprogress/nprogress.js')}}"></script>
-    <!-- bootstrap-wysiwyg -->
-    <script src="{{asset('../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js')}}"></script>
-    <script src="{{asset('../vendors/jquery.hotkeys/jquery.hotkeys.js')}}"></script>
-    <script src="{{asset('../vendors/google-code-prettify/src/prettify.js')}}"></script>
-    <!-- iCheck -->
-    <script src="{{asset('../vendors/iCheck/icheck.min.js')}}"></script>
-    <!-- Switchery -->
+@include('includes.scrtipts_src')
+<!-- Switchery -->
     <script src="{{asset('../vendors/switchery/dist/switchery.min.js')}}"></script>
-    <!-- Select2 -->
-    <script src="{{asset('../vendors/select2/dist/js/select2.full.min.js')}}"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="{{asset('../build/js/custom.min.js')}}"></script>
-
+    
     <script type="text/javascript">
       $(document).ready(function(){
          

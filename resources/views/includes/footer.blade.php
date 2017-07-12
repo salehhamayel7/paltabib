@@ -6,8 +6,4 @@
 </footer>
 
 <!-- fullscreen -->
-    
-<script type="text/javascript">
-
-
-</script>
+ 

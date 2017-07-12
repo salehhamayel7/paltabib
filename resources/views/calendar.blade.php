@@ -24,23 +24,15 @@ else{
 
     <title>الحجوزات</title>
 
-    <!-- Bootstrap -->
-    <link href="{{asset('../vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{asset('../vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{asset('../vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+   
     <!-- selectpicker -->
-    <link href="{{asset('../vendors/bootstrap-select-master/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
+    <link href="{{asset('vendors/bootstrap-select-master/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
     <!-- FullCalendar -->
-    <link href="{{asset('../vendors/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet">
-    <link href="{{asset('../vendors/fullcalendar/dist/fullcalendar.print.css')}}" rel="stylesheet" media="print">
+    <link href="{{asset('vendors/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet">
+    <link href="{{asset('vendors/fullcalendar/dist/fullcalendar.print.css')}}" rel="stylesheet" media="print">
 
-    <link href="{{asset('../vendors/bootstrap-select-master/dist/css/bootstrap-select.css')}}" rel="stylesheet" media="print">
+  @include('includes.links')
 
-    <!-- Custom styling plus plugins -->
-    <link href="{{asset('../build/css/custom.min.css')}}" rel="stylesheet">
-	<link href="{{asset('css/custumCSS.css')}}" rel="stylesheet">
   </head>
 
   <body class="nav-md" dir="rtl">
@@ -259,23 +251,13 @@ else{
    </div>
    
     <!-- /calendar modal -->
-    <script src="{{asset('../vendors/bootstrap-select-master/dist/js/bootstrap-select.js')}}"></script>
-    <!-- jQuery -->
-    <script src="{{asset('../vendors/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap -->
-    <script src="{{asset('../vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{asset('../vendors/fastclick/lib/fastclick.js')}}"></script>
-    <!-- NProgress -->
-    <script src="{{asset('../vendors/nprogress/nprogress.js')}}"></script>
+
+     @include('includes.scrtipts_src')
+
     <!-- selectpicker -->
     <script src="{{asset('../vendors/bootstrap-select-master/dist/js/bootstrap-select.min.js')}}"></script>
     <!-- FullCalendar -->
-    <script src="{{asset('../vendors/moment/min/moment.min.js')}}"></script>
     <script src="{{asset('../vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="{{asset('../build/js/custom.min.js')}}"></script>
 
      @if($user->role == "Doctor")
 

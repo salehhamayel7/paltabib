@@ -33,18 +33,9 @@ else{
 
     <title>البريد الوارد </title>
 
-    <!-- Bootstrap -->
-    <link href="{{asset('../vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{asset('../vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{asset('../vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    <!-- bootstrap-wysiwyg -->
-    <link href="{{asset('../vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
-
-    <!-- Custom styling plus plugins -->
-    <link href="{{asset('../build/css/custom.min.css')}}" rel="stylesheet">
-  <link href="{{asset('css/custumCSS.css')}}" rel="stylesheet">
+    @include('includes.links')
+     <!-- bootstrap-wysiwyg -->
+    <link href="{{asset('vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
   </head>
 
   <body class="nav-md" dir="rtl">
@@ -389,21 +380,7 @@ else{
   </div>
 </div>
 
-    <!-- jQuery -->
-    <script src="{{asset('../vendors/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap -->
-    <script src="{{asset('../vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{asset('../vendors/fastclick/lib/fastclick.js')}}"></script>
-    <!-- NProgress -->
-    <script src="{{asset('../vendors/nprogress/nprogress.js')}}"></script>
-    <!-- bootstrap-wysiwyg -->
-    <script src="{{asset('../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js')}}"></script>
-    <script src="{{asset('../vendors/jquery.hotkeys/jquery.hotkeys.js')}}"></script>
-    <script src="{{asset('../vendors/google-code-prettify/src/prettify.js')}}"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="{{asset('../build/js/custom.min.js')}}"></script>
+    @include('includes.scrtipts_src')
 
     <script type="text/javascript">
 

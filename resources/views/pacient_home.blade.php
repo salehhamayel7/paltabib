@@ -23,19 +23,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>الرئيسية </title>
-
-    <!-- Bootstrap -->
-    <link href="{{asset('../vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{asset('../vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{asset('../vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="{{asset('../vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-    
-    <!-- Custom Theme Style -->
-    <link href="{{asset('../build/css/custom.min.css')}}" rel="stylesheet">
-	<link href="{{asset('css/custumCSS.css')}}" rel="stylesheet">
+    @include('includes.links')
   </head>
 
   <body class="nav-md" dir="rtl">
@@ -399,26 +387,8 @@ else{
     </div>
   </div>
 </div>
+@include('includes.scrtipts_src')
 
-    <!-- jQuery -->
-    <script src="{{asset('../vendors/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap -->
-    <script src="{{asset('../vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{asset('../vendors/fastclick/lib/fastclick.js')}}"></script>
-    <!-- NProgress -->
-    <script src="{{asset('../vendors/nprogress/nprogress.js')}}"></script>
-    <!-- morris.js -->
-    <script src="{{asset('../vendors/raphael/raphael.min.js')}}"></script>
-    <script src="{{asset('../vendors/morris.js/morris.min.js')}}"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="{{asset('../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{{asset('../vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{asset('../vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-    
-    <!-- Custom Theme Scripts -->
-    <script src="{{asset('../build/js/custom.min.js')}}"></script>
     <script type="text/javascript">
       $(document).ready(function()
         {
