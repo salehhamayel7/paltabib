@@ -22,9 +22,9 @@ else{
 
     <title>المستحقات</title>
 
-   
+   @include('includes.links')
    @include('includes.Datatables_links')
-    @include('includes.links')
+    
   </head>
 
   <body class="nav-md" dir="rtl">
@@ -79,7 +79,7 @@ else{
 
 
         <div class="right_col" role="main">
-          <div class="">
+          <div class="page-content">
             <div class="clearfix"></div>
 
             <div class="row">

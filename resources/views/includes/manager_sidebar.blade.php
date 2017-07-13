@@ -4,6 +4,8 @@
                 <ul class="nav side-menu">
                   <li><a href="/dashboard/manager"><i class="fa fa-home"></i> الصفحة الرئيسية</span></a>
                   </li>
+                  <li><a href="/dashboard/manager/myClinic"><i class="fa fa-building"></i>عيادتي</span></a>
+                  </li>
                   <li><a><i class="fa fa-edit"></i> الادارة <span class="fa fa-chevron-down pull-left"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/dashboard/manager/doctors">ادارة الاطباء</a></li>

@@ -88,7 +88,7 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>-->
-                <section>Developed By: Saleh and Shareef - copy <?php echo Carbon\Carbon::now()->year; ?></section>
+                <section>Developed By: Saleh - copy <?php echo Carbon\Carbon::now()->year; ?></section>
             </div>
         </div>
     </body>

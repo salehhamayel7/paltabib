@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +22,7 @@
         ]); ?>
     </script>
 </head>
-<body>
+<body dir="rtl">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -36,7 +38,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        PalTabib
                     </a>
                 </div>
 
@@ -50,28 +52,48 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li><a href="{{ url('/login') }}">تسجيل الدخول</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
+                         <?php
+                            if(Auth::user()->role == 'Doctor'){
+                            $href='doctor';
+                            }
+                            elseif(Auth::user()->role == 'Secretary'){
+                            $href='secretary';
+                            }
+                            elseif(Auth::user()->role == 'Pacient'){
+                            $href='pacient';
+                            }
+                            else{
+                            $href='manager';
+                            }
+                            ?>
+                        <li class="col-sm-12 col-md-12" style="text-align:left;padding-right: 0px;">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding: 13px 0px 12px; text-align: center;">
+                                <img style="max-height: 40px; margin: 0px 10px;" src="/images/users/{{ Auth::user()->image}}" alt="avatar">{{ Auth::user()->name }}
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu">
+                                
+                                <li><a href="/dashboard/{{$href}}"> الرئيسية</a></li>
+                                <hr style="margin: 0px;"/>
+                                <li>
+                                     <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            تسجيل الخروج
                                         </a>
+                                </li>
+                            </ul>
+                            
+                            </li>
 
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                                </ul>
-                            </li>
+
+                            
                         @endif
                     </ul>
                 </div>

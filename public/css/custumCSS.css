@@ -20,6 +20,19 @@ body {}
     margin-right: 0px;
 }
 
+.page-content {
+    margin-top: 65px;
+}
+
+.count_top {
+    font-size: 17px !important;
+}
+
+.tile_stats_count {
+    text-align: center;
+}
+
+
 footer {
     margin: 0px;
 }

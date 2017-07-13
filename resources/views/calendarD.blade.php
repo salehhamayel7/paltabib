@@ -89,7 +89,7 @@ else{
 
         <!-- page content -->
        <div class="right_col" role="main">
-          <div class="">
+          <div class="page-content">
             <div class="page-title">
             <div class="clearfix"></div>
 
