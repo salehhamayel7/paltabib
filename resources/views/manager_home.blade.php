@@ -31,9 +31,9 @@ else{
   <body class="nav-md" dir="rtl">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col menu_fixed">
+        <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
+            <div class="navbar nav_title navbar-fixed-top" style="border: 0;">
               <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>{{$clinic->name}}</span></a>
             </div>
 
@@ -184,7 +184,7 @@ else{
             </div>            
 
 
-                      <div id="showArea" class="" role="tabpanel" data-example-id="togglable-tabs">
+                      <div id="showArea" class="" role="tabpanel" data-example-id="togglable-tabs" style="margin-bottom: 100px;">
                         <ul id="myTab" class="nav nav-tabs bar_tabs right" role="tablist">
                           <li id="home_press" role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">الاحداث</a>
                           </li>
@@ -200,8 +200,8 @@ else{
                           <div dir="rtl" role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
                             <!-- start recent activity -->
-
-                           <div class="col-md-6">
+                              <div class="row">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
                               <div class="x_panel">
                                 <div class="x_title">
 
@@ -241,7 +241,7 @@ else{
                               </div>
                             </div>
 
-                           <div class="col-md-6">
+                           <div class="col-md-6 col-sm-12 col-xs-12">
                               <div class="x_panel">
                                 <div class="x_title">
 
@@ -271,6 +271,9 @@ else{
                                 {{$today_events->links()}}
                               </div>
                             </div>
+                                
+                              </div>
+                           
 
                             <!-- end recent activity -->
                             <div class="col-md-6 pull-right">

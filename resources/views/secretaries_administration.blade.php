@@ -32,7 +32,7 @@ else{
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
+            <div class="navbar nav_title navbar-fixed-top" style="border: 0;">
               <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>{{$clinic->name}}</span></a>
             </div>
 
@@ -81,14 +81,10 @@ else{
         <!-- page content -->
 		 <div class="right_col" role="main">
           <div class="page-content">
-            
 
             <div class="clearfix"></div>
-
             <div class="row">
-              
-
-
+     
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -104,13 +100,7 @@ else{
 									 
 									</ul>
 									<h2 style="float:right;">ادارة السكرتاريا</h2>
-									<script>
-										window.onload = function(){
-										
-											document.getElementById('collapse2').click();
-											document.getElementById('collapse2').click();
-										};
-									</script>
+									
 									<div class="clearfix"></div>
 								  </div>
                   <div class="x_content" id="page_contentS">

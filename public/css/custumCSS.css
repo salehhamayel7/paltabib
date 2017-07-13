@@ -10,6 +10,10 @@ body {}
     margin-left: 0px;
 }
 
+.top_nav li a i {
+    font-size: 19px;
+}
+
 .main_container .top_nav {
     display: block;
     margin-right: 230px;
@@ -31,7 +35,6 @@ body {}
 .tile_stats_count {
     text-align: center;
 }
-
 
 footer {
     margin: 0px;
@@ -88,8 +91,11 @@ footer {
 }
 
 .navbar-nav .open .dropdown-menu {
-    left: 0;
-    right: auto;
+    padding-left: 6px;
+}
+
+.info-number .badge {
+    right: 13px;
 }
 
 .tile-stats .count,
@@ -334,6 +340,26 @@ th {
     background-color: #dfffdb !important;
 }
 
+.nav-msgs {
+    right: -217px !important;
+}
+
+.verticle_bars.list-inline li {
+    margin: 10px;
+}
+
+.profile.clearfix {
+    margin-top: 60px;
+}
+
+.nav-sm div div div div div ul {
+    margin-top: 39px;
+}
+
+.nav-md div div div div nav ul>.nav-user {
+    padding: 5px;
+}
+
 @media screen and (min-width: 768px) {
     #adv-search {
         width: 500px;
@@ -351,6 +377,10 @@ th {
     .moneyBTN {
         margin-right: 20px;
         margin-top: 70px;
+    }
+    .nav-user {
+        width: initial;
+        padding: 0px;
     }
 }
 
@@ -372,5 +402,14 @@ th {
         padding: 10px 20px 0;
         margin-left: 230px;
         margin-right: 0px;
+    }
+    .navbar-nav .open .dropdown-menu {
+        right: 0px;
+    }
+    .nav-msgs {
+        right: 0px !important;
+    }
+    .menu_section>ul {
+        margin-top: 40px;
     }
 }

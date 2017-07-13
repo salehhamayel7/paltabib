@@ -5,12 +5,27 @@
 
               <ul class="nav navbar-nav navbar-left row" style="width:100%; margin: 0px;">
 
+                <li class="col-sm-3 nav-user" style="padding: 0;">
+                  <a style="padding-left: 0; padding-right: 0;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="/images/users/{{$user->image}}" alt="">{{$user->name}}
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu" style="text-align: right; font-size: 13px;">
+                    <li><a href="/dashboard/{{$href}}"> الرئيسية</a></li>
+                    <hr style="margin:0px;">
+                    <li><a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out pull-left"></i> تسجيل الخروج</a></li>
+                  </ul>
+                </li>
+
+
+
                 <li role="presentation" class="dropdown col-md-1 col-sm-2">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false" style="width: 46px;">
+                  <a  class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false" style="text-align: center;">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">{{count($new_msgs)}}</span>
                   </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list nav-msgs" role="menu">
                   <?php
                   $count=0;
                     foreach($new_msgs as $nmsg){
@@ -46,17 +61,6 @@
                 </li>
 
 
-               <li class="col-sm-3 col-md-3" style="text-align:left;padding-right: 0px;">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding: 13px 0px 12px; text-align: center;">
-                    <img src="/images/users/{{$user->image}}" alt="avatar">{{$user->name}}
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="/dashboard/{{$href}}"> الرئيسية</a></li>
-                    <hr style="margin: 0px;"/>
-                    <li><a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i>تسجيل الخروج</a></li>
-                  </ul>
-                </li>
 
                 
                 <div class="nav toggle pull-right">
