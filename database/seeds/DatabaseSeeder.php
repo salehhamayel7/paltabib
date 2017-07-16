@@ -6,7 +6,7 @@ use App\User;
 use App\Clinic;
 use App\Doctor;
 use App\Pacient;
-use App\secretaries;
+use App\Secretaries;
 
 class DatabaseSeeder extends Seeder
 {
