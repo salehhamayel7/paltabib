@@ -189,10 +189,10 @@ else{
                           <li id="home_press" role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">الاحداث</a>
                           </li>
                            @if($user->role == "Manager,Doctor")
-                          <li id="x_press" role="presentation" class=""><a href="#tab_content3" role="tab" id="x-tab" data-toggle="tab" aria-expanded="false">المواعيد  </a>
+                          <li id="x_press" role="presentation" class=""><a href="#tab_content3" role="tab" id="x-tab" data-toggle="tab" aria-expanded="false">المواعيد </a>
                           </li>
                           @endif
-                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">تعديل المعلومات الشخصية</a>
+                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">تعديل البيانات الشخصية</a>
                           </li>
                          
                         </ul>

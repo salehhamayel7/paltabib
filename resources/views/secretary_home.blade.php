@@ -124,7 +124,7 @@ else{
                           </li>
                           <li role="presentation" class=""><a href="#tab_content3" role="tab" id="x-tab" data-toggle="tab" aria-expanded="false">مواعيد بانتظار التاكيد</a>
                           </li>
-                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">تعديل المعلومات الشخصية</a>
+                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">تعديل  البيانات</a>
                           </li>
                          
                         </ul>
@@ -133,7 +133,7 @@ else{
 
                             <!-- start recent activity -->
 
-                           <div class="col-md-6">
+                           <div class="col-md-6 col-sm-12 col-xs-12">
                               <div class="x_panel">
                                 <div class="x_title">
 
@@ -172,7 +172,7 @@ else{
                               </div>
                             </div>
 
-                           <div class="col-md-6">
+                           <div class="col-md-6 col-sm-12 col-xs-12">
                               <div class="x_panel">
                                 <div class="x_title">
 

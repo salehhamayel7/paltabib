@@ -94,14 +94,60 @@ else{
 
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                       <ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
-                        <li role="presentation" class="active"><a href="#tab_content11" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">مراجعة جديدة</a>
+                        <li role="presentation" class="active"><a href="#tab_content11" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">سجلات المرضى</a>
                         </li>
-                        <li role="presentation" class=""><a href="#tab_content22" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">سجلات المرضى</a>
+                        <li role="presentation" class=""><a href="#tab_content22" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false"> مراجعة جديدة</a>
                         </li>
                         
                       </ul>
                       <div id="myTabContent2" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                            <h4>اضغط لعرض السجل</h4>
+
+                            <div class="x_panel">
+                            
+                             
+                              <div class="x_content" id="page_contentP">
+                                <table dir="rtl" id="datatable-buttons" class="table table-striped table-bordered">
+                                  <thead>
+                                    <tr>
+                                      <th>رقم الهوية</th>
+                                      <th>الاسم</th>
+                                      <th>الجنس</th>
+                                      <th>الايميل</th>
+                                      <th>مكان السكن/العنوان</th>
+                                      <th>الهاتف</th>
+                                      <th>الوظيفة</th>
+                                      <th>الرقم التامين</th>
+                                     
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                  
+                                    @foreach($pacients as $patient)
+                                      <tr class="viewRecord" data="{{$patient->user_name}}" title="عرض السجل">
+                                          <th>{{ $patient->user_name }}</th>
+                                          <th>{{ $patient->name }}</th>
+                                          <th>{{ $patient->gender }}</th>
+                                          <th>{{ $patient->email }}</th>
+                                          <th>{{ $patient->address }}</th>
+                                          <th>{{ $patient->phone }}</th>
+                                          <th>{{ $patient->job }}</th>
+                                          <th>{{ $patient->ensurance_number }}</th>
+                                        
+                                      </tr>
+                                    @endforeach
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content22" aria-labelledby="profile-tab">
                           <form action="/history/add" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
@@ -161,53 +207,8 @@ else{
                               </div>
                               </div>
                           </form>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content22" aria-labelledby="profile-tab">
+
                           
-                          <div class="col-md-12 col-sm-12 col-xs-12">
-                            <h4>اضغط لعرض السجل</h4>
-
-                            <div class="x_panel">
-                            
-                             
-                              <div class="x_content" id="page_contentP">
-                                <table dir="rtl" id="datatable-buttons" class="table table-striped table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th>رقم الهوية</th>
-                                      <th>الاسم</th>
-                                      <th>الجنس</th>
-                                      <th>الايميل</th>
-                                      <th>مكان السكن/العنوان</th>
-                                      <th>الهاتف</th>
-                                      <th>الوظيفة</th>
-                                      <th>الرقم التامين</th>
-                                     
-                                    </tr>
-                                  </thead>
-
-
-                                  <tbody>
-                                  
-                                    @foreach($pacients as $patient)
-                                      <tr class="viewRecord" data="{{$patient->user_name}}" title="عرض السجل">
-                                          <th>{{ $patient->user_name }}</th>
-                                          <th>{{ $patient->name }}</th>
-                                          <th>{{ $patient->gender }}</th>
-                                          <th>{{ $patient->email }}</th>
-                                          <th>{{ $patient->address }}</th>
-                                          <th>{{ $patient->phone }}</th>
-                                          <th>{{ $patient->job }}</th>
-                                          <th>{{ $patient->ensurance_number }}</th>
-                                        
-                                      </tr>
-                                    @endforeach
-
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                            </div>
                         </div>
                         
                       </div>

@@ -360,6 +360,10 @@ th {
     padding: 5px;
 }
 
+.dataTables_info {
+    overflow: auto;
+}
+
 @media screen and (min-width: 768px) {
     #adv-search {
         width: 500px;
@@ -411,5 +415,13 @@ th {
     }
     .menu_section>ul {
         margin-top: 40px;
+    }
+    .money-menu {
+        left: -131px;
+    }
+    #showArea>ul>li {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: 0px;
     }
 }

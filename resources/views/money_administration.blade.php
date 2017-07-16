@@ -85,7 +85,7 @@ else{
                       </li>
                       <li class="dropdown">
                         <a title="القوائم المالية" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-caret-square-o-down fa-lg"></i></a>
-                        <ul style="text-align: center;font-size: 14px;" class="dropdown-menu" role="menu">
+                        <ul style="text-align: center;font-size: 14px;" class="dropdown-menu money-menu" role="menu">
                           <li><a href="/dashboard/{{$href}}/allBills">المستحقات</a>
                           </li>
                           <li><a href="/dashboard/{{$href}}/allExpenses">المصروفات</a>

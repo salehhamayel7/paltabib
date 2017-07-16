@@ -104,7 +104,7 @@ else{
                   </div>
                 </div>
     
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
                   <div id="filter-panel" class="collapse filter-panel">
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -135,7 +135,7 @@ else{
                               
                               <div class="x_content">
 
-                                  <div class="col-xs-10">
+                                  <div class="col-md-10 col-sm-9 col-xs-9">
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                       <div class="tab-pane active" id="home-r">
@@ -150,7 +150,7 @@ else{
                                     </div>
                                   </div>
 
-                                  <div class="col-xs-2">
+                                  <div class="col-md-2 col-sm-3 col-xs-3">
                                     <!-- required for floating -->
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs tabs-right">

@@ -105,7 +105,7 @@ else{
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="width: 100%;">
                 <div class="x_panel">
                   <div class="x_title">
                    

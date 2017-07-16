@@ -6,7 +6,7 @@
               <ul class="nav navbar-nav navbar-left row" style="width:100%; margin: 0px;">
 
                 <li class="col-sm-3 nav-user" style="padding: 0;">
-                  <a style="padding-left: 0; padding-right: 0;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <a style="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="/images/users/{{$user->image}}" alt="">{{$user->name}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
