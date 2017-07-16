@@ -34,6 +34,18 @@ class DatabaseSeeder extends Seeder
 
 				$user = new User();
 	            $user->name = $faker->name;
+	            $user->email = "admin@gmail.com";
+	            $user->gender = "Male";
+	            $user->user_name = "11315080";
+	            $user->role = "Admin";
+	            $user->phone = $faker->e164PhoneNumber;
+                $user->address = $faker->address;
+                $user->image = "11315084.jpg";
+	            $user->password = bcrypt('passpass');
+	            $user->save();
+
+				$user = new User();
+	            $user->name = $faker->name;
 	            $user->email = "manager@gmail.com";
 	            $user->gender = "Male";
 	            $user->user_name = "11315084";

@@ -12,6 +12,7 @@ use App\Services\NurseService;
 
 class NursesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +21,7 @@ class NursesController extends Controller
     protected $nurse;
     public function __construct(NurseService $nurse){
         $this->nurse = $nurse;
+        $this->middleware('auth', ['except' => ['index','show']]);
     }
     public function index()
     {

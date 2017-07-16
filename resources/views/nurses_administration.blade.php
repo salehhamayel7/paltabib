@@ -155,7 +155,7 @@ else{
 
 
 									<div id="addNurse" style="display:none;">
-										<form id="addNurseform" method="POST" action="/nurses" class="form-horizontal form-label-left" enctype="multipart/form-data">
+										<form id="addNurseform" method="POST" action="/nurses/create" class="form-horizontal form-label-left" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="ADclinic" value="{{$clinic->id}}">
 										  <span dir="rtl" class="section">اضف معلومات الممرض</span>

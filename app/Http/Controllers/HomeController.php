@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -22,9 +23,37 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $redirectTo = "";
+        if(Auth::user()->role == "Admin"){
+            $redirectTo = '/dashboard/admin';
+        }
+        else if(Auth::user()->role == "Manager" || Auth::user()->role == "Manager,Doctor"){
+            $redirectTo = '/dashboard/manager';
+          
+        }
+        else if(Auth::user()->role == "Doctor"){
+            $redirectTo = '/dashboard/doctor';
+           
+        }
+        else if(Auth::user()->role == "Secretary"){
+            $redirectTo = '/dashboard/secretary';
+           
+        }
+        else if(Auth::user()->role == "Pacient"){
+            $redirectTo = '/dashboard/pacient';
+        }
+         return redirect($redirectTo);
     }
-
+    
+    public function showAdmin()
+    {
+ 
+        $user = Auth::user();
+        
+        return view('admin_dashboard' , compact('user','doctors','clinic','new_msgs'));
+    
+    }
+    
     
 }

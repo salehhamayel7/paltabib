@@ -62,6 +62,9 @@
                             elseif(Auth::user()->role == 'Secretary'){
                             $href='secretary';
                             }
+                            elseif(Auth::user()->role == 'Admin'){
+                            $href='admin';
+                            }
                             elseif(Auth::user()->role == 'Pacient'){
                             $href='pacient';
                             }

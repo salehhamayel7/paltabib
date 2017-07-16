@@ -31,7 +31,11 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        if(Auth::user()->role == "Manager" || Auth::user()->role == "Manager,Doctor"){
+        if(Auth::user()->role == "Admin"){
+            $this->redirectTo = '/dashboard/admin';
+            return $this->redirectTo;
+        }
+        else if(Auth::user()->role == "Manager" || Auth::user()->role == "Manager,Doctor"){
             $this->redirectTo = '/dashboard/manager';
             return $this->redirectTo;
         }

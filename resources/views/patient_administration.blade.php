@@ -147,7 +147,7 @@ else{
                   </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content22" aria-labelledby="profile-tab">
-                         <form id="addPatintform" method="post" action="/pacient" class="form-horizontal form-label-left" enctype="multipart/form-data" dir="rtl">
+                         <form id="addPatintform" method="post" action="/pacient/create" class="form-horizontal form-label-left" enctype="multipart/form-data" dir="rtl">
                           {{ csrf_field() }}
                           <!-- start accordion -->
                       <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
@@ -452,6 +452,7 @@ else{
 
     @include('includes.scrtipts_src')
   @include('includes.Datatables_scripts')
+  <script src="{{asset('../js/managerJS.js')}}"></script>
 
     <!-- jQuery Tags Input -->
     <script src="{{asset('../vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script>
