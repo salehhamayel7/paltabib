@@ -15,11 +15,6 @@ class NurseService{
 
 	public function createNurse(Request $request)
 	{
-		$nurse = new Nurse;
-        $nurse->user_name = $request->ADuName;
-        $nurse->salary = $request->ADsalary;
-        $nurse->save();
-
         $user = new User;
         $user->user_name = $request->ADuName;
         $user->name = $request->ADName;
@@ -40,6 +35,14 @@ class NurseService{
         }
 
         $user->save();
+
+		$nurse = new Nurse;
+        $nurse->id = $user->id;
+        $nurse->user_name = $request->ADuName;
+        $nurse->salary = $request->ADsalary;
+        $nurse->save();
+
+        
 
 	}
 

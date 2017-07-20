@@ -68,7 +68,11 @@
         <!-- Bootstrap -->
     <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
-     
+      $(document).ready(function(){
+
+          $('#statistics').addClass("active");
+
+        });
     </script>
-    </body>
+  </body>
 </html>

@@ -22,10 +22,14 @@ class CreateAppointmentsTable extends Migration
             $table->string('title');
             $table->time('time');
             $table->string('pacient_id');
-            $table->integer('clinic_id');
+            $table->unsignedInteger('clinic_id');
             $table->boolean('is_approved')->default(0);
             $table->timestamps();
       });
+
+     
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

@@ -14,8 +14,8 @@ class CreatePacientsTable extends Migration
     public function up()
     {
         Schema::create('pacients', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('user_name')->unique();
+            $table->unsignedInteger('id');
+            $table->string('user_name');
             $table->string('ensurance_number')->default('000000000');
             $table->string('job')->default('Job');;
             $table->text('social_history')->nullable();
@@ -39,7 +39,12 @@ class CreatePacientsTable extends Migration
             $table->string('allergic_from')->nullable();
             $table->timestamps();
         });
+
+         
+        
+        Schema::enableForeignKeyConstraints();
     }
+
 
     /**
      * Reverse the migrations.

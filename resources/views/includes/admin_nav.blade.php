@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pal Tabib</a>
+      <a class="navbar-brand" href="/">Pal Tabib</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,10 +22,10 @@
             {{ Auth::user()->name }}
           </a>                   
         </li>
-        <li class="active"><a href="#">Statistics</a></li>
-        <li><a href="#">Home Page Config</a></li>
-        <li><a href="#">Registered Clinics</a></li>
-        
+        <li id="statistics"><a href="/dashboard/admin">Statistics</a></li>
+        <li id="homeconfig"><a href="/dashboard/admin/HomeConfig">Home Page Config</a></li>
+        <li id="allclicnics"><a href="/dashboard/admin/allClinics">All Clinics</a></li>
+        <li id="registere"><a href="/dashboard/admin/clinicRegistration">Registere a Clinic</a></li>
       </ul>
      
       <ul class="nav navbar-nav navbar-right">

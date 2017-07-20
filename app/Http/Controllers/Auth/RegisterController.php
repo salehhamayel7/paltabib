@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard/manager/';
+    protected $redirectTo = '/dashboard/admin/';
 
     /**
      * Create a new controller instance.
@@ -55,14 +55,14 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-             'image' => 'required',
-             'gender' => 'required',
-             'user_name' => 'required',
-             'phone' => 'required',
-             'address' => 'required',
-             'clinic_phone' => 'required',
-             'clinic_address' => 'required',
-             'clinic' => 'required',
+            'gender' => 'required',
+            'user_name' => 'required',
+            'phone' => 'required',
+            'role' => 'required',
+            'address' => 'required',
+            'clinic_phone' => 'required',
+            'clinic_address' => 'required',
+            'clinic' => 'required',
         ]);
     }
 
@@ -81,8 +81,6 @@ class RegisterController extends Controller
         $clinic->phone = $data['clinic_phone'];
         $clinic->manager_id = $data['user_name'];
         $clinic->save();
-
-        
 
         $user = new User;
         $user->name = $data['name'];
@@ -106,7 +104,7 @@ class RegisterController extends Controller
 
         }
         // $user->image = $data['user_name'].'_'.$data['image'];
-     
+        dd($user);
         
         return $user;
         /*return User::create([

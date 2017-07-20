@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Add Manager</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/registerClinic') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                   <small>Manager information</small>
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

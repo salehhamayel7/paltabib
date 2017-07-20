@@ -45,7 +45,30 @@ class PacientService{
         }
         else{
 
+            $user = new User;
+
+            $user->user_name = $request->ADuName;
+            $user->name = $request->ADName;
+            $user->email = $request->ADemail;
+            $user->gender = $request->ADgender;
+            $user->password = bcrypt($request->ADpass);
+            $user->role = 'Pacient';
+            $user->phone = $request->ADphone;
+            $user->address = $request->ADaddress;
+
+
+            if($request->hasFile('ATimage')){
+                $image = $request->file('ATimage');
+                $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
+                Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
+                $user->image = $imageName;
+            }
+
+            
+            $user->save();
+
             $pacient = new Pacient;
+            $pacient->id = $user->id;
             $pacient->user_name = $request->ADuName;
             $pacient->ensurance_number = $request->ensurance;
             $pacient->job = $request->ADjob;
@@ -69,30 +92,10 @@ class PacientService{
             $pacient->drug_history= $request->dh;
             $pacient->save(); 
 
-            $user = new User;
-
-            $user->user_name = $request->ADuName;
-            $user->name = $request->ADName;
-            $user->email = $request->ADemail;
-            $user->gender = $request->ADgender;
-            $user->password = bcrypt($request->ADpass);
-            $user->role = 'Pacient';
-            $user->phone = $request->ADphone;
-            $user->address = $request->ADaddress;
-
-
-            if($request->hasFile('ATimage')){
-                $image = $request->file('ATimage');
-                $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
-                $user->image = $imageName;
-            }
-
             DB::table('patient_clinic')->insert([
                    'clinic_id' => Auth::user()->clinic_id,
-				   'patient_id' => $pacient->user_name,
+				   'patient_id' => $user->user_name,
                 ]);
-            $user->save();
 
         }
 		
@@ -121,6 +124,12 @@ public function deletePacientWithUsername($user_name)
 
 	public function updatePacientWithUsername(Request $request,$user_name)
 	{
+
+
+         DB::table('patient_clinic')
+                    ->where('patient_id' , $user->user_name)
+                    ->update(['patient_id' => $request->ADuName]);
+
 		 if(request()->has('ADpass')){
                 DB::table('users')
                     ->where('user_name', $user_name)
@@ -136,7 +145,7 @@ public function deletePacientWithUsername($user_name)
                     ->update(['image' => $imageName]);
         }
 
-            DB::table('users')
+           DB::table('users')
             ->where('user_name', $user_name)
             ->update([
                 'name' => $request->ADName,
@@ -147,7 +156,7 @@ public function deletePacientWithUsername($user_name)
                 'user_name' => $request->ADuName
             ]);
             
-             if(Auth::user()->role == 'Manager' || Auth::user()->role == 'Manager,Doctor' ){
+             if(Auth::user()->role == 'Manager' || Auth::user()->role == 'Manager,Doctor' || Auth::user()->role == 'Doctor'){
                 DB::table('pacients')
                 ->where('user_name', $user_name)
                 ->update([
@@ -175,6 +184,8 @@ public function deletePacientWithUsername($user_name)
 
                 ]);
              }
+
+              
         return redirect()->back();
 	}
 

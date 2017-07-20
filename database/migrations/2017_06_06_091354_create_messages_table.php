@@ -24,6 +24,10 @@ class CreateMessagesTable extends Migration
             $table->boolean('receiver_available')->default(true);
             $table->timestamps();
         });
+
+        
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

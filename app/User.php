@@ -30,14 +30,18 @@ class User extends Authenticatable
     
     public function secretary()
     {
-        return $this->hasMany('App\Secretaries','user_name');
+        return $this->hasOne('App\Secretaries','user_name');
     }
-     public function doctor()
+    public function doctor()
     {
-        return $this->hasMany('App\Doctor','user_name');
+        return $this->hasOne('App\Doctor','user_name');
     }
-       public function pacient()
+    public function pacient()
     {
-        return $this->hasMany('App\Pacient','user_name');
+        return $this->hasOne('App\Pacient','user_name');
+    }
+    public function messages()
+    {
+        return $this->hasMant('App\Pacient','user_name');
     }
 }

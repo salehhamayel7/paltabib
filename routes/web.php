@@ -12,16 +12,32 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-//Auth::routes();
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
 Route::get('/', function () {
-    return view('welcome');
+    $sliders =  DB::table('sliders')
+            ->orderBy('updated_at', 'desc')
+            ->limit(3)
+            ->get();
+        return view('welcome' , compact('user','sliders'));
 });
 
-
+Route::post('/admin/registerClinic','ClinicController@register')->middleware('auth');
 Route::get('/dashboard/admin','HomeController@showAdmin')->middleware('auth');
+Route::get('/dashboard/admin/clinicRegistration','HomeController@AddClinicPage')->middleware('auth');
+Route::get('/dashboard/admin/allClinics','HomeController@allCinics')->middleware('auth');
+Route::get('/dashboard/admin/HomeConfig','HomeController@showHomeConfig')->middleware('auth');
+Route::get('/ajax/clinic/get/{id}','ClinicController@getClinic')->middleware('auth');
+Route::post('/clinic/update','ClinicController@updateClinic')->middleware('auth');
+
+Route::get('/ajax/clinic/delete/{id}','ClinicController@deleteClinic')->middleware('auth');
+Route::post('/slider/add','HomeController@addSlider')->middleware('auth');
+Route::get('/slider/get/{id}','HomeController@getSlide')->middleware('auth');
+Route::get('/slider/delete/{id}','HomeController@deleteSlide')->middleware('auth');
+Route::post('/slider/update','HomeController@updateSlide')->middleware('auth');
+
 
 ////////////////////////////////////
 Route::get('/dashboard/manager','ManagerController@showManager')->middleware('auth');
@@ -158,3 +174,5 @@ Route::get('/ajax/delete/pacient/{user_name}', ['uses' =>'PacientController@dele
 Route::post('/pacient/update/{user_name}', ['uses' =>'PacientController@update'])->middleware('auth');
 Route::post('/dashboard/pacient/book','PacientController@create')->middleware('auth');
 Route::post('/pacient/create','PacientController@store')->middleware('auth');
+
+

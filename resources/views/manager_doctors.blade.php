@@ -20,7 +20,7 @@ else{
 
     <title>الاطباء</title>
 	
-@include('includes.links')
+    @include('includes.links')
     
 	 @include('includes.Datatables_links')
     
@@ -53,7 +53,7 @@ else{
             <br />
 
             <!-- sidebar menu -->
-                       @include('includes.manager_sidebar')
+              @include('includes.manager_sidebar')
 
             <!-- /sidebar menu -->
 
@@ -94,13 +94,7 @@ else{
 									 
 									</ul>
 									<h2 style="float:right;">ادارة الاطباء</h2>
-									<script>
-										window.onload = function(){
-										
-											document.getElementById('collapse2').click();
-											document.getElementById('collapse2').click();
-										};
-									</script>
+									
 									<div class="clearfix"></div>
 								  </div>
                   <div class="x_content" id="page_contentD">

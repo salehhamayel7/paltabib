@@ -15,14 +15,18 @@ class CreateClinicsTable extends Migration
     {
       Schema::create('clinics', function (Blueprint $table) {
 
-         $table->increments('id');
+         $table->unsignedInteger('id');
          $table->string('name');
          $table->string('phone');
          $table->string('address');
-         $table->string('manager_id');
+         $table->string('manager_id')->nullable();
          $table->timestamps();
 
       });
+
+        Schema::table('clinics', function (Blueprint $table) {
+            $table->primary('id');
+        });
     }
 
     /**

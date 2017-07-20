@@ -8,6 +8,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+
 class SecretaryService{
 
 	public function createSercretary(Request $request)
@@ -24,19 +25,22 @@ class SecretaryService{
     	$user->gender = $request->get('ADgender');
     	$user->password = bcrypt($request->get('ADpass'));
     	$user->role = 'Secretary';
-      $user->clinic_id = Auth::user()->clinic_id;
+        $user->clinic_id = Auth::user()->clinic_id;
+        
+        if($request->hasFile('ATimage')){
+            $image = $request->file('ATimage');
+            $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
+            $user->image = $imageName;
+        }
 
+       $user->save();
+
+        $secretaries->id = $user->id;
     	$secretaries->user_name = $request->get('ADuName');
     	$secretaries->salary = $request->get('ADsalary');
 
-      if($request->hasFile('ATimage')){
-          $image = $request->file('ATimage');
-          $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
-          Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
-          $user->image = $imageName;
-      }
-
-       $user->save();
+      
        $secretaries->save();
 
 	}

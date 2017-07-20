@@ -13,6 +13,7 @@ class DoctorService{
 
     public function createDoctor(Request $request)
     {
+      
     	$doctor = new Doctor;
     	$user = new User;
 
@@ -25,13 +26,7 @@ class DoctorService{
     	$user->password = bcrypt($request->get('ADpass'));
     	$user->role = "Doctor";
       $user->clinic_id = Auth::user()->clinic_id;
-
-      $doctor->user_name = $request->get('ADuName');
-    	$doctor->union_number = $request->get('ADnumber');
-    	$doctor->major = $request->get('ADmajor');
-    	$doctor->salary = $request->get('ADsalary');
-      $doctor->clinic_id = $request->get('ADclinic');
-
+      
       if($request->hasFile('ATimage')){
           $image = $request->file('ATimage');
           $imageName = $doctor->user_name.'.'.$image->getClientOriginalExtension();
@@ -39,8 +34,15 @@ class DoctorService{
           $user->image = $imageName;
       }
       
-       $user->save();
-       $doctor->save();
+      $user->save();
+
+      $doctor->id=$user->id;
+      $doctor->user_name = $request->get('ADuName');
+    	$doctor->union_number = $request->get('ADnumber');
+    	$doctor->major = $request->get('ADmajor');
+    	$doctor->salary = $request->get('ADsalary');
+      $doctor->clinic_id = $request->get('ADclinic');
+      $doctor->save();
 
     }
 

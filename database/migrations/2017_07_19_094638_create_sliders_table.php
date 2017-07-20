@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAvailabilitisTable extends Migration
+class CreateSlidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateAvailabilitisTable extends Migration
      */
     public function up()
     {
-        Schema::create('availabilitis', function (Blueprint $table) {
+        //
+        Schema::create('sliders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('doctor_id');
-            $table->integer('clinic_id');
-            $table->time('from');
-            $table->time('to');
-            $table->time('break_from');
-            $table->time('break_to');
+            $table->string('title');
+            $table->string('description');
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -32,6 +30,7 @@ class CreateAvailabilitisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('availabilitis');
+        //
+        Schema::dropIfExists('sliders');
     }
 }

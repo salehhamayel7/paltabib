@@ -20,11 +20,14 @@ class AddFieldsToUsersTable extends Migration
             $table->string('role');
             $table->string('phone');
             $table->string('address');
-            $table->integer('clinic_id')->default(-1);
+            $table->unsignedInteger('clinic_id')->nullable();
             $table->string('image')->default("User_Avatar-512.png");
-
+            
            
         });
+        
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

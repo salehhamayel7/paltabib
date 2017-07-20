@@ -14,11 +14,15 @@ class CreateNursesTable extends Migration
     public function up()
     {
       Schema::create('nurses', function (Blueprint $table) {
-          $table->increments('id');
-          $table->integer('user_name')->unique();
+          $table->unsignedInteger('id');
+          $table->string('user_name');
           $table->integer('salary');
           $table->timestamps();
       });
+
+      
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

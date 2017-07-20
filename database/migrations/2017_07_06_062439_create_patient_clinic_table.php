@@ -17,8 +17,12 @@ class CreatePatientClinicTable extends Migration
         Schema::create('patient_clinic', function (Blueprint $table) {
             $table->increments('id');
             $table->string('patient_id');
-            $table->string('clinic_id');
+            $table->unsignedInteger('clinic_id');
         });
+        
+        
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

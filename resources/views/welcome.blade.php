@@ -52,13 +52,21 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 @if (Route::has('login'))
-                <li>
+                
                     @if (Auth::check())
+                    <li>
                         <a href="{{ url('/home') }}">My Account</a>
+                        </li>
+                    <li>
+                        <a href="{{ url('/logout') }}" onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">Logout</a>
+                          </li>
                     @else
+                    <li>
                         <a href="{{ url('/login') }}">Login</a>
+                        </li>
                     @endif
-                </li>
+                
             @endif
             </ul>
             </div>
@@ -80,32 +88,29 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="http://lorempixel.com/1000/300/abstract/qwe" alt="First slide">
+          <img class="first-slide" style="filter: brightness(60%);"  src="{{$sliders[0]->image}}" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <h1>{{$sliders[0]->title}}</h1>
+              <p>{{$sliders[0]->description}}</p>
             </div>
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="http://lorempixel.com/1000/300/abstract/asd" alt="Second slide">
+          <img class="second-slide" style="filter: brightness(60%);"  src="{{$sliders[1]->image}}" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+              <h1>{{$sliders[1]->title}}</h1>
+              <p>{{$sliders[1]->description}}</p>
             </div>
           </div>
         </div>
         <div class="item">
-          <img class="third-slide" src="http://lorempixel.com/1000/300/abstract/zxc" alt="Third slide">
+          <img class="third-slide" style="filter: brightness(60%);"  src="{{$sliders[2]->image}}" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <h1>{{$sliders[2]->title}}</h1>
+              <p>{{$sliders[2]->description}}</p>
             </div>
           </div>
         </div>
@@ -200,6 +205,10 @@
       </footer>
 
     </div><!-- /.container -->
+
+<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+    {{ csrf_field() }}
+</form>
 
          <!-- jQuery -->
     <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>

@@ -19,10 +19,14 @@ class CreateEventsTable extends Migration
         $table->string('event_name');
         $table->string('event_description');
         $table->date('date');
-        $table->integer('clinic_id');
+        $table->unsignedInteger('clinic_id');
         $table->time('time');
         $table->timestamps();
       });
+
+     
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

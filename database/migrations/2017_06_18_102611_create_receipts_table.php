@@ -16,8 +16,12 @@ class CreateReceiptsTable extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('last_id')->default(0);
-            $table->integer('clinic_id')->unique();
+            $table->unsignedInteger('clinic_id')->unique();
         });
+
+        
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

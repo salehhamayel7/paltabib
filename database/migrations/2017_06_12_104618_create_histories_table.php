@@ -23,6 +23,8 @@ class CreateHistoriesTable extends Migration
             $table->string('notes')->nullable();
             $table->timestamps();
         });
+
+        
     }
 
     /**

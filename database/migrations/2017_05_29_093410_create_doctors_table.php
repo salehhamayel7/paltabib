@@ -15,16 +15,18 @@ class CreateDoctorsTable extends Migration
     {
       Schema::create('doctors', function (Blueprint $table) {
 
-         $table->increments('id');
-         $table->string('user_name')->unique();
-         $table->integer('salary')->default(0);
-         $table->integer('clinic_id');
-         $table->string('major')->default('major');
-         $table->string('union_number')->default('0000000000');
-       
-         $table->timestamps();
+        $table->string('user_name');
+        $table->unsignedInteger('id');
+        $table->integer('salary')->default(0);
+        $table->integer('clinic_id');
+        $table->string('major')->default('major');
+        $table->string('union_number')->default('0000000000');
+        $table->timestamps();
 
       });
+     
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

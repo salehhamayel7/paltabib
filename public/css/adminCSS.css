@@ -30,6 +30,50 @@ ul.quick-list li {
     color: #1ABB9C;
 }
 
+.btn-group,
+.btn-group-vertical {
+    display: block;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+}
+
+textarea {
+    resize: vertical;
+    /* user can resize vertically, but width is fixed */
+}
+
+.sliderTable tbody tr {
+    height: 50px;
+    font-size: 15px;
+}
+
+.input-group-addon {
+    min-width: 140px;
+}
+
+.panel .panel-heading {
+    background: #dff0d8;
+    color: #3c763d;
+    border-color: #d6e9c6;
+}
+
+.pagination {
+    margin: 0;
+    float: right;
+}
+
+table.dataTable {
+    font-size: 13px;
+}
+
 @media (min-width: 768px) {
     .tile_count .tile_stats_count span {
         font-size: 13px;

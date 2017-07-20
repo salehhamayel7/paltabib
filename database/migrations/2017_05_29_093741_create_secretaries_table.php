@@ -14,11 +14,14 @@ class CreateSecretariesTable extends Migration
     public function up()
     {
         Schema::create('secretaries', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_name')->unique();
+            $table->unsignedInteger('id');
+            $table->string('user_name');
             $table->integer('salary')->default(0);
             $table->timestamps();
         });
+
+               
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

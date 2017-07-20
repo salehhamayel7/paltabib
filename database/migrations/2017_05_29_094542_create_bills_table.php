@@ -19,10 +19,14 @@ class CreateBillsTable extends Migration
         $table->string('pacient_id');
         $table->string('doctor_id');
         $table->integer('value');
-        $table->integer('clinic_id');
+        $table->unsignedInteger('clinic_id');
         $table->string('description');
         $table->timestamps();
       });
+
+      
+        
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
