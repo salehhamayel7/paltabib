@@ -144,6 +144,17 @@ public function deletePacientWithUsername($user_name)
                     ->where('user_name', $user_name)
                     ->update(['image' => $imageName]);
         }
+        
+        if($file = $request->file('id_image'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('users')
+                ->where('user_name', $user_name)
+                ->update([
+                    'id_image' => $filename,
+                ]);
+        }
 
            DB::table('users')
             ->where('user_name', $user_name)

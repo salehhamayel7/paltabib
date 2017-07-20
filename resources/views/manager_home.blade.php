@@ -384,10 +384,10 @@ else{
 										  </div>
 
                       <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName">رقم الهوية
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName">اسم المستخدم
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input value="{{(int)$user->user_name}}" title="رقم الهوية" type="number" id="ADuName" name="ADuName" required="required" class="form-control col-md-7 col-xs-12">
+											  <input value="{{$user->user_name}}" title="رقم الهوية" type="text" id="ADuName" name="ADuName" required="required" class="form-control col-md-7 col-xs-12">
 											</div>
 										  </div>
 
@@ -445,11 +445,19 @@ else{
 										  </div>
 										  
 										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ATimage">الصورة الشخصية 
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-											</div>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ATimage">الصورة الشخصية 
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_image">ملف/صورة الهوية
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input accept="image/*,.doc,.docx,.pdf" title="الصورة الشخصية" type="file" accept="image/*" id="id_image" name="id_image" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+                        </div>
 										  </div>
                       
 
@@ -515,10 +523,17 @@ else{
 
                       <ul class="list-unstyled user_data">
 
-                      <li title="رقم الهوية">
-                          <i class="fa fa-id-card user-profile-icon"></i>{{$user->user_name}}
+                      <li title="اسم المستخدم">
+                          <i class="fa fa-user user-profile-icon"></i>{{$user->user_name}}
                         </li>
 
+                          <form id="id-form" method="get" action="/file/download/{{$user->id_image}}">
+                          </form>
+                        <li id="get-id" title="البطاقة الشخصية">
+                          <i class="fa fa-id-card user-profile-icon"></i>
+                                <a>عرض/تحميل</a>
+                        </li>
+                        
 
                          <li title="الجنس">
                           <i class="fa fa-venus-mars user-profile-icon"></i>{{$user->gender}}
@@ -733,6 +748,9 @@ else{
 
             });
 
+            $('#get-id').on('click',function(){
+               $('#id-form').submit();
+            });
 
         });
 

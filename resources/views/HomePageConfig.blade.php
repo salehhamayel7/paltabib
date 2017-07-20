@@ -87,6 +87,7 @@
                                     <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="min-width: 20px;">
+                                    <li><a class="showSlide" data="{{$slider->id}}"><i class="fa fa-eye"></i> Show </a></li>
                                     <li><a class="EditSlide" data="{{$slider->id}}"><i class="fa fa-edit"></i> Edit </a></li>
                                     <li><a class="DeleteSlide" data="{{$slider->id}}"><i class="fa fa-trash-o"></i> Delete </a></li>
                                   </ul>
@@ -111,30 +112,85 @@
                   <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
                       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Collapsible Group Item #2
+                        Page Content Configurations
                       </a>
                     </h4>
                   </div>
                   <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <div class="row">
+
+                      <div class="col-md-7 col-sm-12 col-xs-12" style="padding: 20px;">
+                      Add a Section
+                      <hr>
+                      <form method="POST" action="/section/add" enctype="multipart/form-data">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Section Title</span>
+                        <input id="Setitle" name="title" required type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon1">
+                      </div>
+                      <br>
+
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2">Section Image</span>
+                        <input id="Seimage" name="image" required type="file" accept="image/*" class="form-control" aria-describedby="basic-addon2">
+                      </div>
+                      <br>
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Section Description</span>
+                        <textarea id="Sedescription" name="description" required rows="" cols="" class="form-control" placeholder="Description" aria-describedby="basic-addon3"></textarea> 
+                      </div>
+
+                      <br>
+                      <div class="input-group col-md-offset-3 col-md-8 col-sm-12 col-xs-12">
+                        <input value="Add Section" type="submit" class="btn btn-success" id="basic-addon3"></input>
+                      </div>
+
+                      </form>
+                      
+                      </div>
+
+                      <div class="col-md-5 col-sm-12 col-xs-12" style="padding: 20px;">
+
+                      All Sections
+                      <hr>
+                    <table class="table sliderTable">
+                        
+                          <tbody>
+                            @foreach($sections as $section)
+                            <tr>
+                              <th scope="row">Section id: {{$section->id}}</th>
+                              <td><a class="PreviewSection" data="{{$section->id}}"> Preview</a></td>
+                            <th>
+
+                                <div class="dropdown">
+                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Action
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="min-width: 20px;">
+                                    <li><a class="showSection" data="{{$section->id}}"><i class="fa fa-eye"></i> Show </a></li>
+                                    <li><a class="EditSection" data="{{$section->id}}"><i class="fa fa-edit"></i> Edit </a></li>
+                                    <li><a class="DeleteSection" data="{{$section->id}}"><i class="fa fa-trash-o"></i> Delete </a></li>
+                                  </ul>
+                                </div>
+                            
+                            </th>
+                            </tr>
+
+                          @endforeach
+
+
+                          </tbody>
+                        </table>
+                          {{ $sections->links() }}
+                      </div>
+
+                    </div>
                     </div>
                   </div>
                 </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingThree">
-                    <h4 class="panel-title">
-                      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Collapsible Group Item #3
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                  </div>
-                </div>
+               
               </div>
               
             </div>
@@ -170,6 +226,41 @@
          
         
         <!-- /.carousel -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="sectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 100%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left" id="exampleModalLabel">Section View</h5>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 id="sectionTitle" class="featurette-heading">
+            
+          </h2>
+          <p id="sectionDes" class="lead">
+            
+          </p>
+        </div>
+        <div class="col-md-5">
+          <img style="width:100%;" id="sectionImg" class="featurette-image img-responsive center-block" src="" alt="Generic placeholder image">
+        </div>
+      </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -220,6 +311,48 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="editSectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left" id="exampleModalLabel">Edit Section</h5>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form method="POST" action="/section/update" enctype="multipart/form-data">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" id="Esectionid" name="id" value="">
+          <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Section Title</span>
+          <input id="Esectiontitle" name="title" required type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon1">
+        </div>
+        <br>
+
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon2">Section Image</span>
+          <input id="Esectionimage" name="image" type="file" accept="image/*" class="form-control" aria-describedby="basic-addon2">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon3">Section Description</span>
+          <textarea id="Esectiondescription" name="description" required rows="" cols="" class="form-control" placeholder="Description" aria-describedby="basic-addon3"></textarea> 
+        </div>
+
+        <br>
+        <div class="input-group col-md-offset-3 col-md-8 col-sm-12 col-xs-12">
+          <input value="Update Section" type="submit" class="btn btn-success" id="basic-addon3"></input>
+        </div>
+
+        </form>
+    </div>
+  </div>
+</div>
+
+
     <!-- jQuery -->
     <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
@@ -228,6 +361,11 @@
       $(document).ready(function(){
 
           $('#homeconfig').addClass("active");
+             var href=document.URL;
+          if (href.indexOf("sections") >= 0){
+            $('#collapseOne').removeClass("in");
+            $('#collapseTwo').addClass("in");
+          }
 
 
              $('.PreviewSlide').on('click',function(){
@@ -266,6 +404,64 @@
 
                 });
             });
+
+            $('.showSlide').on('click',function(){
+              var id = $(this).attr('data');
+
+                $.get("/slider/show/"+id,function(){
+
+                });
+            });
+
+
+            
+            $('.PreviewSection').on('click',function(){
+              var id = $(this).attr('data');
+              
+              $.get("/section/get/"+id,function(data){
+                  $('#sectionTitle').html(data.section.title);
+                  $('#sectionDes').html(data.section.description);
+                  $("#sectionImg").attr('src',data.section.image);
+                  $('#sectionModal').modal('show');
+                });
+            });
+
+
+            
+            $('.showSection').on('click',function(){
+              var id = $(this).attr('data');
+
+                $.get("/section/show/"+id,function(){
+
+                });
+            });
+
+            $('.EditSection').on('click',function(){
+              var id = $(this).attr('data');
+
+                $.get("/section/get/"+id,function(data){
+                  $('#Esectiontitle').val(data.section.title);
+                  $('#Esectiondescription').val(data.section.description);
+                  $('#Esectionid').val(data.section.id);
+                  $('#editSectionModal').modal('show');
+
+                });
+            });
+
+
+            $('.DeleteSection').on('click',function(){
+              var id = $(this).attr('data');
+
+              var r = confirm("Are you sure you want to delete that section with id "+id+"!");
+                if (r == true) {
+                    $.get("/section/delete/"+id,function(){
+                           location.reload(true);
+
+                    });
+                } 
+            });
+
+
         });
     </script>
   </body>

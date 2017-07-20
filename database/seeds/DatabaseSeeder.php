@@ -43,5 +43,14 @@ class DatabaseSeeder extends Seeder
 			]);
 		}
 
+		for($i=0;$i<3;$i++){
+			DB::table('sections')->insert([
+				'title' => "title ".$i,
+				'description' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.',
+				'image' => 'http://lorempixel.com/500/500/abstract/qwe'.$i,
+				'updated_at' => $current_time
+			]);
+		}
+
     }
 }

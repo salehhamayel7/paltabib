@@ -23,9 +23,10 @@
           </a>                   
         </li>
         <li id="statistics"><a href="/dashboard/admin">Statistics</a></li>
-        <li id="homeconfig"><a href="/dashboard/admin/HomeConfig">Home Page Config</a></li>
         <li id="allclicnics"><a href="/dashboard/admin/allClinics">All Clinics</a></li>
         <li id="registere"><a href="/dashboard/admin/clinicRegistration">Registere a Clinic</a></li>
+        <li id="payments"><a href="/dashboard/admin/payments">Payments</a></li>
+        <li id="homeconfig"><a href="/dashboard/admin/HomeConfig">Home Page Config</a></li>
       </ul>
      
       <ul class="nav navbar-nav navbar-right">

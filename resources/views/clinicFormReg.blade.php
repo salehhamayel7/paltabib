@@ -44,6 +44,21 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('user_name') ? ' has-error' : '' }}">
+                            <label for="user_name" class="col-md-4 control-label">User Name</label>
+
+                            <div class="col-md-6">
+                                <input value="{{ old('user_name') }}" id="user_name" type="text" class="form-control" name="user_name" required>
+
+                                @if ($errors->has('user_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('user_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -97,25 +112,12 @@
                             </div>
                         </div>
                         
-                          <div class="form-group{{ $errors->has('user_name') ? ' has-error' : '' }}">
-                            <label for="user_name" class="col-md-4 control-label">ID Number</label>
-
-                            <div class="col-md-6">
-                                <input value="{{ old('user_name') }}" id="user_name" type="text" class="form-control" name="user_name" required>
-
-                                @if ($errors->has('user_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('user_name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                             <label for="address" class="col-md-4 control-label">address</label>
 
                             <div class="col-md-6">
-                                <input value="{{ old('address') }}" id="address" type="text" class="form-control" name="address" required>
+                                <input value="{{ old('address') }}" id="address" type="text" class="form-control" name="address">
 
                                 @if ($errors->has('address'))
                                     <span class="help-block">
@@ -157,11 +159,23 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('id_image') ? ' has-error' : '' }}">
+                            <label for="id_image" class="col-md-4 control-label">ID File/Image</label>
+
+                            <div class="col-md-6">
+                                <input accept="image/*,.doc,.docx,.pdf" value="{{ old('id_image') }}" id="id_image" type="file" class="form-control" name="id_image" required>
+                                @if ($errors->has('id_image'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('id_image') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                             <label for="image" class="col-md-4 control-label">image</label>
 
                             <div class="col-md-6">
-                                <input value="{{ old('image') }}" value="User_Avatar-512.png" id="image" type="file" accept="image/*" class="form-control" name="image" required>
+                                <input value="{{ old('image') }}" id="image" type="file" accept="image/*" class="form-control" name="image">
                                 @if ($errors->has('image'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('image') }}</strong>
@@ -188,7 +202,7 @@
                             <label for="clinic_address" class="col-md-4 control-label">Clinic Address</label>
 
                             <div class="col-md-6">
-                                <input value="{{ old('clinic_address') }}" id="clinic_address" type="text" class="form-control" name="clinic_address" required>
+                                <input value="{{ old('clinic_address') }}" id="clinic_address" type="text" class="form-control" name="clinic_address">
 
                                 @if ($errors->has('clinic_address'))
                                     <span class="help-block">
@@ -207,6 +221,19 @@
                                 @if ($errors->has('clinic_phone'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('clinic_phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('reg_proof') ? ' has-error' : '' }}">
+                            <label for="reg_proof" class="col-md-4 control-label">Clinic Registration Proof</label>
+
+                            <div class="col-md-6">
+                                <input  accept="image/*,.doc,.docx,.pdf" value="{{ old('reg_proof') }}" id="reg_proof" type="file" class="form-control" name="reg_proof" required>
+                                @if ($errors->has('reg_proof'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('reg_proof') }}</strong>
                                     </span>
                                 @endif
                             </div>

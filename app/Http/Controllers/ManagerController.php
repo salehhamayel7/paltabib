@@ -63,10 +63,22 @@ class ManagerController extends Controller
         $patients = DB::table('patient_clinic')
         ->where([
                 ['clinic_id',$user->clinic_id],
-            ])->get();
-       
+            ])->get();       
         $patients_count = count( $patients);
-        return view('clinic' , compact('user','clinic','new_msgs','doctors_count','nurses_count','secretaries_count','patients_count'));
+
+        $appointments = DB::table('appointments')
+        ->where([
+                ['clinic_id',$user->clinic_id],
+            ])->get();
+        $appointments_count = count( $appointments);
+
+        $events = DB::table('events')
+        ->where([
+                ['clinic_id',$user->clinic_id],
+            ])->get();
+        $events_count = count( $events);
+
+        return view('clinic' , compact('user','clinic','new_msgs','doctors_count','nurses_count','secretaries_count','patients_count','events_count','appointments_count'));
     }
 
     public function showManagerDoctors(){

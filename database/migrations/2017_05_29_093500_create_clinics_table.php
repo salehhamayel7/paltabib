@@ -18,8 +18,10 @@ class CreateClinicsTable extends Migration
          $table->unsignedInteger('id');
          $table->string('name');
          $table->string('phone');
-         $table->string('address');
+         $table->string('address')->default("--");
          $table->string('manager_id')->nullable();
+         $table->string('reg_proof')->default("id_template.png");
+         $table->boolean('banned')->default(0);
          $table->timestamps();
 
       });

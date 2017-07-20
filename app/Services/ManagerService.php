@@ -9,6 +9,8 @@ use Auth;
 use App\Clinic;
 use App\Doctor;
 use App\User;
+use Storage;
+use File;
 
 class ManagerService{
 
@@ -29,6 +31,18 @@ class ManagerService{
 
      public function updateClinic(Request $request)
 	{
+
+        if($file = $request->file('reg_proof'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('clinics')
+            ->where('id', Auth::user()->clinic_id)
+            ->update([
+                'reg_proof' => $filename,
+            ]);
+        }
+
         $clinic =  DB::table('clinics')
         ->where('id', '=' , Auth::user()->clinic_id)
         ->update([
@@ -44,6 +58,7 @@ class ManagerService{
    public function editManager(Request $request)
 	{
 
+        
 
         DB::table('clinics')
             ->where('id', Auth::user()->clinic_id)
@@ -51,7 +66,16 @@ class ManagerService{
                 'manager_id' => $request->ADuName,
         ]);
 
-        
+        if($file = $request->file('id_image'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('users')
+                ->where('user_name', $request->originalUN)
+                ->update([
+                    'id_image' => $filename,
+                ]);
+        }
 
         if($request->hasFile('ATimage')){
             $image = $request->file('ATimage');

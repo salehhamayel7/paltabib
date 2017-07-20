@@ -69,6 +69,17 @@ class DoctorService{
                     ->update(['password' => bcrypt($request->get('ADpass'))]);
             }
 
+      if($file = $request->file('id_image'))
+      {
+          $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+          Storage::disk('local')->put($filename,File::get($file));
+          DB::table('users')
+              ->where('user_name', $user_name)
+              ->update([
+                  'id_image' => $filename,
+              ]);
+      }
+
         if($request->hasFile('ATimage')){
             $user = User::where('user_name',$user_name)->first();
             $image = $request->file('ATimage');

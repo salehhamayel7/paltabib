@@ -19,10 +19,10 @@ class AddFieldsToUsersTable extends Migration
             $table->string('user_name')->unique();
             $table->string('role');
             $table->string('phone');
-            $table->string('address');
+            $table->string('address')->default("--");
             $table->unsignedInteger('clinic_id')->nullable();
             $table->string('image')->default("User_Avatar-512.png");
-            
+            $table->string('id_image')->default("id_template.png");
            
         });
         

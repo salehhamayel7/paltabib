@@ -10,6 +10,8 @@ use App\User;
 use App\Doctor;
 use Helper;
 use Image;
+use Storage;
+use File;
 
 class ClinicService{
 
@@ -42,6 +44,14 @@ class ClinicService{
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             $user->image =  $imageName;
         }
+
+        if($file = $request->file('id_image'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            $user->id_image =  $filename;
+        }
+
         $user->save();
 
         $id= Helper::getGreatestIDfrom('clinics');
@@ -51,6 +61,15 @@ class ClinicService{
         $clinic->address = $request->clinic_address;
         $clinic->phone = $request->clinic_phone;
         $clinic->manager_id = $request->user_name;
+
+        
+        if($file = $request->file('reg_proof'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            $clinic->reg_proof =  $filename;
+        }
+
         $clinic->save();
 
         $user->clinic_id = $clinic->id;
@@ -85,7 +104,18 @@ class ClinicService{
                 'phone' => $request->clinic_phone,
             ]);
 
-        
+
+        if($file = $request->file('reg_proof'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('clinics')
+            ->where('id', $request->clinic_id)
+            ->update([
+                'reg_proof' => $filename,
+            ]);
+        }
+
 
         if($request->hasFile('image')){
             $image = $request->file('image');
@@ -96,6 +126,18 @@ class ClinicService{
             ->update([
                 'image' => $imageName,
             ]);
+        }
+
+
+        if($file = $request->file('id_image'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('users')
+                ->where('user_name', $request->old_user_name)
+                ->update([
+                    'id_image' => $filename,
+                ]);
         }
 
         if(request()->has('password')){

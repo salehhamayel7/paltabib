@@ -84,14 +84,12 @@ else{
             <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-              <div class="count">2500</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+              <span class="count_top"><i class="fa fa-user"></i> عدد المواعيد </span>
+              <div class="count green">{{$appointments_count}}</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> Average Time</span>
-              <div class="count">123.50</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+              <span class="count_top"><i class="fa fa-clock-o"></i> عدد الاحداث </span>
+              <div class="count green">{{$events_count}}</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> عدد المرضى</span>
@@ -121,14 +119,17 @@ else{
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
                     </ul>
-					            <h2 style="float:right;">تعديل معلومات العيادة</h2>
+                      <h2 style="float:right;">  تعديل معلومات العيادة <small><a id="get-id"> عرض/تحميل اثبات تسجيل العيادة </a></small></h2>
+                      <form id="id-form" method="get" action="/file/download/{{$clinic->reg_proof}}">
+                          </form>
+                          
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
                     <div class="row" >
 
-                            <form id="addBillsForm" action="/ajax/clinic/update" method="post" class="form-horizontal form-label-left col-md-8 col-md-offset-2 col-sm-12">
+                            <form id="addBillsForm" action="/ajax/clinic/update" method="post" class="form-horizontal form-label-left col-md-8 col-md-offset-2 col-sm-12" enctype="multipart/form-data">
                                   {{ csrf_field() }}
                               <div class="item form-group">
                               
@@ -157,6 +158,16 @@ else{
                               </div>
                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="clinic_phone">
                                  الهاتف
+                              </label>
+                              </div>
+
+                              <div class="item form-group">
+                             
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input title="الهاتف" accept="image/*,.doc,.docx,.pdf" id="reg_proof" type="file" name="reg_proof" class="form-control col-md-7 col-xs-12">
+                              </div>
+                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="clinic_phone">
+                                 اثبات تسجيل العيادة
                               </label>
                               </div>
                        
@@ -189,6 +200,10 @@ else{
     
     <script type="text/javascript">
       $(document).ready(function(){
+
+         $('#get-id').on('click',function(){
+               $('#id-form').submit();
+            });
          
       });
     </script>

@@ -21,8 +21,16 @@ Route::get('/', function () {
             ->orderBy('updated_at', 'desc')
             ->limit(3)
             ->get();
-        return view('welcome' , compact('user','sliders'));
+    $sections =  DB::table('sections')
+            ->orderBy('updated_at', 'desc')
+            ->limit(3)
+            ->get();
+             
+        return view('welcome' , compact('user','sliders','sections'));
 });
+
+
+Route::get('/file/download/{name}','HomeController@downloadFile')->middleware('auth');
 
 Route::post('/admin/registerClinic','ClinicController@register')->middleware('auth');
 Route::get('/dashboard/admin','HomeController@showAdmin')->middleware('auth');
@@ -35,8 +43,15 @@ Route::post('/clinic/update','ClinicController@updateClinic')->middleware('auth'
 Route::get('/ajax/clinic/delete/{id}','ClinicController@deleteClinic')->middleware('auth');
 Route::post('/slider/add','HomeController@addSlider')->middleware('auth');
 Route::get('/slider/get/{id}','HomeController@getSlide')->middleware('auth');
+Route::get('/slider/show/{id}','HomeController@showSlide')->middleware('auth');
 Route::get('/slider/delete/{id}','HomeController@deleteSlide')->middleware('auth');
 Route::post('/slider/update','HomeController@updateSlide')->middleware('auth');
+
+Route::post('/section/add','HomeController@addSection')->middleware('auth');
+Route::get('/section/get/{id}','HomeController@getSection')->middleware('auth');
+Route::get('/section/show/{id}','HomeController@showSection')->middleware('auth');
+Route::post('/section/update','HomeController@updateSection')->middleware('auth');
+Route::get('/section/delete/{id}','HomeController@deleteSection')->middleware('auth');
 
 
 ////////////////////////////////////

@@ -337,7 +337,16 @@ else{
 											<div class="col-md-6 col-sm-6 col-xs-12">
 											  <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
 											</div>
-										  </div>
+                      </div>
+                      
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_image">ملف/صورة الهوية
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input accept="image/*,.doc,.docx,.pdf" title="الصورة الشخصية" type="file" accept="image/*" id="id_image" name="id_image" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      
                       <hr/>
 										 
 										  <div class="ln_solid"></div>
@@ -368,9 +377,17 @@ else{
 
                       <ul class="list-unstyled user_data">
 
-                      <li title="رقم الهوية">
-                          <i class="fa fa-id-card user-profile-icon"></i>{{$user->user_name}}
+                     <li title="اسم المستخدم">
+                          <i class="fa fa-user user-profile-icon"></i>{{$user->user_name}}
                         </li>
+
+                          <form id="id-form" method="get" action="/file/download/{{$user->id_image}}">
+                          </form>
+                        <li id="get-id" title="البطاقة الشخصية">
+                          <i class="fa fa-id-card user-profile-icon"></i>
+                                <a>عرض/تحميل</a>
+                        </li>
+                        
 
 
                          <li title="الجنس">

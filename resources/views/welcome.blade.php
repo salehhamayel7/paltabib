@@ -161,11 +161,15 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">
+            {{$sections[0]->title}}
+          </h2>
+          <p class="lead">
+            {{$sections[0]->description}}
+          </p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/500/500/abstract/qwe" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="{{$sections[0]->image}}" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -173,11 +177,15 @@
 
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
+          <h2 class="featurette-heading">
+            {{$sections[1]->title}}
+          </h2>
+          <p class="lead">
+            {{$sections[1]->description}}
+          </p>
+          </div>
         <div class="col-md-5 col-md-pull-7">
-          <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/500/500/abstract/qwqe" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="{{$sections[1]->image}}" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -185,11 +193,15 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">
+            {{$sections[2]->title}}
+          </h2>
+          <p class="lead">
+            {{$sections[2]->description}}
+          </p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/500/500/abstract/qywe" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="{{$sections[2]->image}}" alt="Generic placeholder image">
         </div>
       </div>
 

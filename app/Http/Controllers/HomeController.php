@@ -7,6 +7,8 @@ use Auth;
 use DB;
 use Carbon\Carbon;
 use Image;
+use Storage;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -53,9 +55,65 @@ class HomeController extends Controller
     {
  
         $user = Auth::user();
+        $clinics = DB::table('clinics')->get();
+        $users = DB::table('users')->whereNotIn('user_name', [Auth::user()->user_name])->get();
+        $doctors = DB::table('doctors')->get();
+        $patients = DB::table('pacients')->get();
+        $nurses = DB::table('nurses')->get();
+        $appointments = DB::table('appointments')->get();
+
+        $clinics_count = count($clinics);
+        $users_count = count($users);
+        $doctors_count = count($doctors);
+        $patients_count = count($patients);
+        $nurses_count = count($nurses);
+        $appointments_count = count($appointments);
+
+        /*$dt = Carbon::now();
+        $dt->setTimezone('Asia/Jerusalem');
+
+        $startofweek = $dt->startOfWeek();
+        $dt = Carbon::now();
+        $dt->setTimezone('Asia/Jerusalem');
         
-        return view('admin_dashboard' , compact('user'));
+        $startoflastweek = $startofweek->subDays(7);
+        $dt = Carbon::now();
+        $dt->setTimezone('Asia/Jerusalem');
+
+        $lastweekusers = DB::table('users')
+            ->where([
+                ['created_at', '>', $startoflastweek->toDateTimeString()],
+                ['created_at', '<=', $startofweek->toDateTimeString()],
+            ])->whereNotIn('user_name', [Auth::user()->user_name])->get();
+        
+        $thisweekusers = DB::table('users')
+            ->where([
+                ['created_at', '>', $startofweek->toDateTimeString()],
+                ['created_at', '<=', $dt->toDateTimeString()],
+            ])->whereNotIn('user_name', [Auth::user()->user_name])->get();
+
+
+        $thisweekusersnum = count($lastweekusers);
+        if($thisweekusersnum == 0 ){
+            $thisweekusersnum++;
+        }
+
+        $per = ((count($thisweekusers) - count($lastweekusers))/$thisweekusersnum)*100;
+
+        dd($per);*/
+
+        return view('admin_dashboard' , compact('user','clinics_count','users_count','doctors_count','patients_count','nurses_count','appointments_count'));
     
+    }
+
+    
+
+    public function downloadFile($name) {
+
+        $file = Storage::disk('local')->get($name);
+        
+        return (new Response($file, 200))
+              ->header('Content-Type', "asdas");
     }
 
     public function AddClinicPage()
@@ -85,7 +143,8 @@ class HomeController extends Controller
  
         $user = Auth::user();
         $sliders =  DB::table('sliders')->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'sliders');
-        return view('HomePageConfig' , compact('user','sliders'));
+        $sections =  DB::table('sections')->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'sections');        
+        return view('HomePageConfig' , compact('user','sliders','sections'));
     
     }
 
@@ -109,6 +168,43 @@ class HomeController extends Controller
     
     }
 
+    public function addSection(Request $request)
+    {   
+        $current_time = Carbon::now()->toDateTimeString();
+
+        $image = $request->file('image');
+        $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(300,300)->save(public_path("images\\sections\\". $imageName));
+        
+ 
+        DB::table('sections')->insert([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' => "/images/sections/".$imageName,
+            'updated_at' => $current_time
+        ]);
+        
+        return redirect()->back();
+    
+    }
+
+    
+    public function showSlide($id)
+    {
+      
+        $dt = Carbon::now()->toDateTimeString();
+        $slide = DB::table('sliders')->where('id','=',$id)->update(['updated_at' => $dt]);;
+
+    }
+
+
+    public function showSection($id)
+    {
+      
+        $dt = Carbon::now()->toDateTimeString();
+        $slide = DB::table('sections')->where('id','=',$id)->update(['updated_at' => $dt]);;
+
+    }
 
     public function getSlide($id)
     {
@@ -119,9 +215,24 @@ class HomeController extends Controller
         return $data;
     }
 
+    public function getSection($id)
+    {
+        $slide = DB::table('sections')->where('id','=',$id)->first();
+        $data =[
+            'section' => $slide,
+        ];
+        return $data;
+    }
+
     public function deleteSlide($id)
     {
         $slide = DB::table('sliders')->where('id','=',$id)->delete();
+       
+    }
+
+    public function deleteSection($id)
+    {
+        $slide = DB::table('sections')->where('id','=',$id)->delete();
        
     }
 
@@ -129,24 +240,44 @@ class HomeController extends Controller
     {
         $id=$request->id;
         if($request->hasFile('image')){
-               $image = $request->file('image');
-               $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
-               Image::make($image)->resize(300,300)->save(public_path("images\\slider\\". $imageName));
-               DB::table('sliders')
-                    ->where('id','=',$id)
-                    ->update(['image' => $imageName]);
-            }
+            $image = $request->file('image');
+            $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path("images\\slider\\". $imageName));
+            DB::table('sliders')
+                ->where('id','=',$id)
+                ->update(['image' => $imageName]);
+        }
 
         $slide = DB::table('sliders')->where('id','=',$id)
             ->update([
                 'title' => $request->title,
                 'description' => $request->description,
-                ]);
+        ]);
 
-                 return redirect()->back();
+        return redirect()->back();
        
     }
 
-    
+    public function updateSection(Request $request)
+    {
+        $id=$request->id;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path("images\\sections\\". $imageName));
+            DB::table('sections')
+                ->where('id','=',$id)
+                ->update(['image' => $imageName]);
+        }
+
+        $slide = DB::table('sections')->where('id','=',$id)
+            ->update([
+                'title' => $request->title,
+                'description' => $request->description,
+        ]);
+
+        return redirect()->back();
+       
+    }
 
 }
