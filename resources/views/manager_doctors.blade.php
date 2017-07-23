@@ -102,7 +102,8 @@ else{
                     <table dir="rtl" id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>رقم الهوية</th>
+                          <th>اسم المستخدم</th>
+                          <th>بطاقة الهوية</th>
                           <th>الاسم</th>
                           <th>الايميل</th>
                           <th>العنوان</th>
@@ -119,6 +120,11 @@ else{
                       @foreach($doctors as $doctor)
                         <tr>
 						            <th>{{$doctor->user_name}}</th>
+                        <th>
+                          <form method="get" action="/file/download/{{$doctor->id_image}}">  
+                            <button type="submit" class="btn btn-success btn-sm">عرض/تحميل</button>
+                            </form>
+                           </th>
                           <th>{{$doctor->name}}</th>
                           <th>{{$doctor->email}}</th>
                           <th>{{$doctor->address}}</th>
@@ -167,10 +173,10 @@ else{
 										  </div>
 										  
 										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName">(رقم الهوية)اسم المستخدم<span class="required">*</span>
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName">اسم المستخدم<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="اسم المستخدم" type="number" id="ADuName" name="ADuName" required="required"  class="form-control col-md-7 col-xs-12">
+											  <input title="اسم المستخدم" type="text" id="ADuName" name="ADuName" required="required"  class="form-control col-md-7 col-xs-12">
 											</div>
 										  </div>
 										  
@@ -218,10 +224,19 @@ else{
 										  </div>
 										  
 										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ATimage">الصورة الشخصية <span class="required" id="imgAstrik">*</span>
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ATimage">الصورة الشخصية
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" required="required" class="form-control col-md-7 col-xs-12" value="User_Avatar-512.png">
+											  <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" class="form-control col-md-7 col-xs-12" value="User_Avatar-512.png">
+											</div>
+										  </div>
+                      
+
+                      <div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_image">ملف/صورة الهوية<span class="required" id="imgAstrik">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+											  <input accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required" class="form-control col-md-7 col-xs-12">
 											</div>
 										  </div>
                       <hr/>
@@ -292,13 +307,16 @@ else{
 
              });
             replaceContentToAddD();
-            $('#ADpass').removeAttr("required");      
+            $('#ADpass').removeAttr("required");
+            $('#id_image').removeAttr("required");      
             $('#ATimage').removeAttr("required");
             $("#send").attr("onClick","");
             $("#send").html("تعديل");
             $("#addDoctorform").attr("action","/doctor/update/"+user_name);
 
                });
+
+               
 
         });
 

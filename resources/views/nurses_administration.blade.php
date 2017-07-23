@@ -110,7 +110,8 @@ else{
                     <table dir="rtl" id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>رقم الهوية</th>
+                         <th>اسم المستخدم</th>
+                          <th>بطاقة الهوية</th>
                           <th>الاسم</th>
                           <th>الايميل</th>
                           <th>العنوان</th>
@@ -127,6 +128,11 @@ else{
                      @foreach($nurses as $nurse)
                        <tr>
                           <th>{{ $nurse->user_name }}</th>
+                          <th>
+                          <form method="get" action="/file/download/{{$nurse->id_image}}">  
+                            <button type="submit" class="btn btn-success btn-sm">عرض/تحميل</button>
+                            </form>
+                           </th>
                           <th>{{ $nurse->name }}</th>
                           <th>{{ $nurse->email }}</th>
                           <th>{{ $nurse->address }}</th>
@@ -170,10 +176,10 @@ else{
 										  </div>
 
 										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName"> رقم الهوية <span class="required">*</span>
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName"> اسم المستخدم <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="اسم المستخدم" type="number" id="ADuName" name="ADuName" required="required" class="form-control col-md-7 col-xs-12">
+											  <input title="اسم المستخدم" type="text" id="ADuName" name="ADuName" required="required" class="form-control col-md-7 col-xs-12">
 											</div>
 										  </div>
 
@@ -221,12 +227,22 @@ else{
 										  </div>
 
                       <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ATimage">الصورة الشخصية <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ATimage">الصورة الشخصية
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+                        <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage"  data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
                       </div>
                       </div>
+
+                      <div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_image">ملف/صورة الهوية<span class="required" id="imgAstrik">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+											  <input accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										  </div>
+
+                      <hr>
 
                       <div class="item form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADsalary">الراتب <span class="required">*</span>

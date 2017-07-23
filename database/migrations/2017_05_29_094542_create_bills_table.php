@@ -19,6 +19,8 @@ class CreateBillsTable extends Migration
         $table->string('pacient_id');
         $table->string('doctor_id');
         $table->integer('value');
+        $table->integer('paid_value');
+        $table->string('source')->nullable();
         $table->unsignedInteger('clinic_id');
         $table->string('description');
         $table->timestamps();

@@ -143,14 +143,14 @@ else{
                                   <div class="media-body">
                                     <p class="title"><strong>الطبيب: </strong>{{$doctorx->name}}</p>
                                     <p class="title"><strong>المريض: </strong>{{$pacientx->name}}</p>
-                                    <p class="title"><strong>المبلغ: </strong>{{$bill->value}}</p>
+                                    <p class="title"><strong>المبلغ المطلوب: </strong>{{$bill->value}}</p>
+                                    <p class="title"><strong>المبلغ المدفوع: </strong>{{$bill->pain_value}}</p>
                                     <br/>
                                     <p><strong>الوصف: </strong>{{$bill->description}}</p>
                                   </div>
                                 </article>
                                 <hr>
                               @endforeach
-                            
                               </div>
                                 <a href="/dashboard/{{$href}}/allBills" class="btn btn-success pull-left">كافة فواتير المستحقات</a>
                               @endif
@@ -216,10 +216,20 @@ else{
                               <div class="item form-group">
                               
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input title="المبلغ" type="number" id="value" name="value" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+                                <input title="المبلغ المطلوب" type="number" id="value" name="value" required="required" class="form-control col-md-7 col-xs-12">
                               </div>
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
-                                المبلغ
+                                المبلغ المطلوب
+                              </label>
+                              </div>
+
+                              <div class="item form-group">
+                              
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input title="المبلغ المدفوع" type="number" id="paid_value" name="paid_value" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
+                                المبلغ المدفوع
                               </label>
                               </div>
 

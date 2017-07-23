@@ -304,10 +304,10 @@ else{
 										  </div>
 
                       <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName">رقم الهوية
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName">اسم المستخدم
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input value="{{(int)$user->user_name}}" title="رقم الهوية" type="number" id="ADuName" name="ADuName" required="required" class="form-control col-md-7 col-xs-12">
+											  <input value="{{$user->user_name}}" title="رقم الهوية" type="text" id="ADuName" name="ADuName" required="required" class="form-control col-md-7 col-xs-12">
 											</div>
 										  </div>
 
@@ -562,6 +562,9 @@ else{
 
             });
             
+            $('#get-id').on('click',function(){
+               $('#id-form').submit();
+            });
 
         });
 

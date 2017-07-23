@@ -6,6 +6,8 @@ use App\Doctor;
 use App\User;
 use Image;
 use Auth;
+use Storage;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,6 +34,14 @@ class DoctorService{
           $imageName = $doctor->user_name.'.'.$image->getClientOriginalExtension();
           Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
           $user->image = $imageName;
+      }
+
+      if($file = $request->file('id_image'))
+      {
+          $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+          Storage::disk('local')->put($filename,File::get($file));
+          $user->id_image = $filename;
+        
       }
       
       $user->save();

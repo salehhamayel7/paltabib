@@ -5,8 +5,9 @@ use App\Secretaries;
 use App\User;
 use Image;
 use Auth;
+use File;
+use Storage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class SecretaryService{
@@ -34,6 +35,13 @@ class SecretaryService{
             $user->image = $imageName;
         }
 
+        if($file = $request->file('id_image'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            $user->id_image = $filename;
+        }
+
        $user->save();
 
         $secretaries->id = $user->id;
@@ -54,6 +62,7 @@ class SecretaryService{
     {
       return Secretaries::where('user_name','=',$user_name)->first();
     }
+    
       public function updateSecretaryWithUserName(Request $request,$user_name)
     {
 

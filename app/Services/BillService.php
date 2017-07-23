@@ -62,6 +62,7 @@ public function getExpenseWithID($expense_id)
     	$bill->pacient_id = $request->billPacient;
     	$bill->doctor_id = $request->billDoctor;
     	$bill->value = $request->billValue;
+        $bill->paid_value = $request->billPainValue;
     	$bill->description = $request->billDesc;
         $bill->save();
     }
@@ -70,15 +71,17 @@ public function getExpenseWithID($expense_id)
     {
         
         $id_row = DB::table('receipts')
-                ->where('clinic_id', Auth::user()->clinic_id)
-                ->first();
+        ->where('clinic_id', Auth::user()->clinic_id)
+        ->first();
 
     	$bill = new Bill;
         $bill->id = $id_row->last_id+1;
         $bill->clinic_id = Auth::user()->clinic_id;
     	$bill->pacient_id = $request->pacient;
     	$bill->doctor_id = $request->doctor;
+        $bill->source = Auth::user()->user_name;
     	$bill->value = $request->value;
+        $bill->paid_value = $request->paid_value;
     	$bill->description = $request->description;
         $bill->save();
 

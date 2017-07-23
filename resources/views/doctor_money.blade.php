@@ -187,10 +187,20 @@ else{
                               <div class="item form-group">
                               
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input title="المبلغ" type="number" id="value" name="value" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+                                <input title="المبلغ المطلوب" type="number" id="value" name="value" required="required" class="form-control col-md-7 col-xs-12">
                               </div>
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
-                                المبلغ
+                                المبلغ المطلوب
+                              </label>
+                              </div>
+
+                              <div class="item form-group">
+                              
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input title="المبلغ المدفوع" type="number" id="paid_value" name="paid_value" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
+                                المبلغ المدفوع
                               </label>
                               </div>
 

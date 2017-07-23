@@ -8,7 +8,8 @@ use Image;
 use Auth;
 use App\Appointment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use File;
+use Storage;
 use Illuminate\Support\Facades\DB;
 
 class PacientService{
@@ -27,8 +28,8 @@ class PacientService{
 	}
 
 	public function createPacient(Request $request)
-	{   
-        $pacient = Pacient::where('user_name',$request->ADuName)->first();
+	{
+        $pacient = User::where('email',$request->ADuName)->first();
         if($pacient){
             $temp_patient = DB::table('patient_clinic')
                     ->where([
@@ -64,6 +65,12 @@ class PacientService{
                 $user->image = $imageName;
             }
 
+            if($file = $request->file('id_image'))
+            {
+                $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+                Storage::disk('local')->put($filename,File::get($file));
+                $user->id_image = $filename;
+            }
             
             $user->save();
 
@@ -127,7 +134,7 @@ public function deletePacientWithUsername($user_name)
 
 
          DB::table('patient_clinic')
-                    ->where('patient_id' , $user->user_name)
+                    ->where('patient_id' , $user_name)
                     ->update(['patient_id' => $request->ADuName]);
 
 		 if(request()->has('ADpass')){
@@ -143,6 +150,17 @@ public function deletePacientWithUsername($user_name)
             DB::table('users')
                     ->where('user_name', $user_name)
                     ->update(['image' => $imageName]);
+        }
+
+        if($file = $request->file('id_image'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('users')
+                ->where('user_name', $user_name)
+                ->update([
+                    'id_image' => $filename,
+                ]);
         }
         
         if($file = $request->file('id_image'))

@@ -6,7 +6,8 @@ use App\Nurse;
 use App\User;
 use Image;
 use Auth;
-use Illuminate\Support\Facades\Storage;
+use File;
+use Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,13 @@ class NurseService{
             $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             $user->image = $imageName;
+        }
+
+        if($file = $request->file('id_image'))
+        {
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            $user->id_image = $filename;
         }
 
         $user->save();
@@ -91,6 +99,17 @@ public function deleteNurseWithUsername($user_name)
                 DB::table('users')
                     ->where('user_name', $user_name)
                     ->update(['image' => $imageName]);
+            }
+
+            if($file = $request->file('id_image'))
+            {
+                $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+                Storage::disk('local')->put($filename,File::get($file));
+                DB::table('users')
+                    ->where('user_name', $user_name)
+                    ->update([
+                        'id_image' => $filename,
+                    ]);
             }
 
             DB::table('users')

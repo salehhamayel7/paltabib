@@ -95,13 +95,7 @@ else{
 									    <a href="/dashboard/{{$href}}/money" class="btn btn-round btn-success"> رجوع <i class="fa fa-arrow-left"></i></a>
 									</ul>
 									<h2 style="float:right;">كافة الفواتير</h2>
-									<script>
-										window.onload = function(){
-										
-											document.getElementById('collapse2').click();
-											document.getElementById('collapse2').click();
-										};
-									</script>
+									
 									<div class="clearfix"></div>
 								  </div>
                   <div class="x_content" id="page_contentD">
@@ -113,7 +107,8 @@ else{
                           <th>التاريخ</th>
                           <th>الطبيب المعالج</th>
                           <th>المريض</th>
-                          <th>المبلغ</th>
+                          <th>المبلغ المطلوب</th>
+                          <th>البلغ المدفوع</th>
                           <th>الملاحظات</th>
                         </tr>
                       </thead>
@@ -127,7 +122,8 @@ else{
                           <th>{{$bill->created_at}}</th>
                           <th>{{$bill->name}}</th>
                           <th>{{$pacientx->name}}</th>
-                          <th>{{$bill->value}}</th>
+                          <th>{{$bill->value}}</th>ر
+                          <th>{{$bill->paid_value}}</th>
                           <th>{{$bill->description}}</th>
                           
                        @endforeach
@@ -198,8 +194,11 @@ else{
                 </optgroup>
               </select>
             </p>
-            <p class="title billLabel"><strong>المبلغ: </strong>
+            <p class="title billLabel"><strong>المبلغ المطلوب: </strong>
             <input class="form-control col-md-5 col-xs-12" type="number" name="billValue" id="billValue">
+            </input></p>
+            <p class="title billLabel"><strong>المبلغ المدفوع: </strong>
+            <input class="form-control col-md-5 col-xs-12" type="number" name="billPainValue" id="billPainValue">
             </input></p>
             <br/>
             <p class="title billLabel"><strong>الوصف: </strong>
@@ -237,6 +236,7 @@ else{
                      $('#billDoctor').val(data.doctor.user_name);
                      $('#billPacient').val(data.pacient.user_name);
                      $('#billValue').val(data.bill.value);
+                     $('#billPainValue').val(data.bill.paid_value);
                      $("#billDesc").val(data.bill.description);
                      $('#myModal').modal('show');
 

@@ -108,7 +108,8 @@ else{
                     <table dir="rtl" id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>رقم الهوية</th>
+                          <th>اسم المستخدم</th>
+                          <th>بطاقة الهوية</th>
                           <th>الاسم</th>
                           <th>الجنس</th>
                           <th>الايميل</th>
@@ -126,6 +127,11 @@ else{
                         @foreach($pacirnts as $pacirnt)
                        <tr>
                           <th>{{ $pacirnt->user_name }}</th>
+                          <th>
+                          <form method="get" action="/file/download/{{$pacirnt->id_image}}">  
+                            <button type="submit" class="btn btn-success btn-sm">عرض/تحميل</button>
+                            </form>
+                           </th>
                           <th>{{ $pacirnt->name }}</th>
                           <th>{{ $pacirnt->gender }}</th>
                           <th>{{ $pacirnt->email }}</th>
@@ -212,8 +218,8 @@ else{
                             <label for="ADName">اسم المريض</label>
                             <input aria-describedby="اسم المريض" title="الاسم" name="ADName" id="ADName" class="form-control"  required="required" type="text">
                           
-                          <label for="ADName">رقم الهوية</label>
-                            <input aria-describedby="رقم الهوية" title="رقم الهوية" type="number" id="ADuName" name="ADuName" class="form-control" required="required">
+                          <label for="ADName">اسم المستخدم</label>
+                            <input aria-describedby="اسم المستخدم" title="اسم المستخدم" type="text" id="ADuName" name="ADuName" class="form-control" required="required">
                           
                           <label for="ADpass">كلمة السر</label>
                             <input aria-describedby="كلمة السر" title="كلمة السر" name="ADpass" id="ADpass" class="form-control"  required="required" type="password">
@@ -240,7 +246,10 @@ else{
                             <input aria-describedby="رقم التامين" title="رقم التامين" name="ensurance" id="ensurance" class="form-control"  required="required" type="number">
                           
                           <label for="ATimage">الصورة الشخصية</label>
-                            <input aria-describedby="الصورة الشخصية" title="الصورة الشخصية" name="ATimage" id="ATimage" class="form-control"  required="required" type="file" accept="image/*" id="ATimage">
+                            <input aria-describedby="الصورة الشخصية" title="الصورة الشخصية" name="ATimage" id="ATimage" class="form-control" type="file" accept="image/*" id="ATimage">
+
+                            <label for="ATimage">ملف/صورة الهوية</label>
+                            <input aria-describedby="ملف/صورة الهوية" class="form-control" accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required">
                           </div>
                           
 
