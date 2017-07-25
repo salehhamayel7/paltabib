@@ -19,25 +19,49 @@ class ManagerController extends Controller
 {
     //
     protected $manager;
+
     public function __construct(ManagerService $manager){
         $this->manager = $manager;
+
+        $this->middleware(function ($request, $next) {
+
+             $this->user = Auth::user();
+       
+             $this->clinic = DB::table('clinics')->where('manager_id','=',$this->user->user_name)->first();
+
+             $this->new_msgs = Message::where([
+                ['receiver_id', '=', $this->user->user_name],
+                ['seen', '=', '0'],
+                ['receiver_available','=',1]
+            ])
+            ->join('users', 'messages.sender_id', '=', 'users.user_name')
+            ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
+            ->orderBy('messages.created_at', 'desc')->get();
+            
+             $this->money_notification = DB::table('bills')
+                ->where('clinic_id', '=', $this->user->clinic_id)
+                ->whereRaw('value != paid_value')->count();
+            
+
+            return $next($request);
+        });
+        
+        
     }
 
-    
+    public function mainVars()
+    {
+        $user = $this->user;
+        $clinic = $this->clinic;
+        $new_msgs = $this->new_msgs;
+        $money_notification = $this->money_notification;
+        return [$user , $clinic ,  $new_msgs, $money_notification];
+    }
+
 
      public function showClinic(){
         
-        $user = Auth::user();
-       
-        $clinic = DB::table('clinics')->where('manager_id','=',$user->user_name)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $doctors = DB::table('users')
         ->where([
@@ -78,41 +102,52 @@ class ManagerController extends Controller
             ])->get();
         $events_count = count( $events);
 
-        return view('clinic' , compact('user','clinic','new_msgs','doctors_count','nurses_count','secretaries_count','patients_count','events_count','appointments_count'));
+        return view('manager/clinic' , compact('user','clinic','new_msgs','doctors_count','nurses_count','secretaries_count','patients_count','events_count','appointments_count','money_notification'));
     }
 
     public function showManagerDoctors(){
         
-        $user = Auth::user();
+        list($user , $clinic ,  $new_msgs, $money_notification)=$this->mainVars();
+
         $doctors = DB::table('users')
                     ->where('users.clinic_id',$user->clinic_id)
                     ->whereNotIn('doctors.user_name', [$user->user_name])
                     ->join('doctors', 'doctors.user_name', '=', 'users.user_name')
                     ->get();
-        $clinic = DB::table('clinics')->where('manager_id','=',$user->user_name)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
-        return view('manager_doctors' , compact('user','doctors','clinic','new_msgs'));
+        
+        return view('manager/manager_doctors' , compact('user','doctors','clinic','new_msgs','money_notification'));
+    }
+
+
+    public function showAllNurses(){
+        
+        list($user , $clinic ,  $new_msgs, $money_notification)=$this->mainVars();
+
+        $nurses = DB::table('nurses')
+                    ->where('users.clinic_id',$user->clinic_id)
+                    ->whereNotIn('nurses.user_name', [$user->user_name])
+                    ->join('users', 'nurses.user_name', '=', 'users.user_name')
+                    ->get();
+       
+        return view('manager/nurses_administration' , compact('user','nurses','clinic','new_msgs','money_notification'));
+    }
+
+    public function showAllSecretaries(){
+        
+        list($user , $clinic ,  $new_msgs, $money_notification)=$this->mainVars();
+
+        $secretaries = DB::table('secretaries')
+                    ->where('users.clinic_id',$user->clinic_id)
+                    ->whereNotIn('secretaries.user_name', [$user->user_name])
+                    ->join('users', 'secretaries.user_name', '=', 'users.user_name')
+                    ->get();
+        
+        return view('manager/secretaries_administration' , compact('user','secretaries','clinic','new_msgs','money_notification'));
     }
 
     public function showManager()
     {
-        $user = Auth::user();
-        $clinic = Clinic::where('manager_id' ,'=', $user->user_name)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs, $money_notification)=$this->mainVars();
 
         $current_date = date('Y-m-d');
         $today_events = Event::where([
@@ -181,7 +216,7 @@ class ManagerController extends Controller
             $expencesPercentage = floor(100 *  $expences->expencesValue / $total);
         }
         
-        return view('manager_home' , compact('nextEvents','billsPercentage','expencesPercentage','user','clinic','new_msgs','today_events','appointments','appointmentsx','events_number'));
+        return view('manager/manager_home' , compact('nextEvents','billsPercentage','money_notification','expencesPercentage','user','clinic','new_msgs','today_events','appointments','appointmentsx','events_number'));
 
     }
     

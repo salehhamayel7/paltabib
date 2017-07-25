@@ -10,7 +10,7 @@
                     <img src="/images/users/{{$user->image}}" alt="">{{$user->name}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-usermenu" style="text-align: right; font-size: 13px;">
+                  <ul class="dropdown-menu dropdown-usermenu" style="text-align: right; font-size: 13px; width: 100%;">
                     <li><a href="/dashboard/{{$href}}"> الرئيسية</a></li>
                     <hr style="margin:0px;">
                     <li><a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

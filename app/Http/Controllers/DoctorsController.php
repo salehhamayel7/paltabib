@@ -17,40 +17,54 @@ class DoctorsController extends Controller
 	public function __construct(DoctorService $doctor)
 	{
         $this->doctor = $doctor;
-	}
 
+        $this->middleware(function ($request, $next) {
+
+             $this->user = Auth::user();
+       
+             $this->clinic = Clinic::where('id' ,'=', $this->user->clinic_id)->first();
+
+             $this->new_msgs = Message::where([
+                ['receiver_id', '=', $this->user->user_name],
+                ['seen', '=', '0'],
+                ['receiver_available','=',1]
+            ])
+            ->join('users', 'messages.sender_id', '=', 'users.user_name')
+            ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
+            ->orderBy('messages.created_at', 'desc')->get();
+            
+             $this->money_notification = DB::table('bills')
+                ->where('clinic_id', '=', $this->user->clinic_id)
+                ->whereRaw('value != paid_value')->count();
+            
+
+            return $next($request);
+        });
+
+    }
+
+    public function mainVars()
+    {
+        $user = $this->user;
+        $clinic = $this->clinic;
+        $new_msgs = $this->new_msgs;
+        $money_notification = $this->money_notification;
+        return [$user , $clinic ,  $new_msgs, $money_notification];
+    }
     
     public function showSearch()
     {
 
-    	$user = Auth::user();
-        $clinic = Clinic::where('id' ,'=', $user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+    	list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
 
-        return view('search' , compact('user','clinic','new_msgs'));
+        return view('shared/search' , compact('user','clinic','new_msgs','money_notification'));
 
     }
     public function showDoctor()
     {
 
-    	$user = Auth::user();
-        $clinic = Clinic::where('id' ,'=', $user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+    	list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $current_date = date('Y-m-d');
         $today_events = Event::where([
@@ -92,8 +106,7 @@ class DoctorsController extends Controller
         ->orderBy('date', 'asc')
         ->get();
 
-        return view('doctor_home' , compact('nextEvents','user','clinic','new_msgs','today_events','appointments','appointmentsx','events_number'));
-
+        return view('doctor/doctor_home' , compact('nextEvents','user','clinic','new_msgs','money_notification','today_events','appointments','appointmentsx','events_number'));
     }
 
 
@@ -101,22 +114,13 @@ class DoctorsController extends Controller
     public function showDoctorMoney()
     {
         
-        $user = Auth::user();
-        $clinic = Clinic::where('id' ,'=', $user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
          $pacients = DB::table('users')->where([
             ['role', '=', 'Pacient'],
         ])->get();
 
-        return view('doctor_money' , compact('user','clinic','new_msgs','pacients'));
+        return view('doctor/doctor_money' , compact('user','clinic','new_msgs','money_notification','pacients'));
     }
 
     public function create(Request $request)

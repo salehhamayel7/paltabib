@@ -91,25 +91,7 @@ class NursesController extends Controller
         return redirect()->back();
     }
 
-    public function showAllNurses(){
-        
-        $user = Auth::user();
-        $nurses = DB::table('nurses')
-                    ->where('users.clinic_id',$user->clinic_id)
-                    ->whereNotIn('nurses.user_name', [$user->user_name])
-                    ->join('users', 'nurses.user_name', '=', 'users.user_name')
-                    ->get();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-       $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
-        return view('nurses_administration' , compact('user','nurses','clinic','new_msgs'));
-    }
+    
     
     /**
      * Remove the specified resource from storage.

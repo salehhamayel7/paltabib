@@ -14,6 +14,40 @@ class MessageController extends Controller
     protected $message;
     public function __construct(MessageService $message){
         $this->message = $message;
+
+        $this->middleware(function ($request, $next) {
+
+             $this->user = Auth::user();
+       
+             $this->clinic = DB::table('clinics')->where('id','=',$this->user->clinic_id)->first();
+
+             $this->new_msgs = Message::where([
+                ['receiver_id', '=', $this->user->user_name],
+                ['seen', '=', '0'],
+                ['receiver_available','=',1]
+            ])
+            ->join('users', 'messages.sender_id', '=', 'users.user_name')
+            ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
+            ->orderBy('messages.created_at', 'desc')->get();
+            
+             $this->money_notification = DB::table('bills')
+                ->where('clinic_id', '=', $this->user->clinic_id)
+                ->whereRaw('value != paid_value')->count();
+            
+
+            return $next($request);
+        });
+        
+        
+    }
+
+    public function mainVars()
+    {
+        $user = $this->user;
+        $clinic = $this->clinic;
+        $new_msgs = $this->new_msgs;
+        $money_notification = $this->money_notification;
+        return [$user , $clinic ,  $new_msgs, $money_notification];
     }
 
      public function getMessage($msg_id)
@@ -46,7 +80,9 @@ class MessageController extends Controller
 
     public function showInbox($msg_id="xxx")
     {
-         $user = Auth::user();
+
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+
         if($msg_id=="xxx"){
             $currentmsg = DB::table('messages')->where([
                 ['receiver_id','=',$user->user_name],
@@ -65,8 +101,6 @@ class MessageController extends Controller
             DB::table('messages')->where('messages.id',$msg_id)->update(['seen' => 1]);
         }
 
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-
         $msgs = DB::table('messages')->where([
             ['receiver_id','=',$user->user_name],['receiver_available','=',1]
             ])
@@ -74,15 +108,6 @@ class MessageController extends Controller
             ->select('users.*','messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')
             ->paginate(6, ['*'], 'msgs');
-
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
          
          if($user->role=="Pacient"){
             $doctorsx = DB::table('users')
@@ -162,13 +187,13 @@ class MessageController extends Controller
                 }
             }
         }
-        return view('inbox' , compact('user','msgs','clinic','new_msgs','currentmsg','nurses','doctors','secretaries','pacirnts'));
+        return view('shared/inbox' , compact('user','msgs','clinic','new_msgs','currentmsg','nurses','doctors','secretaries','pacirnts','money_notification'));
     }
 
     public function showOutbox()
     {
-        $user = Auth::user();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+
         $msgs = DB::table('messages')->where([
                 ['sender_id','=',$user->user_name],
                 ['sender_available','=',1]
@@ -177,14 +202,6 @@ class MessageController extends Controller
             ->select('users.*','messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')
             ->paginate(6, ['*'], 'msgs');
-       $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
 
         $currentmsg = DB::table('messages')->where([
                 ['sender_id','=',$user->user_name],
@@ -271,7 +288,7 @@ class MessageController extends Controller
             }
         }
        
-        return view('outbox' , compact('pacirnts','currentmsg','user','msgs','clinic','new_msgs','nurses','doctors','secretaries'));
+        return view('shared/outbox' , compact('pacirnts','currentmsg','user','msgs','clinic','new_msgs','nurses','doctors','secretaries','money_notification'));
     }
 
 }

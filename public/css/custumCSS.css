@@ -4,14 +4,74 @@ textarea {
 
 body {}
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #169f85;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #17a88b;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #169f85;
+}
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 .nav-md .container.body .right_col {
     padding: 10px 20px 0;
-    margin-right: 230px;
     margin-left: 0px;
 }
 
 .top_nav li a i {
     font-size: 19px;
+}
+
+.nav.side-menu{
+    overflow-y: scroll;
+    height: 429px;
+}
+
+.nav-sm .nav.side-menu{
+    height: 100%;
+    overflow-y: inherit;
+    
+}
+
+.nav-sm .container.body .col-md-3.left_col.menu_fixed {
+    position: absolute;
+    height: 100%;
+}
+
+.notificationsX{
+    position: absolute;
+   
+    left: 24px;
+}
+
+.nav-sm .notificationsX{
+   top: 0px;
+   left: 12px;
 }
 
 .main_container .top_nav {
@@ -47,7 +107,7 @@ footer {
 .nav-sm .main_container .top_nav {
     display: block;
     margin-right: 70px;
-    z-index: 2;
+    z-index: 10;
     margin-left: 0px;
 }
 
@@ -364,6 +424,13 @@ th {
     overflow: auto;
 }
 
+
+@media screen and (min-width: 990px) {
+    .nav-md .container.body .right_col {
+        margin-right: 230px;
+    }
+}
+
 @media screen and (min-width: 768px) {
     #adv-search {
         width: 500px;
@@ -386,6 +453,9 @@ th {
         width: initial;
         padding: 0px;
     }
+    .billTimec{
+        float: left;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -402,6 +472,16 @@ th {
     .col-md-55 {
         width: 100%;
     }
+    
+    .col-sm-3.nav-user>a{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .info-number .badge {
+        right: 2px;
+    }
+
     .nav-md .container.body .right_col {
         padding: 10px 20px 0;
         margin-left: 230px;

@@ -1,4 +1,4 @@
-<div class="sidebar-footer hidden-small" style="padding-top: 20px;">
+<div class="sidebar-footer hidden-small" style="padding-top: 30px;">
     <a data-toggle="tooltip" data-placement="top" title="تسجيل الخروج" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
     </a>

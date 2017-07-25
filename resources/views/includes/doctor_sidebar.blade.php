@@ -4,14 +4,9 @@
                 <ul class="nav side-menu">
                   <li><a href="/dashboard/doctor"><i class="fa fa-home"></i> الرئيسية</span></a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> الادارة <span class="fa fa-chevron-down pull-left"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/dashboard/doctor/doctors">ادارة الاطباء</a></li>
-                      <li><a href="/dashboard/doctor/secretaries">ادارة السكرتاريا</a></li>
-                      <li><a href="/dashboard/doctor/nurses">ادارة الممرضين</a></li>
-                      <li><a href="/dashboard/doctor/pacients">ادارة المرضى</a></li>
-                    </ul>
+                  <li><a href="/dashboard/doctor/pacients"><i class="fa fa-edit"></i>ادارة المرضى</span></a>
                   </li>
+                  
                    <li><a><i class="fa fa-comments"></i> البريد <span class="fa fa-chevron-down pull-left"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/dashboard/doctor/inbox">البريد الوارد</a></li>

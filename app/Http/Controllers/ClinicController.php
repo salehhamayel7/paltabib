@@ -23,7 +23,7 @@ class ClinicController extends Controller
     public function register(Request $request)
     {
          $this->clinic->registerClinic($request);
-         return redirect()->back();
+         return redirect('/dashboard/admin/allClinics');
     }
 
     public function getClinic($id)

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Appointment;
 use DB;
 use Auth;
+use App\User;
 use Illuminate\Http\Request;
 
 class AppointmentService{
@@ -101,7 +102,14 @@ class AppointmentService{
     	$appointment->title = $title;
     	$appointment->time = $request->time;
     	$appointment->pacient_id = $request->patient;
-    	$appointment->clinic_id = Auth::user()->clinic_id;
+        if(Auth::user()->role == "Pacient"){
+            $doc = User::where('user_name',$appointment->doctor_id)->first();
+            $appointment->clinic_id = $doc->clinic_id;
+        }
+        else{
+            $appointment->clinic_id = Auth::user()->clinic_id;
+        }
+    	
         if($user->role == "Pacient"){
             $appointment->is_approved = 0;
         }

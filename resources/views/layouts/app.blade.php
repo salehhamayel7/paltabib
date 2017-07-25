@@ -55,23 +55,23 @@
                             <li><a href="{{ url('/login') }}">تسجيل الدخول</a></li>
                         @else
 
-                         <?php
+                        <?php
                             if(Auth::user()->role == 'Doctor'){
-                            $href='doctor';
+                                $href='doctor';
                             }
                             elseif(Auth::user()->role == 'Secretary'){
-                            $href='secretary';
+                                $href='secretary';
                             }
                             elseif(Auth::user()->role == 'Admin'){
-                            $href='admin';
+                                $href='admin';
                             }
                             elseif(Auth::user()->role == 'Pacient'){
-                            $href='pacient';
+                                $href='pacient';
                             }
                             else{
-                            $href='manager';
+                                $href='manager';
                             }
-                            ?>
+                        ?>
                         <li class="col-sm-12 col-md-12" style="text-align:left;padding-right: 0px;">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding: 13px 0px 12px; text-align: center;">
                                 <img style="max-height: 40px; margin: 0px 10px;" src="/images/users/{{ Auth::user()->image}}" alt="avatar">{{ Auth::user()->name }}

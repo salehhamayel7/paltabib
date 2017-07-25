@@ -102,7 +102,7 @@ class HomeController extends Controller
 
         dd($per);*/
 
-        return view('admin_dashboard' , compact('user','clinics_count','users_count','doctors_count','patients_count','nurses_count','appointments_count'));
+        return view('admin/admin_dashboard' , compact('user','clinics_count','users_count','doctors_count','patients_count','nurses_count','appointments_count'));
     
     }
 
@@ -121,7 +121,7 @@ class HomeController extends Controller
  
         $user = Auth::user();
         
-        return view('clinicFormReg' , compact('user'));
+        return view('admin/clinicFormReg' , compact('user'));
     
     }
 
@@ -134,7 +134,7 @@ class HomeController extends Controller
             ->join('users', 'clinics.manager_id', '=', 'users.user_name')
             ->select('clinics.address as clinic_address' , 'clinics.id as clinic_id' , 'clinics.name as clinic_name' , 'clinics.phone as clinic_phone', 'clinics.*', 'users.*')
             ->get();
-        return view('admin_allCinics' , compact('user','clinics'));
+        return view('admin/admin_allCinics' , compact('user','clinics'));
     
     }
 
@@ -144,7 +144,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $sliders =  DB::table('sliders')->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'sliders');
         $sections =  DB::table('sections')->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'sections');        
-        return view('HomePageConfig' , compact('user','sliders','sections'));
+        return view('admin/HomePageConfig' , compact('user','sliders','sections'));
     
     }
 

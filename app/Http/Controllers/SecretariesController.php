@@ -20,25 +20,7 @@ class SecretariesController extends Controller
          $this->secretary = $secretary;
     }
 
-    public function showAllSecretaries(){
-        
-        $user = Auth::user();
-        $secretaries = DB::table('secretaries')
-                    ->where('users.clinic_id',$user->clinic_id)
-                    ->whereNotIn('secretaries.user_name', [$user->user_name])
-                    ->join('users', 'secretaries.user_name', '=', 'users.user_name')
-                    ->get();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-                ['receiver_id', '=', $user->user_name],
-                ['seen', '=', '0'],
-                ['receiver_available','=',1]
-            ])
-            ->join('users', 'messages.sender_id', '=', 'users.user_name')
-            ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-            ->orderBy('messages.created_at', 'desc')->get();
-        return view('secretaries_administration' , compact('user','secretaries','clinic','new_msgs'));
-    }
+    
 
     public function create(Request $request)
     {
@@ -78,6 +60,10 @@ class SecretariesController extends Controller
         ->select('users.*',  'messages.*','messages.id as msg_id' , 'messages.created_at as msg_time')
         ->orderBy('messages.created_at', 'desc')->get();
 
+        $money_notification = DB::table('bills')
+            ->where('clinic_id', '=', $user->clinic_id)
+            ->whereRaw('value != paid_value')->count();
+
         $current_date = date('Y-m-d');
         $ntexWeek = Carbon::tomorrow()->addDays(7)->toDateString();
 
@@ -110,7 +96,7 @@ class SecretariesController extends Controller
         ->orderBy('date', 'asc')
         ->get();
 
-        return view('secretary_home' , compact('appointmentsx','user','new_msgs','events_number','clinic','nextEvents','today_events'));
+        return view('secretary/secretary_home' , compact('appointmentsx','user','new_msgs','events_number','clinic','nextEvents','today_events','money_notification'));
     }
 
     

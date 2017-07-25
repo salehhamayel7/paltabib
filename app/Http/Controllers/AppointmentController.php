@@ -17,6 +17,39 @@ class AppointmentController extends Controller
     public function __construct(AppointmentService $appointment)
     {
     	$this->appointment = $appointment;
+
+        $this->middleware(function ($request, $next) {
+
+             $this->user = Auth::user();
+       
+             $this->clinic = Clinic::where('id' ,'=', $this->user->clinic_id)->first();
+
+             $this->new_msgs = Message::where([
+                ['receiver_id', '=', $this->user->user_name],
+                ['seen', '=', '0'],
+                ['receiver_available','=',1]
+            ])
+            ->join('users', 'messages.sender_id', '=', 'users.user_name')
+            ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
+            ->orderBy('messages.created_at', 'desc')->get();
+            
+             $this->money_notification = DB::table('bills')
+                ->where('clinic_id', '=', $this->user->clinic_id)
+                ->whereRaw('value != paid_value')->count();
+            
+
+            return $next($request);
+        });
+
+    }
+
+    public function mainVars()
+    {
+        $user = $this->user;
+        $clinic = $this->clinic;
+        $new_msgs = $this->new_msgs;
+        $money_notification = $this->money_notification;
+        return [$user , $clinic ,  $new_msgs, $money_notification];
     }
 
     public function delete($id)
@@ -35,16 +68,7 @@ class AppointmentController extends Controller
     public function showCalendarD()
     {
         
-        $user = Auth::user();
-        $clinic = Clinic::where('id' ,'=', $user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $doctorS = DB::table('users')
             ->where([
@@ -70,22 +94,14 @@ class AppointmentController extends Controller
             }
         }
        
-        return view('calendarD' , compact('user','clinic','new_msgs','patients','doctorS'));
+        return view('shared/calendarD' , compact('user','clinic','new_msgs','patients','doctorS','money_notification'));
     }
 
       public function showCalendar()
     {
         
-        $user = Auth::user();
-        $clinic = Clinic::where('id' ,'=', $user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+
         if($user->role == "Pacient"){
             $doctorsx = DB::table('users')
                 ->whereIn('role', ['Doctor', 'Manager,Doctor'])
@@ -133,7 +149,7 @@ class AppointmentController extends Controller
             }
         }
        
-        return view('calendar' , compact('user','clinic','new_msgs','patients','doctorS'));
+        return view('shared/calendar' , compact('user','clinic','new_msgs','patients','doctorS','money_notification'));
     }
 
     

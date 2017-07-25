@@ -18,9 +18,14 @@ public function getExpenseWithID($expense_id)
         $expence = DB::table('expences')
                 ->where('id', $expense_id)
                 ->first();
+                
+        $writter = DB::table('users')
+                ->where('user_name', $expence->source)
+                ->first();
 
         $data =[
             'expense' => $expence,
+            'writter' => $writter,
         ];
         return $data;
 
@@ -38,10 +43,16 @@ public function getExpenseWithID($expense_id)
         $pacient = DB::table('users')
                 ->where('user_name', $bill->pacient_id)
                 ->first();
+
+        $writter = DB::table('users')
+                ->where('user_name', $bill->source)
+                ->first();
+
         $data =[
             'bill' => $bill,
             'doctor' => $doctor,
             'pacient' => $pacient,
+            'writter' => $writter,
         ];
         return $data;
 
@@ -102,6 +113,7 @@ public function getExpenseWithID($expense_id)
         $expences->id = $id_row->last_id+1;
         $expences->clinic_id = Auth::user()->clinic_id;
     	$expences->value = $request->value;
+        $expences->source = Auth::user()->user_name;
     	$expences->description = $request->description;
         $expences->save();
 

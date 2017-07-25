@@ -17,6 +17,7 @@ class CreateExpencesTable extends Migration
 
         $table->increments('id');
         $table->integer('value');
+        $table->string('source');
         $table->unsignedInteger('clinic_id');
         $table->string('description');
         $table->timestamps();

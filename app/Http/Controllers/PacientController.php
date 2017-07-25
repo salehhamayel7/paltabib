@@ -25,7 +25,41 @@ class PacientController extends Controller
     protected $pacient;
     public function __construct(PacientService $pacient){
         $this->pacient = $pacient;
+        $this->middleware(function ($request, $next) {
+
+             $this->user = Auth::user();
+       
+             $this->clinic = DB::table('clinics')->where('id','=',$this->user->clinic_id)->first();
+
+             $this->new_msgs = Message::where([
+                ['receiver_id', '=', $this->user->user_name],
+                ['seen', '=', '0'],
+                ['receiver_available','=',1]
+            ])
+            ->join('users', 'messages.sender_id', '=', 'users.user_name')
+            ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
+            ->orderBy('messages.created_at', 'desc')->get();
+            
+             $this->money_notification = DB::table('bills')
+                ->where('clinic_id', '=', $this->user->clinic_id)
+                ->whereRaw('value != paid_value')->count();
+            
+
+            return $next($request);
+        });
+        
+        
     }
+
+    public function mainVars()
+    {
+        $user = $this->user;
+        $clinic = $this->clinic;
+        $new_msgs = $this->new_msgs;
+        $money_notification = $this->money_notification;
+        return [$user , $clinic ,  $new_msgs, $money_notification];
+    }
+
     public function index()
     {
         //
@@ -121,7 +155,8 @@ class PacientController extends Controller
 
      public function showAllPacients(){
         
-        $user = Auth::user();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+
         $temp_patients = DB::table('pacients')
                     ->whereNotIn('pacients.user_name', [$user->user_name])
                     ->join('users', 'pacients.user_name', '=', 'users.user_name')
@@ -140,30 +175,13 @@ class PacientController extends Controller
             }
         }
 
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
-        return view('patient_administration' , compact('user','pacirnts','clinic','new_msgs'));
+        
+        return view('shared/patient_administration' , compact('user','pacirnts','clinic','new_msgs','money_notification'));
     }
 
     public function showRecord($user_name){
         
-        $user = Auth::user();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-            ->join('users', 'messages.sender_id', '=', 'users.user_name')
-            ->select('users.*', 'messages.*','messages.id as msg_id' , 'messages.created_at as msg_time')
-            ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $patient = DB::table('users')
             ->where('users.user_name', $user_name)
@@ -179,22 +197,13 @@ class PacientController extends Controller
              ->orderBy('created_at', 'desc')
              ->paginate(4, ['*'], 'histories');
         
-        return view('record' , compact('user','clinic','new_msgs','patient','pacients','histories'));
+        return view('shared/record' , compact('user','clinic','new_msgs','patient','pacients','histories','money_notification'));
     }
 
 
     public function showMyRecord(){
         
-        $user = Auth::user();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-            ->join('users', 'messages.sender_id', '=', 'users.user_name')
-            ->select('users.*', 'messages.*','messages.id as msg_id' , 'messages.created_at as msg_time')
-            ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $patient = DB::table('users')
             ->where('users.user_name', $user->user_name)
@@ -212,23 +221,13 @@ class PacientController extends Controller
                 ->orderBy('histories.created_at', 'desc')
                 ->paginate(10, ['*'], 'histories');
         
-        return view('record' , compact('user','clinic','new_msgs','patient','pacients','histories'));
+        return view('shared/record' , compact('user','clinic','new_msgs','patient','pacients','histories','money_notification'));
     }
 
 
     public function showAllRecords(){
         
-        $user = Auth::user();
-
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*','messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $temp_pacients = DB::table('users')->where([
                 ['role', '=', 'Pacient'],
@@ -285,20 +284,12 @@ class PacientController extends Controller
             }
         }
         
-        return view('patientsRecords' , compact('user','clinic','new_msgs','patients','pacients'));
+        return view('shared/patientsRecords' , compact('user','clinic','new_msgs','patients','pacients','money_notification'));
     }
 
     public function showPacient()
     {
-        $user = Auth::user();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*','messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $today = Carbon::today()->toDateString();
         $ntexWeek = Carbon::today()->addDays(7)->toDateString();
@@ -323,7 +314,7 @@ class PacientController extends Controller
         ->join('clinics', 'clinics.id', '=', 'events.clinic_id')
         ->orderBy('date', 'asc')
         ->get();
-        return view('pacient_home' , compact('user','nextAppoinments','nextEvents','new_msgs'));
+        return view('patient/pacient_home' , compact('user','nextAppoinments','nextEvents','new_msgs'));
     }
 
 

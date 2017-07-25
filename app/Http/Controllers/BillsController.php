@@ -15,9 +15,41 @@ class BillsController extends Controller
 
     public function __construct(BillService $bill)
     {
-    	$this->bill = $bill;
+    	$this->bill = $bill; 
+        
+        $this->middleware(function ($request, $next) {
+
+             $this->user = Auth::user();
+       
+             $this->clinic = Clinic::where('id' ,'=', $this->user->clinic_id)->first();
+
+             $this->new_msgs = Message::where([
+                ['receiver_id', '=', $this->user->user_name],
+                ['seen', '=', '0'],
+                ['receiver_available','=',1]
+            ])
+            ->join('users', 'messages.sender_id', '=', 'users.user_name')
+            ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
+            ->orderBy('messages.created_at', 'desc')->get();
+            
+             $this->money_notification = DB::table('bills')
+                ->where('clinic_id', '=', $this->user->clinic_id)
+                ->whereRaw('value != paid_value')->count();
+            
+
+            return $next($request);
+        });
+
     }
 
+    public function mainVars()
+    {
+        $user = $this->user;
+        $clinic = $this->clinic;
+        $new_msgs = $this->new_msgs;
+        $money_notification = $this->money_notification;
+        return [$user , $clinic ,  $new_msgs, $money_notification];
+    }
     
     public function updateBill(Request $request)
     {
@@ -64,65 +96,32 @@ class BillsController extends Controller
 
     public function showAllExpenses(){
         
-        $user = Auth::user();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*','messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+
 
         $expenses = DB::table('expences')->where([
-            ['clinic_id', '=', $user->clinic_id],
+            ['expences.clinic_id', '=', $user->clinic_id],
         ])
-        ->orderBy('created_at', 'desc')
+        ->join('users', 'expences.source', '=', 'users.user_name')
+        ->select('expences.*', 'users.name as writter')
+        ->orderBy('expences.created_at', 'desc')
         ->get();
 
-         $temp_pacients = DB::table('users')->where([
-                ['role', '=', 'Pacient'],
-            ])->get();
-        
-        $pacients = array();
-        foreach($temp_pacients as $patient){
-            $temp_patient = DB::table('patient_clinic')
-                    ->where([
-                        ['patient_id', '=', $patient->user_name],
-                        ['clinic_id', '=', $user->clinic_id],
-                    ])->get();
-            if(count($temp_patient) > 0){
-                array_push($pacients, $patient);
-            }
-        }
 
-        $doctors = DB::table('users')->where([
-            ['clinic_id', '=', $user->clinic_id],
-            ['role', '=', 'Doctor'],
-        ])->get();
 
-        return view('all_expenses' , compact('user','clinic','new_msgs','expenses','pacients','doctors'));
+        return view('shared/all_expenses' , compact('user','clinic','new_msgs','expenses','money_notification'));
     }
 
      public function showAllBills(){
         
-        $user = Auth::user();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*',  'messages.*','messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+
 
         $bills = DB::table('bills')->where([
             ['bills.clinic_id', '=', $user->clinic_id],
         ])
         ->join('users', 'bills.doctor_id', '=', 'users.user_name')
-        ->select('bills.*', 'users.name', 'users.user_name')
+        ->select(DB::raw('bills.value-bills.paid_value AS remained_value, bills.*, users.name, users.user_name'))
         ->orderBy('bills.created_at', 'desc')
         ->get();
 
@@ -142,26 +141,17 @@ class BillsController extends Controller
             }
         }
 
-        $doctors = DB::table('users')->where([
-            ['clinic_id', '=', $user->clinic_id],
-            ['role', '=', 'Doctor'],
-        ])->get();
+        $doctors = DB::table('users')
+            ->where('clinic_id', '=', $user->clinic_id)
+            ->whereIn('role', ['Doctor', 'Manager,Doctor'])->get();
 
-        return view('all_bills' , compact('user','clinic','new_msgs','bills','pacients','doctors'));
+        return view('shared/all_bills' , compact('user','clinic','new_msgs','bills','pacients','doctors','money_notification'));
     }
 
     public function showrMoneyAdmin(){
         
-        $user = Auth::user();
-        $clinic = DB::table('clinics')->where('id','=',$user->clinic_id)->first();
-        $new_msgs = Message::where([
-            ['receiver_id', '=', $user->user_name],
-            ['seen', '=', '0'],
-            ['receiver_available','=',1]
-        ])
-        ->join('users', 'messages.sender_id', '=', 'users.user_name')
-        ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
-        ->orderBy('messages.created_at', 'desc')->get();
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+
 
        $temp_pacients = DB::table('users')->where([
                 ['role', '=', 'Pacient'],
@@ -179,10 +169,9 @@ class BillsController extends Controller
             }
         }
 
-        $doctors = DB::table('users')->where([
-            ['clinic_id', '=', $user->clinic_id],
-            ['role', '=', 'Doctor'],
-        ])->get();
+        $doctors = DB::table('users')
+            ->where('clinic_id', '=', $user->clinic_id)
+            ->whereIn('role', ['Doctor', 'Manager,Doctor'])->get();
 
         $bills = DB::table('bills')->where([
             ['clinic_id', '=', $user->clinic_id],
@@ -198,7 +187,7 @@ class BillsController extends Controller
         ->limit(3)
         ->get();
 
-        return view('money_administration' , compact('user','clinic','new_msgs','pacients','doctors','bills','expenses'));
+        return view('shared/money_administration' , compact('user','clinic','new_msgs','pacients','doctors','bills','expenses','money_notification'));
     }
 
 
