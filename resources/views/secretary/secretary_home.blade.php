@@ -23,6 +23,53 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+
+
+                    <div dir="rtl" class="col-md-3 col-sm-3 col-xs-12 profile_right">
+                      <div class="profile_img">
+                        <div id="crop-avatar">
+                          <!-- Current avatar -->
+                          <button title="Change Picture" type="button" data-toggle="modal" data-target="#myModal">
+                            <img class="img-responsive avatar-view" src="/images/users/{{$user->image}}" alt="Avatar" title="Change the avatar">
+                          </button>
+                        </div>
+                      </div>
+                      <h3>{{$user->name}}</h3>
+
+                      <ul class="list-unstyled user_data">
+
+                     <li title="اسم المستخدم">
+                          <i class="fa fa-user user-profile-icon"></i>{{$user->user_name}}
+                        </li>
+
+                          <form id="id-form" method="get" action="/file/download/{{$user->id_image}}">
+                          </form>
+                        <li id="get-id" title="البطاقة الشخصية">
+                          <i class="fa fa-id-card user-profile-icon"></i>
+                                <a>عرض/تحميل</a>
+                        </li>
+                        
+
+
+                         <li title="الجنس">
+                          <i class="fa fa-venus-mars user-profile-icon"></i>{{$user->gender}}
+                        </li>
+
+                        <li title="العنوان"><i class="fa fa-map-marker user-profile-icon"></i>{{$user->address}}
+                        </li>
+						
+						            <li title="الايميل">
+                          <i class="fa fa-envelope user-profile-icon"></i>{{$user->email}}
+                        </li>
+						
+						            <li title="رقم الهاتف">
+                          <i class="fa fa-phone-square user-profile-icon"></i>{{$user->phone}}
+                        </li>
+
+
+                      </ul>
+
+                    </div>
 				  
 				  <div class="col-md-9 col-sm-9 col-xs-12">
 
@@ -298,51 +345,7 @@
                       </div>
                     </div>
 				  
-                    <div dir="rtl" class="col-md-3 col-sm-3 col-xs-12 profile_right">
-                      <div class="profile_img">
-                        <div id="crop-avatar">
-                          <!-- Current avatar -->
-                          <button title="Change Picture" type="button" data-toggle="modal" data-target="#myModal">
-                            <img class="img-responsive avatar-view" src="/images/users/{{$user->image}}" alt="Avatar" title="Change the avatar">
-                          </button>
-                        </div>
-                      </div>
-                      <h3>{{$user->name}}</h3>
-
-                      <ul class="list-unstyled user_data">
-
-                     <li title="اسم المستخدم">
-                          <i class="fa fa-user user-profile-icon"></i>{{$user->user_name}}
-                        </li>
-
-                          <form id="id-form" method="get" action="/file/download/{{$user->id_image}}">
-                          </form>
-                        <li id="get-id" title="البطاقة الشخصية">
-                          <i class="fa fa-id-card user-profile-icon"></i>
-                                <a>عرض/تحميل</a>
-                        </li>
-                        
-
-
-                         <li title="الجنس">
-                          <i class="fa fa-venus-mars user-profile-icon"></i>{{$user->gender}}
-                        </li>
-
-                        <li title="العنوان"><i class="fa fa-map-marker user-profile-icon"></i>{{$user->address}}
-                        </li>
-						
-						            <li title="الايميل">
-                          <i class="fa fa-envelope user-profile-icon"></i>{{$user->email}}
-                        </li>
-						
-						            <li title="رقم الهاتف">
-                          <i class="fa fa-phone-square user-profile-icon"></i>{{$user->phone}}
-                        </li>
-
-
-                      </ul>
-
-                    </div>
+                    
                     
                   </div>
                 </div>
