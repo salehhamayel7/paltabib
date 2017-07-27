@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
 		$user->role = "Admin";
 		$user->phone = $faker->e164PhoneNumber;
 		$user->address = $faker->address;
-		$user->image = "11315084.jpg";
 		$user->password = bcrypt('passpass');
 		$user->save();
 

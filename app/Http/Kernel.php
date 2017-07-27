@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'doctor' => \App\Http\Middleware\doctor::class,
         'stuff' => \App\Http\Middleware\stuff::class,
         'secretary' => \App\Http\Middleware\secretary::class,
+        'notBanned' => \App\Http\Middleware\notBaned::class,
     ];
 }

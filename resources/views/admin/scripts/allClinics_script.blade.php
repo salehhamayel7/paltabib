@@ -59,6 +59,20 @@
                  
           });
 
+          $('.banClinic').on('click',function(){
+
+            var clinic_id = $(this).attr('data');
+               $.ajax({
+                  type: "GET",
+                  url: "/ajax/clinic/banorunban/"+clinic_id,
+                  success: function(data)
+                  {
+                      location.reload(true);
+                  }
+              });
+                 
+          });
+
         });
     </script>
   

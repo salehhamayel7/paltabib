@@ -23,7 +23,7 @@
                           <th>Manager ID</th>
                           <th>Manager Email</th>
                           <th>Manager Phone</th>
-                          
+                          <th>Banned?</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -50,6 +50,13 @@
                             <th>{{$clinic->email}}</th>
                             <th>{{$clinic->phone}}</th>
                             <th>
+                            @if($clinic->banned)
+                                Banned
+                            @else
+                                Not Banned
+                            @endif
+                            </th>
+                            <th>
 
                             <div class="dropdown">
                               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -57,8 +64,8 @@
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="min-width: 20px;">
-                                <li><a class="editClinic" data="{{$clinic->clinic_id}}"><i class="fa fa-edit"></i> Edit </a></li>
-                                <li><a><i class="fa fa-minus-circle"></i> Ban </a></li>
+                                <li class="editClinic" data="{{$clinic->clinic_id}}"><a><i class="fa fa-edit"></i> Edit </a></li>
+                                <li class="banClinic" data="{{$clinic->clinic_id}}"><a><i class="fa fa-minus-circle"></i> Un/Ban </a></li>
                                 <li class="deleteClinic" data="{{$clinic->clinic_id}}"><a><i class="fa fa-trash-o"></i> Delete </a></li>
                                 
                               </ul>
@@ -261,6 +268,7 @@
                     @endif
                 </div>
             </div>
+
             <div class="form-group{{ $errors->has('clinic_address') ? ' has-error' : '' }}">
                 <label for="clinic_address" class="col-md-4 control-label">Clinic Address</label>
 
@@ -333,16 +341,6 @@
                     @endif
                 </div>
             </div>
-
-              
-              <div class="form-group{{ $errors->has('union_number') ? ' has-error' : '' }}">
-                  <label for="union_number" class="col-md-4 control-label">Union number</label>
-
-                  <div class="col-md-6">
-                      <input value="{{ old('union_number') }}" id="union_number" type="number" class="form-control" name="union_number">
-
-                  </div>
-              </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

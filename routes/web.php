@@ -39,6 +39,8 @@ Route::get('/dashboard/admin/allClinics','HomeController@allCinics')->middleware
 Route::get('/dashboard/admin/HomeConfig','HomeController@showHomeConfig')->middleware(['auth','admin']);
 Route::get('/ajax/clinic/get/{id}','ClinicController@getClinic')->middleware(['auth','admin']);
 Route::post('/clinic/update','ClinicController@updateClinic')->middleware('auth');
+Route::get('/ajax/clinic/banorunban/{id}','ClinicController@banOrNotClinic')->middleware(['auth','admin']);
+
 
 Route::get('/ajax/clinic/delete/{id}','ClinicController@deleteClinic')->middleware(['auth','admin']);
 Route::post('/slider/add','HomeController@addSlider')->middleware(['auth','admin']);
@@ -55,58 +57,58 @@ Route::get('/section/delete/{id}','HomeController@deleteSection')->middleware(['
 
 
 ////////////////////////////////////
-Route::get('/dashboard/manager','ManagerController@showManager')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/doctors','ManagerController@showManagerDoctors')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/secretaries','ManagerController@showAllSecretaries')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/nurses','ManagerController@showAllNurses')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/pacients','PacientController@showAllPacients')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/outbox','MessageController@showOutbox')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/money','BillsController@showrMoneyAdmin')->middleware(['auth','manager']);
-Route::post('/dashboard/manager/changeProfilePic','ManagerController@changeProfilePic')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/allBills','BillsController@showAllBills')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/allExpenses','BillsController@showAllExpenses')->middleware(['auth','manager']);
+Route::get('/dashboard/manager','ManagerController@showManager')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/doctors','ManagerController@showManagerDoctors')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/secretaries','ManagerController@showAllSecretaries')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/nurses','ManagerController@showAllNurses')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/pacients','PacientController@showAllPacients')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/outbox','MessageController@showOutbox')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/money','BillsController@showrMoneyAdmin')->middleware(['auth','manager','notBanned']);
+Route::post('/dashboard/manager/changeProfilePic','ManagerController@changeProfilePic')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/allBills','BillsController@showAllBills')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/allExpenses','BillsController@showAllExpenses')->middleware(['auth','manager','notBanned']);
 
-Route::post('/dashboard/manager/updateBill','BillsController@updateBill')->middleware(['auth','manager']);
-Route::post('/dashboard/manager/updateExpense','BillsController@updateExpense')->middleware(['auth','manager']);
+Route::post('/dashboard/manager/updateBill','BillsController@updateBill')->middleware(['auth','manager','notBanned']);
+Route::post('/dashboard/manager/updateExpense','BillsController@updateExpense')->middleware(['auth','manager','notBanned']);
 
-Route::post('/dashboard/manager/addDoctor','DoctorsController@create')->middleware(['auth','manager']);
-Route::post('/dashboard/manager/addSec','SecretariesController@create')->middleware(['auth','manager']);
-Route::post('/manager/edit','ManagerController@edit')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/patientsRecords','PacientController@showAllRecords')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/record/{user_name}','PacientController@showRecord')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/search','DoctorsController@showSearch')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/calendar','AppointmentController@showCalendarD')->middleware(['auth','manager']);
-Route::get('/dashboard/manager/myCalendar','AppointmentController@showCalendar')->middleware(['auth','manager']);
+Route::post('/dashboard/manager/addDoctor','DoctorsController@create')->middleware(['auth','manager','notBanned']);
+Route::post('/dashboard/manager/addSec','SecretariesController@create')->middleware(['auth','manager','notBanned']);
+Route::post('/manager/edit','ManagerController@edit')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/patientsRecords','PacientController@showAllRecords')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/record/{user_name}','PacientController@showRecord')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/search','DoctorsController@showSearch')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/calendar','AppointmentController@showCalendarD')->middleware(['auth','manager','notBanned']);
+Route::get('/dashboard/manager/myCalendar','AppointmentController@showCalendar')->middleware(['auth','manager','notBanned']);
 Route::post('/ajax/clinic/update','ManagerController@updateClinic')->middleware('auth');
-Route::get('/dashboard/manager/myClinic','ManagerController@showClinic')->middleware(['auth','manager']);
+Route::get('/dashboard/manager/myClinic','ManagerController@showClinic')->middleware(['auth','manager','notBanned']);
 
 
 //////////////////////////////////////////////////
 
 
-Route::get('/dashboard/doctor','DoctorsController@showDoctor')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/outbox','MessageController@showOutbox')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/money','DoctorsController@showDoctorMoney')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/secretaries','SecretariesController@showAllSecretaries')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/nurses','NursesController@showAllNurses')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/pacients','PacientController@showAllPacients')->middleware(['auth','doctor']);
+Route::get('/dashboard/doctor','DoctorsController@showDoctor')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/outbox','MessageController@showOutbox')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/money','DoctorsController@showDoctorMoney')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/secretaries','SecretariesController@showAllSecretaries')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/nurses','NursesController@showAllNurses')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/pacients','PacientController@showAllPacients')->middleware(['auth','doctor','notBanned']);
 
-Route::get('/ajax/edit/doctor/{username}','DoctorsController@edit')->middleware(['auth','doctor']);
-Route::post('/doctor/update/{username}','DoctorsController@update')->middleware(['auth','doctor']);
-Route::post('/doctor/changeProfilePic','DoctorsController@changePic')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/patientsRecords','PacientController@showAllRecords')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/record/{user_name}','PacientController@showRecord')->middleware(['auth','doctor']);
-Route::get('/dashboard/doctor/calendar','AppointmentController@showCalendar')->middleware(['auth','doctor']);
-Route::post('/dashboard/doctor/search','DoctorsController@search')->middleware(['auth','doctor']);
+Route::get('/ajax/edit/doctor/{username}','DoctorsController@edit')->middleware(['auth','doctor','notBanned']);
+Route::post('/doctor/update/{username}','DoctorsController@update')->middleware(['auth','doctor','notBanned']);
+Route::post('/doctor/changeProfilePic','DoctorsController@changePic')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/patientsRecords','PacientController@showAllRecords')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/record/{user_name}','PacientController@showRecord')->middleware(['auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/calendar','AppointmentController@showCalendar')->middleware(['auth','doctor','notBanned']);
+Route::post('/dashboard/doctor/search','DoctorsController@search')->middleware(['auth','doctor','notBanned']);
 
 /////////////////////////////////////////////////////
 
-Route::post('/ajax/bill/create','BillsController@createBills')->middleware(['auth','stuff']);
-Route::post('/ajax/expense/create','BillsController@createExpenses')->middleware(['auth','stuff']);
-Route::get('/ajax/bill/show/{bill_id}','BillsController@getBill')->middleware(['auth','stuff']);
-Route::get('/ajax/expense/show/{expense_id}','BillsController@getExpense')->middleware(['auth','stuff']);
+Route::post('/ajax/bill/create','BillsController@createBills')->middleware(['auth','stuff','notBanned']);
+Route::post('/ajax/expense/create','BillsController@createExpenses')->middleware(['auth','stuff','notBanned']);
+Route::get('/ajax/bill/show/{bill_id}','BillsController@getBill')->middleware(['auth','stuff','notBanned']);
+Route::get('/ajax/expense/show/{expense_id}','BillsController@getExpense')->middleware(['auth','stuff','notBanned']);
 
 Route::get('/ajax/appointment/delete/{id}' , 'AppointmentController@delete')->middleware('auth');
 
@@ -129,28 +131,28 @@ Route::get('/dashboard/pacient/my_record','PacientController@showMyRecord')->mid
 
 ////////////////////////////////////////////////////////
 
-Route::get('/dashboard/secretary','SecretariesController@showSecretary')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/outbox','MessageController@showOutbox')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/money','BillsController@showrMoneyAdmin')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/allBills','BillsController@showAllBills')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/allExpenses','BillsController@showAllExpenses')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/secretaries','SecretariesController@showAllSecretaries')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/nurses','NursesController@showAllNurses')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/pacients','PacientController@showAllPacients')->middleware(['auth','secretary']);
+Route::get('/dashboard/secretary','SecretariesController@showSecretary')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/outbox','MessageController@showOutbox')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/money','BillsController@showrMoneyAdmin')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/allBills','BillsController@showAllBills')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/allExpenses','BillsController@showAllExpenses')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/secretaries','SecretariesController@showAllSecretaries')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/nurses','NursesController@showAllNurses')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/pacients','PacientController@showAllPacients')->middleware(['auth','secretary','notBanned']);
 
-Route::post('/dashboard/secretary/updateBill','BillsController@updateBill')->middleware(['auth','secretary']);
-Route::post('/dashboard/secretary/updateExpense','BillsController@updateExpense')->middleware(['auth','secretary']);
-Route::get('/dashboard/secretary/calendar','AppointmentController@showCalendar')->middleware(['auth','secretary']);
-Route::get('/ajax/edit/secretary/{username}','SecretariesController@edit')->middleware(['auth','secretary']);
-Route::post('/secretary/update/{username}','SecretariesController@update')->middleware(['auth','secretary']);
+Route::post('/dashboard/secretary/updateBill','BillsController@updateBill')->middleware(['auth','secretary','notBanned']);
+Route::post('/dashboard/secretary/updateExpense','BillsController@updateExpense')->middleware(['auth','secretary','notBanned']);
+Route::get('/dashboard/secretary/calendar','AppointmentController@showCalendar')->middleware(['auth','secretary','notBanned']);
+Route::get('/ajax/edit/secretary/{username}','SecretariesController@edit')->middleware(['auth','secretary','notBanned']);
+Route::post('/secretary/update/{username}','SecretariesController@update')->middleware(['auth','secretary','notBanned']);
 
 ///////////////////////////////////////////////////////
 
-Route::post('/event/add','EventsController@create')->middleware(['auth','stuff']);
-Route::get('/ajax/event/get/{id}','EventsController@get')->middleware(['auth','stuff']);
-Route::post('/event/update/{id}','EventsController@update')->middleware(['auth','stuff']);
-Route::get('/ajax/event/delete/{id}','EventsController@delete')->middleware(['auth','stuff']);
+Route::post('/event/add','EventsController@create')->middleware(['auth','stuff','notBanned']);
+Route::get('/ajax/event/get/{id}','EventsController@get')->middleware(['auth','stuff','notBanned']);
+Route::post('/event/update/{id}','EventsController@update')->middleware(['auth','stuff','notBanned']);
+Route::get('/ajax/event/delete/{id}','EventsController@delete')->middleware(['auth','stuff','notBanned']);
 
 ////////////////////////////////////////////////////////
 
@@ -176,13 +178,13 @@ Route::get('/{type}/delete/{user_name}',function($type,$user_name){
         DB::table('secretaries')->where('user_name','=',$user_name)->delete();
         return redirect()->back();
      }
-})->middleware(['auth','stuff']);
+})->middleware(['auth','stuff','notBanned']);
 
 
-Route::get('/ajax/edit/nurse/{user_name}', ['uses' =>'NursesController@get'])->middleware(['auth','stuff']);
-Route::get('/ajax/delete/nurse/{user_name}', ['uses' =>'NursesController@delete'])->middleware(['auth','stuff']);
-Route::post('/nurse/update/{user_name}', ['uses' =>'NursesController@update'])->middleware(['auth','stuff']);
-Route::post('/nurses/create','NursesController@store')->middleware(['auth','stuff']);
+Route::get('/ajax/edit/nurse/{user_name}', ['uses' =>'NursesController@get'])->middleware(['auth','stuff','notBanned']);
+Route::get('/ajax/delete/nurse/{user_name}', ['uses' =>'NursesController@delete'])->middleware(['auth','stuff','notBanned']);
+Route::post('/nurse/update/{user_name}', ['uses' =>'NursesController@update'])->middleware(['auth','stuff','notBanned']);
+Route::post('/nurses/create','NursesController@store')->middleware(['auth','stuff','notBanned']);
 
 Route::get('/ajax/edit/pacient/{user_name}', ['uses' =>'PacientController@get'])->middleware('auth');
 Route::get('/ajax/delete/pacient/{user_name}', ['uses' =>'PacientController@delete'])->middleware('auth');

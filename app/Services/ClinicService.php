@@ -40,7 +40,7 @@ class ClinicService{
         
         if($request->hasFile('image')){
             $image = $request->file('image');
-            $imageName = $request->user_name.'.'.$image->getClientOriginalExtension();
+            $imageName = str_random(50).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             $user->image =  $imageName;
         }
@@ -93,7 +93,8 @@ class ClinicService{
 
     public function updateClinic(Request $request)
 	{   
-        
+        $userx = User::where('user_name', $request->old_user_name)->first();
+        $clinicx = Clinic::where('id', $request->clinic_id)->first();
 
         DB::table('clinics')
             ->where('id', $request->clinic_id)
@@ -107,6 +108,8 @@ class ClinicService{
 
         if($file = $request->file('reg_proof'))
         {
+            Storage::delete($clinicx->reg_proof);
+
             $filename= str_random(50).'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->put($filename,File::get($file));
             DB::table('clinics')
@@ -118,8 +121,14 @@ class ClinicService{
 
 
         if($request->hasFile('image')){
+
+            if($userx->image != "User_Avatar-512.png"){
+                $file_path = public_path().'\\images\\users\\'.$userx->image;
+                unlink($file_path);
+            }
+
             $image = $request->file('image');
-            $imageName = $request->user_name.'.'.$image->getClientOriginalExtension();
+            $imageName = str_random(50).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             DB::table('users')
             ->where('user_name', $request->old_user_name)
@@ -131,6 +140,8 @@ class ClinicService{
 
         if($file = $request->file('id_image'))
         {
+            Storage::delete($userx->id_image);
+
             $filename= str_random(50).'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->put($filename,File::get($file));
             DB::table('users')
@@ -172,7 +183,26 @@ class ClinicService{
         }
        
     }
+
     
+    public function banOrNotClinic($id)
+    {
+        $clinic = DB::table('clinics')
+            ->where('id', $id)
+            ->first();
+        $x = 0;
+        if($clinic->banned == 1){
+            $x = 0;
+        }
+        else{
+            $x = 1;
+        }
+
+        DB::table('clinics')
+            ->where('id', $id)
+            ->update(['banned'=> $x]);
+        return $x;
+    }
     
     public function getClinic($id)
     {

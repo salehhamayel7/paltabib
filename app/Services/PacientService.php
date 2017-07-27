@@ -16,15 +16,21 @@ class PacientService{
 
     public function changePicture(Request $request)
 	{
-       if($request->hasFile('photo')){
-               $image = $request->file('photo');
-               $imageName = $request->user_name.'.'.$image->getClientOriginalExtension();
-               Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
-               DB::table('users')
-                    ->where('user_name', '=' ,$request->user_name)
-                    ->update(['image' => $imageName]);
+        $userx = User::where('user_name', $request->user_name)->first();
+
+        if($request->hasFile('photo')){
+            if($userx->image != "User_Avatar-512.png"){
+                $file_path = public_path().'\\images\\users\\'.$userx->image;
+                unlink($file_path);
             }
-            return redirect()->back();
+            $image = $request->file('photo');
+            $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
+            DB::table('users')
+                ->where('user_name', '=' ,$request->user_name)
+                ->update(['image' => $imageName]);
+        }
+        return redirect()->back();
 	}
 
 	public function createPacient(Request $request)
@@ -60,7 +66,7 @@ class PacientService{
 
             if($request->hasFile('ATimage')){
                 $image = $request->file('ATimage');
-                $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
+                $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
                 Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
                 $user->image = $imageName;
             }
@@ -120,7 +126,7 @@ class PacientService{
 	}
 
 
-public function deletePacientWithUsername($user_name)
+    public function deletePacientWithUsername($user_name)
 	{
 		$pacient = Pacient::where('user_name','=',$user_name)->first();
         $pacient->delete();
@@ -131,7 +137,7 @@ public function deletePacientWithUsername($user_name)
 
 	public function updatePacientWithUsername(Request $request,$user_name)
 	{
-
+        $userx = User::where('user_name', $user_name)->first();
 
          DB::table('patient_clinic')
                     ->where('patient_id' , $user_name)
@@ -144,8 +150,12 @@ public function deletePacientWithUsername($user_name)
             }
 
         if($request->hasFile('ATimage')){
+            if($userx->image != "User_Avatar-512.png"){
+                $file_path = public_path().'\\images\\users\\'.$userx->image;
+                unlink($file_path);
+            }
             $image = $request->file('ATimage');
-            $imageName = $request->ADuName.'.'.$image->getClientOriginalExtension();
+            $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             DB::table('users')
                     ->where('user_name', $user_name)
@@ -154,17 +164,7 @@ public function deletePacientWithUsername($user_name)
 
         if($file = $request->file('id_image'))
         {
-            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
-            Storage::disk('local')->put($filename,File::get($file));
-            DB::table('users')
-                ->where('user_name', $user_name)
-                ->update([
-                    'id_image' => $filename,
-                ]);
-        }
-        
-        if($file = $request->file('id_image'))
-        {
+            Storage::delete($userx->id_image);
             $filename= str_random(50).'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->put($filename,File::get($file));
             DB::table('users')

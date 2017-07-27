@@ -86,17 +86,27 @@
                               <div class="item form-group">
                              
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input title="الهاتف" accept="image/*,.doc,.docx,.pdf" id="reg_proof" type="file" name="reg_proof" class="form-control col-md-7 col-xs-12">
+                                <input title="اثبات تسجيل العيادة" accept="image/*,.doc,.docx,.pdf" id="reg_proof" type="file" name="reg_proof" class="form-control col-md-7 col-xs-12">
                               </div>
                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="clinic_phone">
                                  اثبات تسجيل العيادة
+                              </label>
+                              </div>
+
+                              <div class="item form-group">
+                             
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input title="الشعار" accept="image/*" id="logo" type="file" name="logo" class="form-control col-md-7 col-xs-12">
+                              </div>
+                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logo">
+                                 الشعار
                               </label>
                               </div>
                        
                               <div class="ln_solid"></div>
                               <div class="form-group">
                               <div class="col-md-6">
-                                <button id="saveBill" type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> حفظ التغييرات </button>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> حفظ التغييرات </button>
                               </div>
                               </div>
                             </form>

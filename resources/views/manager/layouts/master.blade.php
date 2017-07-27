@@ -36,7 +36,7 @@ else{
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title navbar-fixed-top" style="border: 0;">
-              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>{{$clinic->name}}</span></a>
+              <a href="/" class="site_title"><img style="max-height: 50px;" src="/images/clinics_logos/{{$clinic->logo}}"></img> <span>{{$clinic->name}}</span></a>
             </div>
 
             <div class="clearfix"></div>

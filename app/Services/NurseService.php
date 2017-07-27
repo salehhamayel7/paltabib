@@ -30,7 +30,7 @@ class NurseService{
 
         if($request->hasFile('ATimage')){
             $image = $request->file('ATimage');
-            $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
+            $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             $user->image = $imageName;
         }
@@ -77,57 +77,64 @@ public function deleteNurseWithUsername($user_name)
 
 	public function updateNurseWithUsername(Request $request,$user_name)
 	{
+        $userx = User::where('user_name', $user_name)->first();
 
-            if(Auth::user()->role == 'Manager' || Auth::user()->role == 'Manager,Doctor' ){
-                DB::table('nurses')
-                    ->where('user_name', $user_name)
-                    ->update(['salary' => $request->get('ADsalary')]);
-            }
+        if(Auth::user()->role == 'Manager' || Auth::user()->role == 'Manager,Doctor' ){
+            DB::table('nurses')
+                ->where('user_name', $user_name)
+                ->update(['salary' => $request->get('ADsalary')]);
+        }
 
-		 if(request()->has('ADpass')){
-                DB::table('users')
-                    ->where('user_name', $user_name)
-                    ->update(['password' => bcrypt($request->get('ADpass'))]);
-            }
+        if(request()->has('ADpass')){
+            DB::table('users')
+                ->where('user_name', $user_name)
+                ->update(['password' => bcrypt($request->get('ADpass'))]);
+        }
 
 
                 
-            if($request->hasFile('ATimage')){
-                $image = $request->file('ATimage');
-                $imageName = $request->ADuName.'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
-                DB::table('users')
-                    ->where('user_name', $user_name)
-                    ->update(['image' => $imageName]);
+        if($request->hasFile('ATimage')){
+            if($userx->image != "User_Avatar-512.png"){
+                $file_path = public_path().'\\images\\users\\'.$userx->image;
+                unlink($file_path);
             }
-
-            if($file = $request->file('id_image'))
-            {
-                $filename= str_random(50).'.'.$file->getClientOriginalExtension();
-                Storage::disk('local')->put($filename,File::get($file));
-                DB::table('users')
-                    ->where('user_name', $user_name)
-                    ->update([
-                        'id_image' => $filename,
-                    ]);
-            }
-
+            $image = $request->file('ATimage');
+            $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             DB::table('users')
-            ->where('user_name', $user_name)
-            ->update([
-                'name' => $request->ADName,
-                'email' => $request->ADemail,
-                'gender' => $request->ADgender,
-                'phone' => $request->ADphone,
-                'address' => $request->ADaddress,
-                'user_name' => $request->ADuName
-            ]);
+                ->where('user_name', $user_name)
+                ->update(['image' => $imageName]);
+        }
 
-            DB::table('nurses')
-            ->where('user_name', $user_name)
-            ->update([
-                'user_name' => $request->ADuName
-            ]);
+        if($file = $request->file('id_image'))
+        {
+            Storage::delete($userx->id_image);
+
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('users')
+                ->where('user_name', $user_name)
+                ->update([
+                    'id_image' => $filename,
+                ]);
+        }
+
+        DB::table('users')
+        ->where('user_name', $user_name)
+        ->update([
+            'name' => $request->ADName,
+            'email' => $request->ADemail,
+            'gender' => $request->ADgender,
+            'phone' => $request->ADphone,
+            'address' => $request->ADaddress,
+            'user_name' => $request->ADuName
+        ]);
+
+        DB::table('nurses')
+        ->where('user_name', $user_name)
+        ->update([
+            'user_name' => $request->ADuName
+        ]);
 
         return redirect()->back();
 	}

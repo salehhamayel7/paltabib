@@ -31,7 +31,7 @@ class DoctorService{
       
       if($request->hasFile('ATimage')){
           $image = $request->file('ATimage');
-          $imageName = $doctor->user_name.'.'.$image->getClientOriginalExtension();
+          $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
           Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
           $user->image = $imageName;
       }
@@ -67,36 +67,48 @@ class DoctorService{
     
       public function updateDoctorWithUserName(Request $request,$user_name)
 	    {
+
+        $userx = User::where('user_name',  $user_name)->first();
+
         if(Auth::user()->role == 'Manager' || Auth::user()->role == 'Manager,Doctor' ){
-                DB::table('doctors')
-                    ->where('user_name', $user_name)
-                    ->update(['salary' => $request->get('ADsalary')]);
-            }
+            DB::table('doctors')
+                ->where('user_name', $user_name)
+                ->update(['salary' => $request->get('ADsalary')]);
+        }
 
-		 if(request()->has('ADpass')){
-                DB::table('users')
-                    ->where('user_name', $user_name)
-                    ->update(['password' => bcrypt($request->get('ADpass'))]);
-            }
-
-      if($file = $request->file('id_image'))
-      {
-          $filename= str_random(50).'.'.$file->getClientOriginalExtension();
-          Storage::disk('local')->put($filename,File::get($file));
+        if(request()->has('ADpass')){
           DB::table('users')
               ->where('user_name', $user_name)
-              ->update([
-                  'id_image' => $filename,
-              ]);
-      }
+              ->update(['password' => bcrypt($request->get('ADpass'))]);
+        }
+
+
+        if($file = $request->file('id_image'))
+        {
+            Storage::delete($userx->id_image);
+
+            $filename= str_random(50).'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->put($filename,File::get($file));
+            DB::table('users')
+                ->where('user_name', $user_name)
+                ->update([
+                    'id_image' => $filename,
+                ]);
+        }
 
         if($request->hasFile('ATimage')){
-            $user = User::where('user_name',$user_name)->first();
-            $image = $request->file('ATimage');
-            $imageName = $request->get('ADuName').'.'.$image->getClientOriginalExtension();
-            Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
-            $user->image = $imageName;
-            $user->save();
+
+          if($userx->image != "User_Avatar-512.png"){
+                $file_path = public_path().'\\images\\users\\'.$userx->image;
+                unlink($file_path);
+          }
+
+          $user = User::where('user_name',$user_name)->first();
+          $image = $request->file('ATimage');
+          $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
+          Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
+          $user->image = $imageName;
+          $user->save();
         }
 
       DB::table('doctors')
@@ -123,19 +135,25 @@ class DoctorService{
 	}
 
 
-   public function changePicture(Request $request)
-	    {
-       
-       if($request->hasFile('photo')){
-               $image = $request->file('photo');
-               $imageName = $request->user_name.'.'.$image->getClientOriginalExtension();
-               Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
-               DB::table('users')
-                    ->where('user_name', '=' ,$request->user_name)
-                    ->update(['image' => $imageName]);
-            }
-            return redirect()->back();
-	}
+    public function changePicture(Request $request)
+    {
+      
+      $userx = User::where('user_name', $request->user_name)->first();
+
+      if($request->hasFile('photo')){
+          if($userx->image != "User_Avatar-512.png"){
+                $file_path = public_path().'\\images\\users\\'.$userx->image;
+                unlink($file_path);
+          }
+          $image = $request->file('photo');
+          $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
+          Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
+          DB::table('users')
+              ->where('user_name', '=' ,$request->user_name)
+              ->update(['image' => $imageName]);
+          }
+          return redirect()->back();
+    }
 
   
 

@@ -30,7 +30,7 @@ class SecretaryService{
         
         if($request->hasFile('ATimage')){
             $image = $request->file('ATimage');
-            $imageName = $user->user_name.'.'.$image->getClientOriginalExtension();
+            $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             $user->image = $imageName;
         }
@@ -63,8 +63,9 @@ class SecretaryService{
       return Secretaries::where('user_name','=',$user_name)->first();
     }
     
-      public function updateSecretaryWithUserName(Request $request,$user_name)
+    public function updateSecretaryWithUserName(Request $request,$user_name)
     {
+        $userx = User::where('user_name', $user_name)->first();
 
         if(Auth::user()->role == 'Manager' || Auth::user()->role == 'Manager,Doctor' ){
                 DB::table('secretaries')
@@ -86,6 +87,7 @@ class SecretaryService{
         
         if($file = $request->file('id_image'))
         {
+            Storage::delete($userx->id_image);
             $filename= str_random(50).'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->put($filename,File::get($file));
             DB::table('users')
@@ -96,9 +98,14 @@ class SecretaryService{
         }
 
         if($request->hasFile('ATimage')){
+
+            if($userx->image != "User_Avatar-512.png"){
+                $file_path = public_path().'\\images\\users\\'.$userx->image;
+                unlink($file_path);
+            }
             $user = User::where('user_name',$user_name)->first();
             $image = $request->file('ATimage');
-            $imageName = $request->get('ADuName').'.'.$image->getClientOriginalExtension();
+            $imageName =  str_random(50).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\users\\". $imageName));
             $user->image = $imageName;
             $user->save();

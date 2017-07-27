@@ -14,6 +14,11 @@ class ClinicController extends Controller
         $this->clinic = $clinic;
 	}
 
+    public function banOrNotClinic($id)
+    {
+        return $this->clinic->banOrNotClinic($id);
+    }
+
     public function deleteClinic($id)
     {
         $this->clinic->deleteClinic($id);

@@ -226,20 +226,35 @@ class HomeController extends Controller
 
     public function deleteSlide($id)
     {
-        $slide = DB::table('sliders')->where('id','=',$id)->delete();
-       
+        $slide = DB::table('sliders')->where('id','=',$id)->first();
+        if (strpos($slide->image, 'http') == false) {
+            $file_path = public_path().'\\images\\slider\\'.$slide->image;
+            unlink($file_path);
+            DB::table('sliders')->where('id','=',$id)->delete();
+        }
     }
 
     public function deleteSection($id)
     {
-        $slide = DB::table('sections')->where('id','=',$id)->delete();
-       
+        $section = DB::table('sections')->where('id','=',$id)->first();
+        if (strpos($section->image, 'http') == false) {
+                $file_path = public_path().'\\images\\sections\\'.$section->image;
+                unlink($file_path); 
+            DB::table('sections')->where('id','=',$id)->delete();
+        }
+              
     }
 
     public function updateSlide(Request $request)
     {
         $id=$request->id;
+
+        $slidex = DB::table('sliders')->where('id','=',$id)->first();
         if($request->hasFile('image')){
+            if (strpos($slidex->image, 'http') == false) {
+                $file_path = public_path().'\\images\\slider\\'.$slidex->image;
+                unlink($file_path);
+            }
             $image = $request->file('image');
             $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\slider\\". $imageName));
@@ -261,7 +276,12 @@ class HomeController extends Controller
     public function updateSection(Request $request)
     {
         $id=$request->id;
+        $sectionx = DB::table('sections')->where('id','=',$id)->first();
         if($request->hasFile('image')){
+            if (strpos($sectionx->image, 'http') == false) {
+                $file_path = public_path().'\\images\\sections\\'.$sectionx->image;
+                unlink($file_path); 
+            }
             $image = $request->file('image');
             $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path("images\\sections\\". $imageName));

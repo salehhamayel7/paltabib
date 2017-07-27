@@ -28,6 +28,32 @@
     <!-- Bootstrap -->
     <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
+    
+    <?php
+        $url =  $_SERVER['REQUEST_URI'];
+
+       if (strpos($url, 'allClinics') !== false) {
+        ?>
+            @include('admin.scripts.allClinics_script')
+        <?php
+        }
+        else if (strpos($url, 'clinicRegistration') !== false) {
+        ?>
+            @include('admin.scripts.regClinic_script')
+        <?php
+        }
+        else if (strpos($url, 'HomeConfig') !== false) {
+        ?>
+            @include('admin.scripts.homeConfig_script')
+        <?php
+        }
+        else{
+        ?>  
+            @include('admin.scripts.home_script')
+
+        <?php
+        }
+    ?>
 
 
     </body>
