@@ -40,7 +40,7 @@ Route::get('/dashboard/admin/HomeConfig','HomeController@showHomeConfig')->middl
 Route::get('/ajax/clinic/get/{id}','ClinicController@getClinic')->middleware(['auth','admin']);
 Route::post('/clinic/update','ClinicController@updateClinic')->middleware('auth');
 Route::get('/ajax/clinic/banorunban/{id}','ClinicController@banOrNotClinic')->middleware(['auth','admin']);
-
+Route::get('/dashboard/admin/payments','HomeController@showPayments')->middleware(['auth','admin']);
 
 Route::get('/ajax/clinic/delete/{id}','ClinicController@deleteClinic')->middleware(['auth','admin']);
 Route::post('/slider/add','HomeController@addSlider')->middleware(['auth','admin']);
@@ -54,6 +54,9 @@ Route::get('/section/get/{id}','HomeController@getSection')->middleware(['auth',
 Route::get('/section/show/{id}','HomeController@showSection')->middleware(['auth','admin']);
 Route::post('/section/update','HomeController@updateSection')->middleware(['auth','admin']);
 Route::get('/section/delete/{id}','HomeController@deleteSection')->middleware(['auth','admin']);
+
+Route::get('/paymen_method/get/{id}','HomeController@getMethod')->middleware(['auth','admin']);
+Route::post('/payment_method/edit','HomeController@updateMethod')->middleware(['auth','admin']);
 
 
 ////////////////////////////////////

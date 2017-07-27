@@ -10,6 +10,10 @@ ul.quick-list li {
     text-overflow: ellipsis;
 }
 
+.paymentPic{
+    height: 242px !important;
+    width:100%;
+}
 .tile_count .tile_stats_count {
     border-bottom: 1px solid #D9DEE4;
     padding: 0 10px 0 20px;
@@ -94,3 +98,4 @@ table.dataTable {
         border-left: 2px solid #73879c;
     }
 }
+

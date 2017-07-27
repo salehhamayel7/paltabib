@@ -138,6 +138,26 @@ class HomeController extends Controller
     
     }
 
+    
+    public function getMethod($id)
+    {
+        $method = DB::table('payment_methods')->where('id','=',$id)->first();
+        $data =[
+            'method' => $method,
+        ];
+        return $data;
+    }
+
+    public function showPayments()
+    {
+ 
+        $user = Auth::user();
+        $methods = DB::table('payment_methods')->get();
+               
+        return view('admin/payment_methods' , compact('user','methods'));
+    
+    }
+
     public function showHomeConfig()
     {
  
@@ -245,14 +265,44 @@ class HomeController extends Controller
               
     }
 
+    
+    public function updateMethod(Request $request)
+    {
+        $id=$request->id;
+
+        $methodx = DB::table('payment_methods')->where('id','=',$id)->first();
+        if($request->hasFile('image')){
+            if (strpos($methodx->image, 'lorempixel') == false) {
+                $file_path = public_path().$methodx->image;
+                unlink($file_path);
+            }
+            $image = $request->file('image');
+            $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path("images\\payment_methods\\". $imageName));
+            DB::table('payment_methods')
+                ->where('id','=',$id)
+                ->update(['image' => "/images/payment_methods/".$imageName]);
+        }
+
+         DB::table('payment_methods')->where('id','=',$id)
+            ->update([
+                'title' => $request->title,
+                'price' => $request->price,
+                'description' => $request->description,
+        ]);
+
+        return redirect()->back();
+       
+    }
+
     public function updateSlide(Request $request)
     {
         $id=$request->id;
 
         $slidex = DB::table('sliders')->where('id','=',$id)->first();
         if($request->hasFile('image')){
-            if (strpos($slidex->image, 'http') == false) {
-                $file_path = public_path().'\\images\\slider\\'.$slidex->image;
+            if (strpos($slidex->image, 'lorempixel') == false) {
+                $file_path = public_path().$slidex->image;
                 unlink($file_path);
             }
             $image = $request->file('image');
@@ -260,7 +310,7 @@ class HomeController extends Controller
             Image::make($image)->resize(300,300)->save(public_path("images\\slider\\". $imageName));
             DB::table('sliders')
                 ->where('id','=',$id)
-                ->update(['image' => $imageName]);
+                ->update(['image' => "/images/slider/".$imageName]);
         }
 
         $slide = DB::table('sliders')->where('id','=',$id)
@@ -278,8 +328,8 @@ class HomeController extends Controller
         $id=$request->id;
         $sectionx = DB::table('sections')->where('id','=',$id)->first();
         if($request->hasFile('image')){
-            if (strpos($sectionx->image, 'http') == false) {
-                $file_path = public_path().'\\images\\sections\\'.$sectionx->image;
+            if (strpos($sectionx->image, 'lorempixel') == false) {
+                $file_path = public_path().$sectionx->image;
                 unlink($file_path); 
             }
             $image = $request->file('image');
@@ -287,7 +337,7 @@ class HomeController extends Controller
             Image::make($image)->resize(300,300)->save(public_path("images\\sections\\". $imageName));
             DB::table('sections')
                 ->where('id','=',$id)
-                ->update(['image' => $imageName]);
+                ->update(['image' => "/images/sections/".$imageName]);
         }
 
         $slide = DB::table('sections')->where('id','=',$id)

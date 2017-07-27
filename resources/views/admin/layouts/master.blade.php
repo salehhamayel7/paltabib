@@ -47,6 +47,11 @@
             @include('admin.scripts.homeConfig_script')
         <?php
         }
+        else if (strpos($url, 'payments') !== false) {
+        ?>
+            @include('admin.scripts.payment_script')
+        <?php
+        }
         else{
         ?>  
             @include('admin.scripts.home_script')
