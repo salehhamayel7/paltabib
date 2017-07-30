@@ -1,6 +1,15 @@
 @extends('manager/layouts.master')
 @section('content')
 
+<style>
+	.input-group-addon{
+		    min-width: 127px;
+	}
+	.input-group input{
+		    text-align: right;
+	}
+</style>
+
         <!-- page content -->
 		 <div class="right_col" role="main">
           <div class="page-content">
@@ -89,100 +98,75 @@
 										  <span dir="rtl" class="section">اضف معلومات السكرتير</span>
 										  <input type="hidden" name="_token" value="{{csrf_token()}}">
                       <input type="hidden" name="ADclinic" value="{{$clinic->id}}">
-                     
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADName">الاسم <span class="required">*</span>
-											</label>
-											<div style="float:center;" class="col-md-6 col-sm-6 col-xs-12">
-											  <input placeholder="مثال: صالح" title="الاسم" name="ADName" id="ADName" class="form-control col-md-7 col-xs-12" required="required" type="text">
-											</div>
-										  </div>
-										  
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADuName">اسم المستخدم<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="رقم الهوية" type="text" id="ADuName" name="ADuName" required="required" class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
-										  
-										  <div class="item form-group" id = "passDev">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADpass">كلمة السر <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="كلمة السر" type="password" id="ADpass" name="ADpass" required="required" data-validate-min="6" class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
-										  
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADemail">الايميل <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input placeholder="xxxxxx@xxxx.xxx" title="الايميل" type="email" id="ADemail" name="ADemail" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
-										  
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADgender">الجنس<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											<select id="ADgender" name="ADgender" class="form-control col-md-7 col-xs-12">
-											  <option value="Male">ذكر</option>
-											  <option value="Female">انثى</option>
-											</select>
-											</div>
-										  </div>
-										  
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADaddress">العنوان <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input placeholder="المدينة/القرية" title="العنوان" type="text" id="ADaddress" name="ADaddress" required="required"  class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
-										  
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADphone">رقم الهاتف <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input placeholder="+xxx-xxx-xxxxxx" title="رقم الهاتف" type="text" id="ADphone" name="ADphone" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
-										 
-										  
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ATimage">الصورة الشخصية
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
 
-                      <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_image">ملف/صورة الهوية<span class="required" id="imgAstrik">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required" class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
+											<div class="row" dir="ltr">
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input placeholder="مثال: صالح" title="الاسم" name="ADName" id="ADName" class="form-control col-md-7 col-xs-12" data-validate-length-range="15" data-validate-words="1"  required="required" type="text">
+														<span class="input-group-addon" id="basic-addon2">الاسم</span>
+													</div>
 
-                      <hr>
-										  
-										  <div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="ADsalary">الراتب <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-											  <input title="الراتب" type="number" id="ADsalary" name="ADsalary" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-											</div>
-										  </div>
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input title="اسم المستخدم" type="text" id="ADuName" name="ADuName" required="required"  class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">اسم المستخدم</span>
+													</div>
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input title="كلمة المرور" type="password" id="ADpass" name="ADpass" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">كلمة المرور</span>
+													</div>
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input  title="الايميل" type="email" id="ADemail" name="ADemail" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">الايميل</span>
+													</div>
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<select id="ADgender" name="ADgender" class="form-control col-md-7 col-xs-12">
+															<option value="Male">ذكر</option>
+															<option value="Female">انثى</option>
+														</select>
+														<span class="input-group-addon" id="basic-addon2">الجنس</span>
+													</div>
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input placeholder="المدينة/القرية" title="العنوان" type="text" id="ADaddress" name="ADaddress" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">العنوان</span>
+													</div>
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input title="رقم الهاتف" type="number" id="ADphone" name="ADphone" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">رقم الهاتف</span>
+													</div>
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" class="form-control col-md-7 col-xs-12" value="User_Avatar-512.png">
+														<span class="input-group-addon" id="basic-addon2">الصورة الشخصية</span>
+													</div>
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">ملف/صورة الهوية</span>
+													</div>
+
+													<hr/>
+
+
+													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+														<input title="الراتب" type="number" id="ADsalary" name="ADsalary" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">الراتب</span>
+													</div>
+
 									
-										  <div class="ln_solid"></div>
-										  <div class="form-group">
-											<div class="col-md-6 col-md-offset-3">
-											  <button id="send" type="submit" onClick="validataddTeacher()" class="btn btn-success"><i class="fa fa-floppy-o"></i> اضف</button>
-											  <a id="cancel" type="submit" href="" class="btn btn-primary"><i class="fa fa-times"></i> الغاء</a>
-											</div>
-										  </div>
+													
+													<div class="ln_solid"></div>
+													<div class="form-group">
+													<div class="col-md-6 col-md-offset-5">
+														 <button id="send" type="submit" onClick="validataddTeacher()" class="btn btn-success"><i class="fa fa-floppy-o"></i> اضف</button>
+											  		<a id="cancel" type="submit" href="" class="btn btn-primary"><i class="fa fa-times"></i> الغاء</a>
+													</div>
+													</div>
+												</div>
+
 										</form>
 									</div>
 										

@@ -24,6 +24,7 @@
                 $('#passDev').hide();
                 $('#imgAstrik').hide();
                 $('#ATimage').removeAttr("required");
+                $('#id_image').removeAttr("required");
                 $("#send").attr("onClick","");
                 $("#send").html("تعديل");
                 $("#addNurseform").attr("action","/nurse/update/"+user_name);

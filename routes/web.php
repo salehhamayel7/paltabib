@@ -98,8 +98,8 @@ Route::get('/dashboard/doctor/secretaries','SecretariesController@showAllSecreta
 Route::get('/dashboard/doctor/nurses','NursesController@showAllNurses')->middleware(['auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/pacients','PacientController@showAllPacients')->middleware(['auth','doctor','notBanned']);
 
-Route::get('/ajax/edit/doctor/{username}','DoctorsController@edit')->middleware(['auth','doctor','notBanned']);
-Route::post('/doctor/update/{username}','DoctorsController@update')->middleware(['auth','doctor','notBanned']);
+Route::get('/ajax/edit/doctor/{username}','DoctorsController@edit')->middleware(['auth','stuff','notBanned']);
+Route::post('/doctor/update/{username}','DoctorsController@update')->middleware(['auth','stuff','notBanned']);
 Route::post('/doctor/changeProfilePic','DoctorsController@changePic')->middleware(['auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/patientsRecords','PacientController@showAllRecords')->middleware(['auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/record/{user_name}','PacientController@showRecord')->middleware(['auth','doctor','notBanned']);
@@ -147,8 +147,8 @@ Route::get('/dashboard/secretary/pacients','PacientController@showAllPacients')-
 Route::post('/dashboard/secretary/updateBill','BillsController@updateBill')->middleware(['auth','secretary','notBanned']);
 Route::post('/dashboard/secretary/updateExpense','BillsController@updateExpense')->middleware(['auth','secretary','notBanned']);
 Route::get('/dashboard/secretary/calendar','AppointmentController@showCalendar')->middleware(['auth','secretary','notBanned']);
-Route::get('/ajax/edit/secretary/{username}','SecretariesController@edit')->middleware(['auth','secretary','notBanned']);
-Route::post('/secretary/update/{username}','SecretariesController@update')->middleware(['auth','secretary','notBanned']);
+Route::get('/ajax/edit/secretary/{username}','SecretariesController@edit')->middleware(['auth','stuff','notBanned']);
+Route::post('/secretary/update/{username}','SecretariesController@update')->middleware(['auth','stuff','notBanned']);
 
 ///////////////////////////////////////////////////////
 

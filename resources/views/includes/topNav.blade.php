@@ -13,7 +13,7 @@
                   <ul class="dropdown-menu dropdown-usermenu" style="text-align: right; font-size: 13px; width: 100%;">
                     <li><a href="/dashboard/{{$href}}"> الرئيسية</a></li>
                     <hr style="margin:0px;">
-                    <li><a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <li><a style="padding-left: 0;" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out pull-left"></i> تسجيل الخروج</a></li>
                   </ul>
                 </li>

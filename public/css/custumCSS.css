@@ -424,6 +424,10 @@ th {
     overflow: auto;
 }
 
+.nav-sm div div div div div ul {
+    margin-top: 0px;
+}
+
 
 @media screen and (min-width: 990px) {
     .nav-md .container.body .right_col {
@@ -503,5 +507,8 @@ th {
         margin-left: 0px;
         margin-right: 0px;
         padding: 0px;
+    }
+    .panel_toolbox{
+        min-width: 0px;
     }
 }

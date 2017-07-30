@@ -131,12 +131,9 @@ class DoctorsController extends Controller
 
     }
 
-    public function edit($user_name)
+    public function edit($username)
     {
-        $doctor = $this->doctor->getDoctorWithUserName($user_name);
-        $user = \App\User::where('user_name','=',$user_name)->first();
-        $data = ['doctor' => $doctor, 'user' => $user];
-        return $data;
+        return $this->doctor->getDoctorWithUserName($username);
     }
     
      public function changePic(Request $request)

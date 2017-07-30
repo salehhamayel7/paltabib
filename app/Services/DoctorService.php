@@ -62,7 +62,21 @@ class DoctorService{
     }
      public function getDoctorWithUserName($user_name)
     {
-      return Doctor::where('user_name','=',$user_name)->first();
+        $doctor = DB::table('doctors')
+            ->where('user_name', $user_name)
+            ->first();
+        
+        $user = DB::table('users')
+            ->where('user_name', $user_name)
+            ->first();
+
+        $data =[
+            'doctor' => $doctor,
+             'user' => $user,
+        ];
+
+        
+        return $data;
     }
     
       public function updateDoctorWithUserName(Request $request,$user_name)
