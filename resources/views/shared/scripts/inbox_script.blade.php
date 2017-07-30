@@ -37,7 +37,7 @@
                     success: function(data)
                     {
                       $('#smsgtitle').val('رد على: '+data.msg.title);
-                      $('#editor').val("\n\n-----------------\n"+data.msg.message);
+                      $('textarea').val("\n\n-----------------\n"+data.msg.message);
                       $('#smsgreceiver').val(data.sender.user_name);
                       $("#compose").click();
                     }

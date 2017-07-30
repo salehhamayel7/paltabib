@@ -107,7 +107,7 @@ class MessageController extends Controller
             ->join('users', 'messages.sender_id', '=', 'users.user_name')
             ->select('users.*','messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')
-            ->paginate(6, ['*'], 'msgs');
+            ->paginate(8, ['*'], 'msgs');
          
          if($user->role=="Pacient"){
             $doctorsx = DB::table('users')
@@ -201,7 +201,7 @@ class MessageController extends Controller
              ->join('users', 'messages.receiver_id', '=', 'users.user_name')
             ->select('users.*','messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')
-            ->paginate(6, ['*'], 'msgs');
+            ->paginate(8, ['*'], 'msgs');
 
         $currentmsg = DB::table('messages')->where([
                 ['sender_id','=',$user->user_name],
