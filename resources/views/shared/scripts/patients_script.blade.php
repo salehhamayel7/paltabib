@@ -40,8 +40,9 @@
                      $('#fh').val(data.pacient.family_history);
 
                      //$('#tags_1').tagsinput('add', 'some tag');
-
-                     $('#tags_1').val(data.pacient.allergic_from);
+                      
+                      var allergics = (data.pacient.allergic_from).split(',');
+                     $('#tags_1').attr('value',data.pacient.allergic_from);
 
                      if(data.pacient.smoking){
                        //var element = $('#smoker');
@@ -71,8 +72,9 @@
 
                 $('#ADpass').removeAttr("required");
                 $('#ATimage').removeAttr("required");
+                $('#id_image').removeAttr("required");
                 $("#send").attr("onClick","");
-                $("#send").html("حفط التغييرات");
+                $("#send").html("حفظ التغييرات");
                 $("#addPatintform").attr("action","/pacient/update/"+user_name);
 
             });

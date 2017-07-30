@@ -3,6 +3,17 @@
 
 @section('content')
 
+
+
+<style>
+	.input-group-addon{
+		    min-width: 120px;
+	}
+	.input-group input{
+		    text-align: right;
+  }
+  
+</style>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="page-content">
@@ -84,96 +95,123 @@
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     
                     <div class="panel-body">
-                      
 
-                  <div class="col-md-6 col-xs-12">
+                    <div class="row" dir="ltr">
+                      <div class="col-md-6 col-sm-12 col-xs-12 col-md-push-6">
+                        	<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input placeholder="مثال: صالح" title="الاسم" name="ADName" id="ADName" class="form-control col-md-7 col-xs-12" data-validate-length-range="15" data-validate-words="1"  required="required" type="text">
+														<span class="input-group-addon" id="basic-addon2">الاسم</span>
+													</div>
 
-                    <div class="form-group">
-                <label class="control-label">متزوج؟</label>
-                      <input type="checkbox" name="married" id="married" class="js-switch"  /> 
-              </div>
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input title="اسم المستخدم" type="text" id="ADuName" name="ADuName" required="required"  class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">اسم المستخدم</span>
+													</div>
 
-                <div class="form-group">
-                <label class="control-label">مدخن؟</label>
-                  <input type="checkbox" name="smoker" id="smoker" class="js-switch" /> 
-              </div>
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input title="كلمة المرور" type="password" id="ADpass" name="ADpass" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">كلمة المرور</span>
+													</div>
 
-              <div class="form-group">
-                <label class="control-label">يتعاطى الكحول؟</label>
-                <input type="checkbox" name="drunk" id="drunk" class="js-switch"  />
-              </div>
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input  title="الايميل" type="email" id="ADemail" name="ADemail" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">الايميل</span>
+													</div>
+
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<select id="ADgender" name="ADgender" class="form-control col-md-7 col-xs-12">
+															<option value="Male">ذكر</option>
+															<option value="Female">انثى</option>
+														</select>
+														<span class="input-group-addon" id="basic-addon2">الجنس</span>
+													</div>
+                          	<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" class="form-control col-md-7 col-xs-12" value="User_Avatar-512.png">
+														<span class="input-group-addon" id="basic-addon2">الصورة الشخصية</span>
+													</div>
+                      </div>
+
+                      <div class="col-md-6 col-sm-12 col-xs-12 col-md-pull-6">
+                        
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input placeholder="المدينة/القرية" title="العنوان" type="text" id="ADaddress" name="ADaddress" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">العنوان</span>
+													</div>
+
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input title="الوظيفة" type="text" id="ADjob" name="ADjob" required="required" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">الوظيفة</span>
+													</div>
+
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input title="رقم الهاتف" type="number" id="ADphone" name="ADphone" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">رقم الهاتف</span>
+													</div>
+
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input title="رقم التامين" type="number" id="ensurance" name="ensurance" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">رقم التامين</span>
+													</div>
+
+												
+
+													<div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+														<input accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2">ملف/صورة الهوية</span>
+													</div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-6 col-sm-12 col-xs-12 checkss" style="margin-top: -10px;">
+                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <input type="checkbox" name="married" id="married" class="js-switch"  />
+                                <label class="control-label">متزوج؟</label>
+                              </div>
+
+                              <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <input type="checkbox" name="smoker" id="smoker" class="js-switch" />
+                                <label class="control-label">مدخن؟</label>
+                                  
+                              </div>
+
+                              <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <input type="checkbox" name="drunk" id="drunk" class="js-switch"  />
+                                <label class="control-label">يتعاطى الكحول؟</label>
+
+                              </div>
 
 
-              <div class="form-group">
-                <label class="control-label">يتعاطى المخدرات؟</label>
-                  <input type="checkbox" name="sot" id="sot" class="js-switch"  /> 
+                              <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                  <input type="checkbox" name="sot" id="sot" class="js-switch"  /> 
+                                <label class="control-label">يتعاطى المخدرات؟</label>
+                                </div>
+                              
+
+                              <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                      <input type="checkbox" name="disablity" id="disablity" class="js-switch"  /> 
+                                <label class="control-label">هل يعاني من اعاقة؟</label>
+                                    
+                              </div>
+
+                              <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                      <input type="checkbox" name="touchy" id="touchy" class="js-switch" /> 
+                                <label class="control-label">يعاني من الحساسية؟</label>
+                              </div>
+                       </div>
+                         <div class="col-md-6 col-sm-12 col-xs-12" dir="ltr">
+
+                              
+                         <div class="input-group col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+                            <input type="text" name="allergic_from" id="tags_1" type="text" class="tags form-control" />
+                              <div id="suggestions-container" style="position: relative; float: left; "></div>
+                            <span class="input-group-addon" style="    max-width: 120px;" id="basic-addon2">ما الحساسية التي يعاني <br> منها(كلمات مفتاحية)</span>
+													</div>
+                        
+                        </div>
+                    </div>                  
                 </div>
-              
-
-              <div class="form-group">
-                <label class="control-label">هل يعاني من اعاقة؟</label>
-                      <input type="checkbox" name="disablity" id="disablity" class="js-switch"  /> 
-                    
               </div>
-
-              <div class="form-group">
-                <label class="control-label">يعاني من الحساسية؟</label>
-                      <input type="checkbox" name="touchy" id="touchy" class="js-switch" /> 
-                  
-              </div>
-
-
-              <div class="form-group">
-                <label class="control-label">ما الحساسية التي يعاني منها(كلمات مفتاحية)</label>
-              
-                  <input type="text" name="allergic_from" id="tags_1" type="text" class="tags form-control" value="" />
-                  <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
-                
-              </div>
-                  </div>
-
-
-                  <div class="col-md-6 col-xs-12">
-                    <label for="ADName">اسم المريض</label>
-                    <input aria-describedby="اسم المريض" title="الاسم" name="ADName" id="ADName" class="form-control"  required="required" type="text">
-                  
-                  <label for="ADName">اسم المستخدم</label>
-                    <input aria-describedby="اسم المستخدم" title="اسم المستخدم" type="text" id="ADuName" name="ADuName" class="form-control" required="required">
-                  
-                  <label for="ADpass">كلمة السر</label>
-                    <input aria-describedby="كلمة السر" title="كلمة السر" name="ADpass" id="ADpass" class="form-control"  required="required" type="password">
-                  
-                  <label for="ADemail">الايميل</label>
-                    <input aria-describedby="الايميل" title="الايميل" name="ADemail" id="ADemail" class="form-control"  required="required" type="email">
-                  
-                  <label for="ADgender">الجنس</label>
-                    <select aria-describedby="الجنس" title="الجنس" id="ADgender" name="ADgender" class="form-control" required="required">
-                      <option value="Male">ذكر</option>
-                      <option value="Female">انثى</option>
-                    </select>
-
-                    <label for="ADaddress">العنوان/مكان السكن</label>
-                    <input aria-describedby="العنوان/مكان السكن" title="العنوان/مكان السكن" name="ADaddress" id="ADaddress" class="form-control"  required="required" type="text">
-                  
-                  <label for="ADjob">الوظيفة</label>
-                    <input aria-describedby="الوظيفة" title="الوظيفة" name="ADjob" id="ADjob" class="form-control"  required="required" type="text">
-                  
-                  <label for="ADphone">رقم الهاتف</label>
-                    <input aria-describedby="رقم الهاتف" title="رقم الهاتف" name="ADphone" id="ADphone" class="form-control"  required="required" type="number">
-                  
-                  <label for="ensurance">رقم التامين</label>
-                    <input aria-describedby="رقم التامين" title="رقم التامين" name="ensurance" id="ensurance" class="form-control"  required="required" type="number">
-                  
-                  <label for="ATimage">الصورة الشخصية</label>
-                    <input aria-describedby="الصورة الشخصية" title="الصورة الشخصية" name="ATimage" id="ATimage" class="form-control" type="file" accept="image/*" id="ATimage">
-
-                    <label for="ATimage">ملف/صورة الهوية</label>
-                    <input aria-describedby="ملف/صورة الهوية" class="form-control" accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required">
-                  </div>
-                  
-
-                  </div>
-                </div>
               </div>
               <div class="panel">
                 <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">

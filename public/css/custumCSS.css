@@ -433,6 +433,9 @@ th {
     .nav-md .container.body .right_col {
         margin-right: 230px;
     }
+    .checkss{
+        padding-right: 67px;
+    }
 }
 
 @media screen and (min-width: 768px) {

@@ -126,7 +126,6 @@ Route::get('/ajax/message/saw/{msg_id}','MessageController@sawMessage')->name('s
 Route::get('/dashboard/pacient','PacientController@showPacient')->middleware(['auth','patient']);
 Route::get('/dashboard/pacient/calendar','AppointmentController@showCalendar')->middleware(['auth','patient']);
 Route::post('/dashboard/pacient/changeProfilePic','PacientController@changePic')->middleware(['auth','patient']);
-Route::post('/pacient/update/{username}','PacientController@update')->middleware(['auth','patient']);
 Route::get('/dashboard/pacient/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','patient']);
 Route::get('/dashboard/pacient/outbox','MessageController@showOutbox')->middleware(['auth','patient']);
 Route::get('/dashboard/pacient/my_record','PacientController@showMyRecord')->middleware(['auth','patient']);
