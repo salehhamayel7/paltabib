@@ -105,7 +105,10 @@ else{
                             </div>
                           </div>
                           <div id="msgbody" class="view-mail">
-                            {{ $currentmsg->message }}
+                            <?php
+                                echo htmlspecialchars_decode($currentmsg->message);
+                            ?>
+                            
                            </div>                        
                         </div>
                          @endif

@@ -14,7 +14,7 @@
                      $('#sender_name').html(data.sender.name);
                      $('#sender_mail').html(data.sender.email);
                      $('#msgtitle').html(data.msg.title);
-                     $('#msgbody').html(data.msg.message);
+                     $('#msgbody').html((data.msg.message));
                      $("#deleteMSG").attr("href", "/message/delete/receiver/"+data.msg.id);
                      $("#replyMsg").attr("data", data.msg.id);
                   
@@ -25,26 +25,6 @@
 
             });
 
-
-          $("#sendMsgFrom").submit(function(e) {
-
-              var url = "/send/msg"; // the script where you handle the form input.
-
-              $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: $("#sendMsgFrom").serialize(), // serializes the form's elements.
-                    success: function(data)
-                    {
-                         $("#closeCompose").click();
-                         $("#msgModal").click();
-                         $('#smsgtitle').val('');
-                         $('#editor').val("");
-                    }
-                  });
-
-              e.preventDefault(); // avoid to execute the actual submit of the form.
-          });
 
         });
 
