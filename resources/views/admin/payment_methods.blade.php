@@ -17,7 +17,7 @@
                     </div>
                     <div class="panel-body">
                         <span class="price"><sup>$</sup>{{$method->price - 1}}<sup>99</sup></span>
-                        <span class="period">per month</span>
+                        <span class="period">{{$method->method}}</span>
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item"><strong>{{$method->description1}}</strong></li>
