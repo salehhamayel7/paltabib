@@ -2,6 +2,7 @@
 @section('content')
 <?php
 use App\Doctor;
+use App\User;
 ?>
         <div class="right_col" role="main">
           <div class="page-content">

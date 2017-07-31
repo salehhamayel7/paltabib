@@ -71,10 +71,9 @@ class AppointmentController extends Controller
         list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
 
         $doctorS = DB::table('users')
-            ->where([
-                        ['clinic_id', $user->clinic_id],
-                        ['role', '=', 'Doctor'],
-                    ])->get();
+            ->where('clinic_id', $user->clinic_id)
+            ->whereIn('role', ['Doctor','Manager,Doctor'])
+            ->whereNotIn('user_name', [$user->user_name])->get();
         
         $temp_patients = DB::table('pacients')
                     ->whereNotIn('pacients.user_name', [$user->user_name])
@@ -97,7 +96,7 @@ class AppointmentController extends Controller
         return view('shared/calendarD' , compact('user','clinic','new_msgs','patients','doctorS','money_notification'));
     }
 
-      public function showCalendar()
+    public function showCalendar()
     {
         
         list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
@@ -153,6 +152,34 @@ class AppointmentController extends Controller
     }
 
     
+
+    public function showPatientCalendar()
+    {
+        
+        list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+         $doctorsx = DB::table('users')
+                ->whereIn('role', ['Doctor', 'Manager,Doctor'])
+                ->whereNotIn('user_name', [$user->user_name])->get();
+            $doctorS = array();
+            foreach($doctorsx as $doctor){
+                $temp1 = DB::table('appointments')
+                    ->where([
+                        ['pacient_id', '=', Auth::user()->user_name],
+                        ['doctor_id', '=', $doctor->user_name],
+                    ])->get();
+                $temp2 = DB::table('histories')
+                    ->where([
+                        ['patient_id', '=', Auth::user()->user_name],
+                        ['doctor_id', '=', $doctor->user_name],
+                    ])->get();
+                if(count($temp1) > 0 || count($temp2) > 0){
+                    array_push($doctorS, $doctor);
+                }
+            }
+        return view('patient/calendar' , compact('user','clinic','doctorS','new_msgs','money_notification'));
+    }
+
+    
     public function showAppointments($id)
     {
         return $this->appointment->showDocAppointments($id);
@@ -186,5 +213,17 @@ class AppointmentController extends Controller
     {
         $this->appointment->changeAppointmentDate($date,$id);
     }
+
+    public function getPatietsAppointmens()
+    {
+        return $this->appointment->getPatietsAppointmens();
+    }
+
+    public function createPatietsAppointmens(Request $request)
+    {
+         $this->appointment->createAppointment($request);
+         return redirect()->back();
+    }
+
 
 }

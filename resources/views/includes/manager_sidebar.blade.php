@@ -30,8 +30,7 @@
       </li>
       <li><a href="/dashboard/manager/patientsRecords"><i class="fa fa-book"></i>سجل المرضى والمراجعات</a>
       </li>
-      <li><a href="/dashboard/manager/search"><i class="fa fa-search"></i>البحث</a>
-      </li>
+    
       @if($user->role == "Manager,Doctor")
       <li><a href="/dashboard/manager/myCalendar"><i class="fa fa-calendar"></i>التقويم (مواعيدي)</a>
       </li>

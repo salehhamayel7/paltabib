@@ -24,6 +24,8 @@ else{
 
     <title>الرئيسية </title>
     @include('includes.links')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{{asset('../vendors/bootstrap-select-master/dist/css/bootstrap-select.min.css')}}">
   </head>
 
   <body class="nav-md" dir="rtl">
@@ -81,24 +83,36 @@ else{
         $url =  $_SERVER['REQUEST_URI'];
 
         if (strpos($url, 'inbox') !== false) {
-        ?>
+?>
+
             @include('shared.scripts.inbox_script')
         <?php
         }
         else if (strpos($url, 'outbox') !== false) {
-        ?>
+?>
+
             @include('shared.scripts.outbox_script')
         <?php
         }
         else if (strpos($url, 'calendar') !== false) {
         ?>
+         
+          <!-- FullCalendar -->
+          <script src="{{asset('../vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
+          <script src="{{asset('../js/full-calendar-pat.js')}}"></script>
+        <?php
+        }
+        else if (strpos($url, 'myCalendar') !== false) {
+        ?>
           <!-- selectpicker -->
           <script src="{{asset('../vendors/bootstrap-select-master/dist/js/bootstrap-select.min.js')}}"></script>
           <!-- FullCalendar -->
           <script src="{{asset('../vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-          <script src="{{asset('../js/full-calendar-sec.js')}}"></script>
+         
+          @include('patient.scripts.myCalendar_script')
         <?php
         }
+        
         else{
         ?>  
             @include('patient.scripts.home_script')
@@ -106,7 +120,8 @@ else{
         <?php
         }
     ?>
-
+<!-- selectpicker -->
+          <script src="{{asset('../vendors/bootstrap-select-master/dist/js/bootstrap-select.min.js')}}"></script>
   </body>
 </html>
 

@@ -55,7 +55,14 @@ body {}
 .nav-sm .nav.side-menu{
     height: 100%;
     overflow-y: inherit;
-    
+    margin-top: 52px;
+}
+
+.x_title>h2{
+    width: 40%;
+}
+.nav.navbar-left.panel_toolbox{
+    float: left;
 }
 
 .nav-sm .container.body .col-md-3.left_col.menu_fixed {
@@ -138,9 +145,11 @@ footer {
 }
 
 .site_title {
-    margin-right: 15px;
+    margin-right: 10px;
 }
-
+.dropdown-header {
+    text-align: center;
+}
 .nav-sm ul.nav.child_menu {
     right: 100%;
 }
@@ -413,9 +422,6 @@ th {
     margin-top: 60px;
 }
 
-.nav-sm div div div div div ul {
-    margin-top: 39px;
-}
 
 .nav-md div div div div nav ul>.nav-user {
     padding: 5px;
@@ -425,9 +431,18 @@ th {
     overflow: auto;
 }
 
-.nav-sm div div div div div ul {
-    margin-top: 0px;
+.nav-sm .sidebar-menu {
+    margin-top: 20px;
 }
+
+.nav-sm .nav.child_menu>li>a{
+    text-align: right !important;
+}
+
+.nav-sm .nav.child_menu{
+    width: 153% !important;
+}
+    
 
 
 @media screen and (min-width: 990px) {
@@ -514,5 +529,12 @@ th {
     }
     .panel_toolbox{
         min-width: 0px;
+    }
+
+    .nav.nav-tabs.bar_tabs li{
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 }

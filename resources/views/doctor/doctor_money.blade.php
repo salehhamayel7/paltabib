@@ -88,7 +88,7 @@
                               <div class="item form-group">
                               
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                              <select id="doctor" name="doctor" class="form-control col-md-7 col-xs-12" required="required">
+                              <select id="doctor" name="doctor"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
                                <optgroup label="الاطباء">
                                    
                                   <option value='{{$user->user_name}}'>{{$user->name}}({{$user->user_name}})</option>
@@ -104,7 +104,7 @@
                                <div class="item form-group">
                               
                               <div class="col-md-8 col-sm-8 col-xs-12" >
-                              <select id="pacient" name="pacient" class="form-control col-md-7 col-xs-12" required="required">
+                              <select id="pacient" name="pacient"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
                                 <optgroup label="المرضى">
                                     <?php
                                     foreach($pacients as $pacient){

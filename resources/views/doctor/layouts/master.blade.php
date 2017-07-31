@@ -26,6 +26,8 @@ else{
     @include('includes.Datatables_links')
     <!-- bootstrap-progressbar -->
     <link href="{{asset('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{{asset('../vendors/bootstrap-select-master/dist/css/bootstrap-select.min.css')}}">
 
   </head>
 
@@ -35,7 +37,7 @@ else{
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view" >
             <div class="navbar nav_title navbar-fixed-top" style="border: 0;">
-              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>{{$clinic->name}}</span></a>
+              <a href="/" class="site_title"><img style="max-height: 50px;" src="/images/clinics_logos/{{$clinic->logo}}"></img> <span>{{$clinic->name}}</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -115,8 +117,7 @@ else{
         }
         else if (strpos($url, 'calendar') !== false) {
         ?>
-          <!-- selectpicker -->
-          <script src="{{asset('../vendors/bootstrap-select-master/dist/js/bootstrap-select.min.js')}}"></script>
+         
           <!-- FullCalendar -->
           <script src="{{asset('../vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
           <script src="{{asset('../js/full-calendar-doc.js')}}"></script>
@@ -135,7 +136,8 @@ else{
         <?php
         }
     ?>
-    
+    <!-- selectpicker -->
+    <script src="{{asset('../vendors/bootstrap-select-master/dist/js/bootstrap-select.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/managerJS.js')}}"></script>
 
   </body>

@@ -55,7 +55,105 @@ else{
               <div id="myTabContent2" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
                   
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="col-md-6 col-md-push-6 col-sm-6 col-xs-12">
+
+                  <div class="x_panel">
+                      <div class="x_title">
+
+                        <ul class="nav navbar-left panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                        </ul>
+                      <h2 style="float:right;">اضافة فاتورة مستحقة جديدة</h2>
+                        <div class="clearfix"></div>
+                      </div>
+
+                      <form id="addBillsForm" action="/ajax/bill/create" method="post" class="form-horizontal form-label-left">
+                          {{ csrf_field() }}
+                      
+                      <div class="item form-group">
+                      
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                      <select  id="doctor" name="doctor" data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                        <optgroup label="الاطباء">
+                            <?php
+                            foreach($doctors as $doctor){
+                              echo "<option value='".$doctor->user_name."'>".$doctor->name."(".$doctor->user_name.")"."</option>";
+
+                            }
+                            
+                            ?>
+                        </optgroup>
+                      </select>
+                      </div>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="doctor">
+                        الطبيب المعالج
+                      </label>
+                      </div>
+
+                        <div class="item form-group">
+                      
+                      <div class="col-md-8 col-sm-8 col-xs-12" >
+                      <select id="pacient" name="pacient"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                        <optgroup label="المرضى">
+                            <?php
+                            foreach($pacients as $pacient){
+                              echo "<option value='".$pacient->user_name."'>".$pacient->name."(".$pacient->user_name.")"."</option>";
+
+                            }
+                            
+                            ?>
+                        </optgroup>
+                      </select>
+                      </div>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pacient">
+                        المريض
+                      </label>
+                      </div>                           
+                      
+                      <div class="item form-group">
+                      
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input title="المبلغ المطلوب" type="number" id="value" name="value" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
+                        المبلغ المطلوب
+                      </label>
+                      </div>
+
+                      <div class="item form-group">
+                      
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input title="المبلغ المدفوع" type="number" id="paid_value" name="paid_value" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
+                        المبلغ المدفوع
+                      </label>
+                      </div>
+
+                      <div class="item form-group">
+                      
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input title="الوصف والملاحظات" type="text" id="description" name="description" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+                      </div>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">
+                          الوصف والملاحظات
+                      </label>
+                      </div>
+                
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        <button id="saveBill" type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> حفظ الفاتورة </button>
+                      </div>
+                      </div>
+                    </form>
+                      
+                    </div>   
+
+                  </div>
+
+                  <div class="col-md-6 col-md-pull-6 col-sm-6 col-xs-12">
                     <div class="x_panel">
                       <div class="x_title">
 
@@ -114,147 +212,10 @@ else{
                     </div>
                     </div>
 
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-
-                  <div class="x_panel">
-                      <div class="x_title">
-
-                        <ul class="nav navbar-left panel_toolbox">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-                        </ul>
-                      <h2 style="float:right;">اضافة فاتورة مستحقة جديدة</h2>
-                        <div class="clearfix"></div>
-                      </div>
-
-                      <form id="addBillsForm" action="/ajax/bill/create" method="post" class="form-horizontal form-label-left">
-                          {{ csrf_field() }}
-                      
-                      <div class="item form-group">
-                      
-                      <div class="col-md-8 col-sm-8 col-xs-12">
-                      <select id="doctor" name="doctor" class="form-control col-md-7 col-xs-12" required="required">
-                        <optgroup label="الاطباء">
-                            <?php
-                            foreach($doctors as $doctor){
-                              echo "<option value='".$doctor->user_name."'>".$doctor->name."(".$doctor->user_name.")"."</option>";
-
-                            }
-                            
-                            ?>
-                        </optgroup>
-                      </select>
-                      </div>
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="doctor">
-                        الطبيب المعالج
-                      </label>
-                      </div>
-
-                        <div class="item form-group">
-                      
-                      <div class="col-md-8 col-sm-8 col-xs-12" >
-                      <select id="pacient" name="pacient" class="form-control col-md-7 col-xs-12" required="required">
-                        <optgroup label="المرضى">
-                            <?php
-                            foreach($pacients as $pacient){
-                              echo "<option value='".$pacient->user_name."'>".$pacient->name."(".$pacient->user_name.")"."</option>";
-
-                            }
-                            
-                            ?>
-                        </optgroup>
-                      </select>
-                      </div>
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pacient">
-                        المريض
-                      </label>
-                      </div>                           
-                      
-                      <div class="item form-group">
-                      
-                      <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input title="المبلغ المطلوب" type="number" id="value" name="value" required="required" class="form-control col-md-7 col-xs-12">
-                      </div>
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
-                        المبلغ المطلوب
-                      </label>
-                      </div>
-
-                      <div class="item form-group">
-                      
-                      <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input title="المبلغ المدفوع" type="number" id="paid_value" name="paid_value" required="required" class="form-control col-md-7 col-xs-12">
-                      </div>
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
-                        المبلغ المدفوع
-                      </label>
-                      </div>
-
-                      <div class="item form-group">
-                      
-                      <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input title="الوصف والملاحظات" type="text" id="description" name="description" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-                      </div>
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">
-                          الوصف والملاحظات
-                      </label>
-                      </div>
-                
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                      <div class="col-md-6 col-md-offset-3">
-                        <button id="saveBill" type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> حفظ الفاتورة </button>
-                      </div>
-                      </div>
-                    </form>
-                      
-                    </div>   
-
-                  </div>
+                  
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab_content22" aria-labelledby="profile-tab">
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="x_panel">
-                      <div class="x_title">
-
-                        <ul class="nav navbar-left panel_toolbox">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-                        </ul>
-                      <h2 style="float:right;">فواتير المصروفات الحديثة</h2>
-                        <div class="clearfix"></div>
-                      </div>
-                      @if(count($expenses) > 0)
-                      
-                      <div class="x_content">
-                        @foreach($expenses as $expense)
-                          <?php
-                        
-                        $writter = DB::table('users')
-                        ->where('user_name', $expense->source)
-                        ->first();
-
-                      ?>
-                        <article class="media event">
-                          <a class="pull-left">
-                            {{$expense->created_at}}
-                          </a>
-                          <div class="media-body">
-                            <p class="title"><strong>المحرر: </strong>{{$writter->name}}</p>
-                            <p class="title"><strong>المبلغ: </strong>{{$expense->value}}</p>
-                            <p><strong>الوصف: </strong>{{$expense->description}}</p>
-                          </div>
-                        </article>
-                        <hr>
-                      @endforeach
-                    
-                      </div>
-                        <a href="/dashboard/{{$href}}/allExpenses" class="btn btn-success pull-left">كافة فواتير المصروفات</a>
-                      @endif
-                    </div>
-                    </div>
-
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-push-6">
 
                   <div class="x_panel">
                       <div class="x_title">
@@ -302,6 +263,49 @@ else{
                     </div>   
 
                   </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-pull-6">
+                    <div class="x_panel">
+                      <div class="x_title">
+
+                        <ul class="nav navbar-left panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                        </ul>
+                      <h2 style="float:right;">فواتير المصروفات الحديثة</h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      @if(count($expenses) > 0)
+                      
+                      <div class="x_content">
+                        @foreach($expenses as $expense)
+                          <?php
+                        
+                        $writter = DB::table('users')
+                        ->where('user_name', $expense->source)
+                        ->first();
+
+                      ?>
+                        <article class="media event">
+                          <a class="pull-left">
+                            {{$expense->created_at}}
+                          </a>
+                          <div class="media-body">
+                            <p class="title"><strong>المحرر: </strong>{{$writter->name}}</p>
+                            <p class="title"><strong>المبلغ: </strong>{{$expense->value}}</p>
+                            <p><strong>الوصف: </strong>{{$expense->description}}</p>
+                          </div>
+                        </article>
+                        <hr>
+                      @endforeach
+                    
+                      </div>
+                        <a href="/dashboard/{{$href}}/allExpenses" class="btn btn-success pull-left">كافة فواتير المصروفات</a>
+                      @endif
+                    </div>
+                    </div>
+
+                  
                 </div>
               </div>
             </div>

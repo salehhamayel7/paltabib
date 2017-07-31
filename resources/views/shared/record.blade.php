@@ -64,7 +64,7 @@ else{
                               {{$patient->name}}
                             </div>
                             
-                            <ul class="list-group col-md-8 col-sm-12 col-md-offset-2" style="margin-top: 20px; font-size: 14px;">
+                            <ul class="list-group col-md-8 col-sm-12 col-xs-12 col-md-offset-2" style="margin-top: 20px; font-size: 14px;">
                               <li class="list-group-item" title="رقم الهوية">
                                 <i class="fa fa-id-card user-profile-icon"></i>{{$patient->user_name}}
                                 </li>

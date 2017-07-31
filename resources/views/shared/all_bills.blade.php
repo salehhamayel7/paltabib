@@ -36,7 +36,7 @@ else{
               </li>
                 <a href="/dashboard/{{$href}}/money" class="btn btn-round btn-success"> رجوع <i class="fa fa-arrow-left"></i></a>
             </ul>
-            <h2 style="float:right;">كافة الفواتير</h2>
+            <h2 style="float:right;">كافة الفواتير المستحقة <small>اضغط على الفاتورة للمزيد</small></h2>
             
             <div class="clearfix"></div>
             </div>

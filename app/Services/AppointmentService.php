@@ -24,6 +24,21 @@ class AppointmentService{
             ]);
 	}
 
+    
+
+    public function getPatietsAppointmens(){
+        $user = Auth::user();
+		$appointments = DB::table('appointments')
+                ->where([
+                    ['pacient_id', '=', $user->user_name],
+                ])->get();
+            
+		$data =[
+            'appointments' => $appointments,
+        ];
+        return $data;
+	}
+
     public function getAllAppointments(){
         $user = Auth::user();
 		$appointments = DB::table('appointments')
@@ -39,8 +54,10 @@ class AppointmentService{
 	}
     public function getAppointmentWithid($id){
         $appointment = DB::table('appointments')->where('id', '=', $id)->first();
+        $doctor= DB::table('users')->where('user_name',$appointment->doctor_id)->first();
         $data =[
             'appointment' => $appointment,
+            'doctor' => $doctor,
         ];
         return $data;
     }
@@ -78,10 +95,11 @@ class AppointmentService{
         $appointment->save();
 
     }
+    
 
      public function createAppointment(Request $request)
     {
-         $user = Auth::user();
+        $user = Auth::user();
     	$appointment = new Appointment;
 
     	$appointment->date = $request->date;

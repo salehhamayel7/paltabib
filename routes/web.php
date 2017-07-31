@@ -80,7 +80,6 @@ Route::post('/dashboard/manager/addSec','SecretariesController@create')->middlew
 Route::post('/manager/edit','ManagerController@edit')->middleware(['auth','manager','notBanned']);
 Route::get('/dashboard/manager/patientsRecords','PacientController@showAllRecords')->middleware(['auth','manager','notBanned']);
 Route::get('/dashboard/manager/record/{user_name}','PacientController@showRecord')->middleware(['auth','manager','notBanned']);
-Route::get('/dashboard/manager/search','DoctorsController@showSearch')->middleware(['auth','manager','notBanned']);
 Route::get('/dashboard/manager/calendar','AppointmentController@showCalendarD')->middleware(['auth','manager','notBanned']);
 Route::get('/dashboard/manager/myCalendar','AppointmentController@showCalendar')->middleware(['auth','manager','notBanned']);
 Route::post('/ajax/clinic/update','ManagerController@updateClinic')->middleware('auth');
@@ -104,7 +103,6 @@ Route::post('/doctor/changeProfilePic','DoctorsController@changePic')->middlewar
 Route::get('/dashboard/doctor/patientsRecords','PacientController@showAllRecords')->middleware(['auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/record/{user_name}','PacientController@showRecord')->middleware(['auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/calendar','AppointmentController@showCalendar')->middleware(['auth','doctor','notBanned']);
-Route::post('/dashboard/doctor/search','DoctorsController@search')->middleware(['auth','doctor','notBanned']);
 
 /////////////////////////////////////////////////////
 
@@ -129,6 +127,9 @@ Route::post('/dashboard/pacient/changeProfilePic','PacientController@changePic')
 Route::get('/dashboard/pacient/inbox/{msg_id?}','MessageController@showInbox')->middleware(['auth','patient']);
 Route::get('/dashboard/pacient/outbox','MessageController@showOutbox')->middleware(['auth','patient']);
 Route::get('/dashboard/pacient/my_record','PacientController@showMyRecord')->middleware(['auth','patient']);
+Route::get('/dashboard/pacient/myCalendar','AppointmentController@showPatientCalendar')->middleware(['auth','patient']);
+Route::get('/ajax/patient/getAppointments','AppointmentController@getPatietsAppointmens')->middleware(['auth','patient']);
+Route::post('/pactient/appointment/create','AppointmentController@createPatietsAppointmens')->middleware(['auth','patient']);
 
 
 ////////////////////////////////////////////////////////

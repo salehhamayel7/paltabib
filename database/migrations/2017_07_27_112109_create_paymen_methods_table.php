@@ -16,9 +16,13 @@ class CreatePaymenMethodsTable extends Migration
         //
          Schema::create('payment_methods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('description');
-            $table->string('image');
+            $table->string('type');
+            $table->string('description1');
+            $table->string('description2');
+            $table->string('description3');
+            $table->string('description4');
+            $table->string('description5');
+            $table->string('method');
             $table->string('price');
         });
     }

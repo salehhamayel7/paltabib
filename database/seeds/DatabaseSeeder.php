@@ -52,11 +52,28 @@ class DatabaseSeeder extends Seeder
 		}
 
 		for($i=0;$i<3;$i++){
+			if($i == 0){
+				$method = "per month";
+				$type = "Basic";
+			}
+			else if($i == 1){
+				$method = "per year";
+				$type = "Plus";
+				
+			}
+			else{
+				$method = "6 months package";
+				$type = "Ultra";
+			}
 			DB::table('payment_methods')->insert([
-				'title' => "title ".$i,
-				'price' => $i."$/month",
-				'description' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.',
-				'image' => 'http://lorempixel.com/242/300/abstract/qwe'.$i,
+				'type' => $type,
+				'price' => ($i+1)*5*$i,
+				'description1' => 'Cras justo odio',
+				'description2' => 'Cras justo odio',
+				'description3' => 'Cras justo odio',
+				'description4' => 'Cras justo odio',
+				'description5' => 'Cras justo odio',
+				'method' => $method,
 			]);
 		}
 

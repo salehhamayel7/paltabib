@@ -14,7 +14,8 @@
                   </li>
                   <li><a href="/dashboard/pacient/calendar"><i class="fa fa-desktop"></i>الحجوزات</span></a>
                   </li>
-             
+                  <li><a href="/dashboard/pacient/myCalendar"><i class="fa fa-calendar"></i>مواعيدي</span></a>
+                  </li>
                 </ul>
               </div>
          

@@ -84,7 +84,7 @@
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="patient">المريض
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select required="required" id="patient" name="patient" class="form-control col-md-7 col-xs-12">
+                              <select required="required" id="patient" name="patient"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12">
                                 @foreach($patients as $patient)
                                   <option value="{{$patient->user_name}}">{{$patient->name}} ({{$patient->user_name}})</option>
                                 @endforeach

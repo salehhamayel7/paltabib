@@ -270,25 +270,16 @@ class HomeController extends Controller
     {
         $id=$request->id;
 
-        $methodx = DB::table('payment_methods')->where('id','=',$id)->first();
-        if($request->hasFile('image')){
-            if (strpos($methodx->image, 'lorempixel') == false) {
-                $file_path = public_path().$methodx->image;
-                unlink($file_path);
-            }
-            $image = $request->file('image');
-            $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
-            Image::make($image)->resize(300,300)->save(public_path("images\\payment_methods\\". $imageName));
-            DB::table('payment_methods')
-                ->where('id','=',$id)
-                ->update(['image' => "/images/payment_methods/".$imageName]);
-        }
-
          DB::table('payment_methods')->where('id','=',$id)
             ->update([
-                'title' => $request->title,
+                'type' => $request->type,
+                'method' => $request->method,
                 'price' => $request->price,
-                'description' => $request->description,
+                'description1' => $request->carddes1,
+                'description2' => $request->carddes2,
+                'description3' => $request->carddes3,
+                'description4' => $request->carddes4,
+                'description5' => $request->carddes5,
         ]);
 
         return redirect()->back();
