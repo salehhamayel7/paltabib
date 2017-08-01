@@ -15,19 +15,10 @@ use Illuminate\Support\Facades\DB;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@mainPage');
+Route::get('/contact', 'HomeController@showContact');
+Route::get('/pricing', 'HomeController@showPricing');
 
-Route::get('/', function () {
-    $sliders =  DB::table('sliders')
-            ->orderBy('updated_at', 'desc')
-            ->limit(3)
-            ->get();
-    $sections =  DB::table('sections')
-            ->orderBy('updated_at', 'desc')
-            ->limit(3)
-            ->get();
-             
-        return view('welcome' , compact('user','sliders','sections'));
-});
 
 
 Route::get('/file/download/{name}','HomeController@downloadFile')->middleware('auth');

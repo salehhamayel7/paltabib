@@ -14,8 +14,10 @@ class AppointmentController extends Controller
     //
     protected $appointment;
 
+
     public function __construct(AppointmentService $appointment)
-    {
+    { 
+        $this->middleware('auth');
     	$this->appointment = $appointment;
 
         $this->middleware(function ($request, $next) {

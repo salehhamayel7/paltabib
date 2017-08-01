@@ -24,6 +24,7 @@ class PacientController extends Controller
 
     protected $pacient;
     public function __construct(PacientService $pacient){
+        $this->middleware('auth');
         $this->pacient = $pacient;
         $this->middleware(function ($request, $next) {
 

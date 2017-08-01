@@ -17,7 +17,8 @@ class SecretariesController extends Controller
     protected $secretary;
     public function __construct(SecretaryService $secretary)
     {
-         $this->secretary = $secretary;
+        $this->middleware('auth');
+        $this->secretary = $secretary;
     }
 
     

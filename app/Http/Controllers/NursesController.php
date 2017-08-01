@@ -20,8 +20,8 @@ class NursesController extends Controller
      */
     protected $nurse;
     public function __construct(NurseService $nurse){
+        $this->middleware('auth');
         $this->nurse = $nurse;
-        $this->middleware('auth', ['except' => ['index','show']]);
     }
     public function index()
     {

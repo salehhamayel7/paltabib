@@ -16,6 +16,7 @@ class DoctorsController extends Controller
 	protected $doctor;
 	public function __construct(DoctorService $doctor)
 	{
+        $this->middleware('auth');
         $this->doctor = $doctor;
 
         $this->middleware(function ($request, $next) {

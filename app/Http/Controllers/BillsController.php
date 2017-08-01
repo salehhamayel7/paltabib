@@ -15,6 +15,7 @@ class BillsController extends Controller
 
     public function __construct(BillService $bill)
     {
+        $this->middleware('auth');
     	$this->bill = $bill; 
         
         $this->middleware(function ($request, $next) {

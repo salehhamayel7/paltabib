@@ -13,6 +13,7 @@ class HistoryController extends Controller
 
     public function __construct(HistoryService $history)
     {
+        $this->middleware('auth');
     	$this->history = $history;
     }
 

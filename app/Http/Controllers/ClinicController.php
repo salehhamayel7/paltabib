@@ -11,6 +11,7 @@ class ClinicController extends Controller
     protected $clinic;
 	public function __construct(ClinicService $clinic)
 	{
+        $this->middleware('auth');
         $this->clinic = $clinic;
 	}
 

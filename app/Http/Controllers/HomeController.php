@@ -19,7 +19,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -106,7 +105,34 @@ class HomeController extends Controller
     
     }
 
+    public function showContact()
+    {
+        return view('home/contact');
+    }
+
+    public function showPricing()
+    {
+        $methods = DB::table('payment_methods')->get();
+        return view('home/pricing', compact('methods'));
+    }
+
     
+
+    public function mainPage()
+    {
+
+        $sliders =  DB::table('sliders')
+            ->orderBy('updated_at', 'desc')
+            ->limit(3)
+            ->get();
+        $sections =  DB::table('sections')
+            ->orderBy('updated_at', 'desc')
+            ->limit(3)
+            ->get();
+             
+        return view('home/welcome' , compact('user','sliders','sections'));
+    
+    }
 
     public function downloadFile($name) {
 

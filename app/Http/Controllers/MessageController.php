@@ -13,6 +13,7 @@ class MessageController extends Controller
 {
     protected $message;
     public function __construct(MessageService $message){
+        $this->middleware('auth');
         $this->message = $message;
 
         $this->middleware(function ($request, $next) {

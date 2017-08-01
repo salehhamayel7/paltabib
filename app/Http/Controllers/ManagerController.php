@@ -21,6 +21,7 @@ class ManagerController extends Controller
     protected $manager;
 
     public function __construct(ManagerService $manager){
+        $this->middleware('auth');
         $this->manager = $manager;
 
         $this->middleware(function ($request, $next) {
