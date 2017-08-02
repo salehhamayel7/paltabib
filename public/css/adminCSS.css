@@ -91,6 +91,13 @@ textarea {
     font-style: italic;
 }
 
+.quickAccess{
+    margin-bottom: 20px;
+    text-align: center;
+    color:black;
+
+}
+
 
 table.dataTable {
     font-size: 13px;

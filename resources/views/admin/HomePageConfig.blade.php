@@ -92,6 +92,34 @@
                   </div>
                   </div>
                 </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Quick Access Menu Configurations
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <div class="row">
+                        @foreach($quick_menu as $section)
+
+                          <div class="col-lg-4 col-md-4 quickAccess">
+                            <img class="img-circle" src="{{$section->image}}" alt="Generic placeholder image" width="140" height="140">
+                            <h2>{{$section->title}}</h2>
+                            <p>{{$section->description}}</p>
+                            <p><a data="{{$section->id}}" class="btn btn-success editMenu" role="button">Edit &raquo;</a></p>
+                          </div><!-- /.col-lg-4 -->
+
+                          @endforeach
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="panel panel-default">
                   <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
@@ -174,6 +202,8 @@
                     </div>
                   </div>
                 </div>
+
+                
                
               </div>
               
@@ -252,6 +282,47 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="editMenuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left" id="exampleModalLabel">Edit Menu</h5>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form method="POST" action="/menu/update" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" id="menuid" name="id" value="">
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Menu Title</span>
+            <input id="menuTitle" name="title" required type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon1">
+          </div>
+          <br>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">Menu Image</span>
+            <input id="menuImage" name="image" type="file" accept="image/*" class="form-control" aria-describedby="basic-addon2">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">Menu Description</span>
+            <textarea id="menuDescription" name="description" required rows="" cols="" class="form-control" placeholder="Description" aria-describedby="basic-addon3"></textarea> 
+          </div>
+
+      </div>
+      <div class="modal-footer">
+            <input value="Save changes" type="submit" class="btn btn-success" id="basic-addon3"></input>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+
 
 
 <!-- Modal -->

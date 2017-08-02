@@ -102,6 +102,19 @@
                 } 
             });
 
+            
+            $('.editMenu').on('click',function(){
+              var id = $(this).attr('data');
+
+                $.get("/menu/get/"+id,function(data){
+                  $('#menuTitle').val(data.menu.title);
+                  $('#menuDescription').val(data.menu.description);
+                  $('#menuid').val(data.menu.id);
+                  $('#editMenuModal').modal('show');
+
+                });
+            });
+
 
         });
     </script>

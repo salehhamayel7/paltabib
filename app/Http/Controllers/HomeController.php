@@ -125,12 +125,14 @@ class HomeController extends Controller
             ->orderBy('updated_at', 'desc')
             ->limit(3)
             ->get();
+        $quick_menu =  DB::table('quick_access_menu')
+            ->get();
         $sections =  DB::table('sections')
             ->orderBy('updated_at', 'desc')
             ->limit(3)
             ->get();
              
-        return view('home/welcome' , compact('user','sliders','sections'));
+        return view('home/welcome' , compact('user','sliders','sections','quick_menu'));
     
     }
 
@@ -188,9 +190,10 @@ class HomeController extends Controller
     {
  
         $user = Auth::user();
+        $quick_menu =  DB::table('quick_access_menu')->get();
         $sliders =  DB::table('sliders')->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'sliders');
         $sections =  DB::table('sections')->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'sections');        
-        return view('admin/HomePageConfig' , compact('user','sliders','sections'));
+        return view('admin/HomePageConfig' , compact('user','sliders','sections','quick_menu'));
     
     }
 
@@ -257,6 +260,15 @@ class HomeController extends Controller
         $slide = DB::table('sliders')->where('id','=',$id)->first();
         $data =[
             'slide' => $slide,
+        ];
+        return $data;
+    }
+
+    public function getMenu($id)
+    {
+        $menu = DB::table('quick_access_menu')->where('id','=',$id)->first();
+        $data =[
+            'menu' => $menu,
         ];
         return $data;
     }
@@ -331,6 +343,34 @@ class HomeController extends Controller
         }
 
         $slide = DB::table('sliders')->where('id','=',$id)
+            ->update([
+                'title' => $request->title,
+                'description' => $request->description,
+        ]);
+
+        return redirect()->back();
+       
+    }
+
+    public function updateMenu(Request $request)
+    {
+        $id=$request->id;
+
+        $menux = DB::table('quick_access_menu')->where('id','=',$id)->first();
+        if($request->hasFile('image')){
+            if (strpos($menux->image, 'lorempixel') == false) {
+                $file_path = public_path().$menux->image;
+                unlink($file_path);
+            }
+            $image = $request->file('image');
+            $imageName = str_random(10).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path("images\\menu\\". $imageName));
+            DB::table('quick_access_menu')
+                ->where('id','=',$id)
+                ->update(['image' => "/images/menu/".$imageName]);
+        }
+
+        $slide = DB::table('quick_access_menu')->where('id','=',$id)
             ->update([
                 'title' => $request->title,
                 'description' => $request->description,

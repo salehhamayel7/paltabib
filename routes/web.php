@@ -49,6 +49,9 @@ Route::get('/section/delete/{id}','HomeController@deleteSection')->middleware(['
 Route::get('/paymen_method/get/{id}','HomeController@getMethod')->middleware(['auth','admin']);
 Route::post('/payment_method/edit','HomeController@updateMethod')->middleware(['auth','admin']);
 
+Route::get('/menu/get/{id}','HomeController@getMenu')->middleware(['auth','admin']);
+Route::post('/menu/update','HomeController@updateMenu')->middleware(['auth','admin']);
+
 
 ////////////////////////////////////
 Route::get('/dashboard/manager','ManagerController@showManager')->middleware(['auth','manager','notBanned']);

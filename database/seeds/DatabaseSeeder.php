@@ -77,5 +77,23 @@ class DatabaseSeeder extends Seeder
 			]);
 		}
 
+		for($i=0;$i<3;$i++){
+			if($i == 0){
+				$title = "Register a clinic";
+			}
+			else if($i == 1){
+				$title = "Request a Demo";
+				
+			}
+			else{
+				$title = "Book an Appointment";
+			}
+			DB::table('quick_access_menu')->insert([
+				'description' => 'Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.',
+				'title' => $title,
+				'image' => 'http://lorempixel.com/300/300/abstract/asd'.$i,
+			]);
+		}
+
     }
 }
