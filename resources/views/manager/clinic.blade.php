@@ -59,7 +59,7 @@
                                 <input value="{{$clinic->name}}" title="اسم العيادة" type="text" id="clinic_name" name="clinic_name" required="required"  class="form-control col-md-7 col-xs-12">
                               </div>
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="clinic_name">
-                                اسم العيادة
+                                  اسم العيادة<span style="color:red;"> *</span>
                               </label>
                               </div>
 
@@ -69,7 +69,7 @@
                                 <input value="{{$clinic->address}}" title="العنوان" type="text" id="clinic_address" name="clinic_address" required="required" class="form-control col-md-7 col-xs-12">
                               </div>
                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="clinic_address">
-                                 العنوان
+                                 العنوان <span style="color:red;"> *</span>
                               </label>
                               </div>
 
@@ -79,7 +79,7 @@
                                 <input value="{{$clinic->phone}}" title="الهاتف" type="text" id="clinic_phone" name="clinic_phone" required="required" class="form-control col-md-7 col-xs-12">
                               </div>
                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="clinic_phone">
-                                 الهاتف
+                                 الهاتف <span style="color:red;"> *</span>
                               </label>
                               </div>
 

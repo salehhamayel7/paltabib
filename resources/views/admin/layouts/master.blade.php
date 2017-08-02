@@ -14,6 +14,8 @@
       <!-- Fonts -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
       @include('includes.Datatables_links')
+      <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{{asset('../vendors/bootstrap-select-master/dist/css/bootstrap-select.min.css')}}">
       <link href="{{asset('css/adminCSS.css')}}" rel="stylesheet">
       
     </head>
@@ -60,6 +62,7 @@
         }
     ?>
 
-
+    <!-- selectpicker -->
+    <script src="{{asset('../vendors/bootstrap-select-master/dist/js/bootstrap-select.min.js')}}"></script>
     </body>
 </html>

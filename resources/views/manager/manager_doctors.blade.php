@@ -106,23 +106,23 @@
                       <input type="hidden" name="ADclinic" value="{{ $clinic->id }}">
 												<div class="row" dir="ltr">
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input placeholder="مثال: صالح" title="الاسم" name="ADName" id="ADName" class="form-control col-md-7 col-xs-12" data-validate-length-range="15" data-validate-words="1"  required="required" type="text">
-														<span class="input-group-addon" id="basic-addon2">الاسم</span>
+														<input value="" title="الاسم" name="ADName" id="ADName" class="form-control col-md-7 col-xs-12" data-validate-length-range="15" data-validate-words="1"  required="required" type="text">
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>الاسم</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="اسم المستخدم" type="text" id="ADuName" name="ADuName" required="required"  class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">اسم المستخدم</span>
+														<input value="" title="اسم المستخدم" type="text" id="ADuName" name="ADuName" required="required"  class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>اسم المستخدم</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="كلمة المرور" type="password" id="ADpass" name="ADpass" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">كلمة المرور</span>
+														<input value="" title="كلمة المرور" type="password" id="ADpass" name="ADpass" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>كلمة المرور</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input  title="الايميل" type="email" id="ADemail" name="ADemail" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">الايميل</span>
+														<input  value="" title="الايميل" type="email" id="ADemail" name="ADemail" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>الايميل</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
@@ -130,17 +130,17 @@
 															<option value="Male">ذكر</option>
 															<option value="Female">انثى</option>
 														</select>
-														<span class="input-group-addon" id="basic-addon2">الجنس</span>
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>الجنس</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input placeholder="المدينة/القرية" title="العنوان" type="text" id="ADaddress" name="ADaddress" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">العنوان</span>
+														<input value="" placeholder="المدينة/القرية" title="العنوان" type="text" id="ADaddress" name="ADaddress" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>العنوان</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="رقم الهاتف" type="number" id="ADphone" name="ADphone" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">رقم الهاتف</span>
+														<input value="" title="رقم الهاتف" type="text" id="ADphone" name="ADphone" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>رقم الهاتف</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
@@ -150,23 +150,23 @@
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
 														<input accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">ملف/صورة الهوية</span>
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>ملف/صورة الهوية</span>
 													</div>
 
 													<hr/>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input placeholder="مثال: اسنان" title="التخصص" type="text" id="ADmajor" name="ADmajor" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">التخصص</span>
+														<input value="" placeholder="مثال: اسنان" title="التخصص" type="text" id="ADmajor" name="ADmajor" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
+														<span class="input-group-addon" id="basic-addon2"><span style="color:red;">* </span>التخصص</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="الراتب" type="number" id="ADsalary" name="ADsalary" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+														<input value=""  title="الراتب" type="text" id="ADsalary" name="ADsalary" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
 														<span class="input-group-addon" id="basic-addon2">الراتب</span>
 													</div>
 
 													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="الرقم النقابي" type="number" id="ADnumber" name="ADnumber" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+														<input value="" title="الرقم النقابي" type="text" id="ADnumber" name="ADnumber" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
 														<span class="input-group-addon" id="basic-addon2">الرقم النقابي</span>
 													</div>
 

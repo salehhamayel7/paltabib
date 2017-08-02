@@ -11,12 +11,12 @@
           <!-- top tiles -->
           <div class="row tile_count" style="margin: 0; padding: 35px;">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Totle Clinics</span>
+              <span class="count_top"><i class="fa fa-user"></i> Number of Clinics</span>
               <div class="count green">{{$clinics_count}}</div>
               <span class="count_bottom"><i class="green">4% </i> From last Week</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+              <span class="count_top"><i class="fa fa-user"></i> Number of Users</span>
               <div class="count">{{$users_count}}</div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
             </div>
@@ -36,7 +36,7 @@
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> Total appoinments</span>
+              <span class="count_top"><i class="fa fa-clock-o"></i> Number of appoinments</span>
               <div class="count green">{{$appointments_count}}</div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
             </div>

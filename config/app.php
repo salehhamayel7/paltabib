@@ -185,6 +185,8 @@ return [
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\HelperServiceProvider::class,  
+        'Webpatser\Countries\CountriesServiceProvider',
+        Tylercd100\Validator\Phone\ServiceProvider::class
     ],
 
     /*
@@ -236,6 +238,7 @@ return [
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Helper' => App\Providers\HelperServiceProvider::class,
+        'Countries' => 'Webpatser\Countries\CountriesFacade',
     ],
 
 ];

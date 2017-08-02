@@ -148,8 +148,9 @@ class HomeController extends Controller
     {
  
         $user = Auth::user();
+        $countries =  DB::table('countries')->orderBy('name')->get();
         
-        return view('admin/clinicFormReg' , compact('user'));
+        return view('admin/clinicFormReg' , compact('user','countries'));
     
     }
 
@@ -157,12 +158,13 @@ class HomeController extends Controller
     {
  
         $user = Auth::user();
+         $countries =  DB::table('countries')->orderBy('name')->get();
         $clinics =  DB::table('clinics')
             ->where('clinics.id','>',0)
             ->join('users', 'clinics.manager_id', '=', 'users.user_name')
             ->select('clinics.address as clinic_address' , 'clinics.id as clinic_id' , 'clinics.name as clinic_name' , 'clinics.phone as clinic_phone', 'clinics.*', 'users.*')
             ->get();
-        return view('admin/admin_allCinics' , compact('user','clinics'));
+        return view('admin/admin_allCinics' , compact('user','clinics','countries'));
     
     }
 

@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+		$this->call('CountriesSeeder');
+		$this->command->info('Seeded the countries!'); 
         // $this->call(UsersTableSeeder::class);
 		$faker = Faker::create();
        	$user = new User();
