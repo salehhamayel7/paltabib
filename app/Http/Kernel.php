@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'stuff' => \App\Http\Middleware\stuff::class,
         'secretary' => \App\Http\Middleware\secretary::class,
         'notBanned' => \App\Http\Middleware\notBaned::class,
+        'https' => \App\Http\Middleware\httpsCheck::class,
     ];
 }
