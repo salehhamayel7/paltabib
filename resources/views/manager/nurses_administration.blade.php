@@ -1,177 +1,227 @@
 @extends('manager/layouts.master')
 @section('content')
 
-
-<style>
-	.input-group-addon{
-		    min-width: 127px;
-	}
-	.input-group input{
-		    text-align: right;
-	}
-</style>
-        <!-- page content -->
-		 <div class="right_col" role="main">
-          <div class="page-content">
+<!-- page content -->
+<div class="right_col" role="main">
+	<div class="page-content">
 
 
-            <div class="clearfix"></div>
+		<div class="clearfix"></div>
 
-            <div class="row">
+		<div class="row">
 
 
 
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
 
-									<ul class="nav navbar-left panel_toolbox">
-									 <li><a></a>
-									  </li>
-									 <li><a id = "collapse2" class="collapse-link" title = "اعرض/اخف"><i class="fa fa-chevron-up fa-lg"></i></a>
-									  </li>
-									<li><a onclick="replaceContentToAddN()" title = "اضافة ممرض/ـة"><i class="fa fa-plus fa-lg"></i></a>
-									  </li>
-
-
-									</ul>
-									<h2 style="float:right;">ادارة الممرضين</h2>
-								
-									<div class="clearfix"></div>
-								  </div>
-                  <div class="x_content" id="page_contentN">
-
-                    <table dir="rtl" id="datatable-buttons" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                         <th>اسم المستخدم</th>
-                          <th>بطاقة الهوية</th>
-                          <th>الاسم</th>
-                          <th>الايميل</th>
-                          <th>العنوان</th>
-                          <th>الهاتف</th>
-                          <th>الجنس</th>
-            						  <th>الراتب</th>
-            						  <th></th>
-                        </tr>
-                      </thead>
+					<ul class="nav navbar-left panel_toolbox">
+						<li><a></a>
+						</li>
+						<li><a id = "collapse2" class="collapse-link" title = "اعرض/اخف"><i class="fa fa-chevron-up fa-lg"></i></a>
+						</li>
+					<li><a onclick="replaceContentToAddN()" title = "اضافة ممرض/ـة"><i class="fa fa-plus fa-lg"></i></a>
+						</li>
 
 
-                      <tbody>
+					</ul>
+					<h2 style="float:right;">ادارة الممرضين</h2>
+				
+					<div class="clearfix"></div>
+					</div>
+					<div class="x_content" id="page_contentN">
 
-                     @foreach($nurses as $nurse)
-                       <tr>
-                          <th>{{ $nurse->user_name }}</th>
-                          <th>
-                          <form method="get" action="/file/download/{{$nurse->id_image}}">  
-                            <button type="submit" class="btn btn-success btn-sm">عرض/تحميل</button>
-                            </form>
-                           </th>
-                          <th>{{ $nurse->name }}</th>
-                          <th>{{ $nurse->email }}</th>
-                          <th>{{ $nurse->address }}</th>
-                          <th>{{ $nurse->phone }}</th>
-                          <th>{{ $nurse->gender }}</th>
-                          <th>{{ $nurse->salary }}</th>
-                         
-                          <th>
-                          <a id="editNurse" onclick = "" data="{{ $nurse->user_name }}" class="btn btn-success btn-xs editNurse"><i class="fa fa-edit"></i> تعديل </a>
-
-                          <a id="deleteNurse" href="/ajax/delete/nurse/{{ $nurse->user_name }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> حذف </a>
-                          </th>
-                                    </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /page content -->
+						<table dir="rtl" id="datatable-buttons" class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>اسم المستخدم</th>
+									<th>بطاقة الهوية</th>
+									<th>الاسم</th>
+									<th>الايميل</th>
+									<th>العنوان</th>
+									<th>الهاتف</th>
+									<th>الجنس</th>
+									<th>الراتب</th>
+									<th></th>
+								</tr>
+							</thead>
 
 
+							<tbody>
 
-
-									<div id="addNurse" style="display:none;">
-										<form id="addNurseform" method="POST" action="/nurses/create" class="form-horizontal form-label-left" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="ADclinic" value="{{$clinic->id}}">
-										  <span dir="rtl" class="section">اضف معلومات الممرض</span>
-
-											
-
-											<div class="row" dir="ltr">
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input placeholder="مثال: صالح" title="الاسم" name="ADName" id="ADName" class="form-control col-md-7 col-xs-12" data-validate-length-range="15" data-validate-words="1"  required="required" type="text">
-														<span class="input-group-addon" id="basic-addon2">الاسم</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="اسم المستخدم" type="text" id="ADuName" name="ADuName" required="required"  class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">اسم المستخدم</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="كلمة المرور" type="password" id="ADpass" name="ADpass" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">كلمة المرور</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input  title="الايميل" type="email" id="ADemail" name="ADemail" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">الايميل</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<select id="ADgender" name="ADgender" class="form-control col-md-7 col-xs-12">
-															<option value="Male">ذكر</option>
-															<option value="Female">انثى</option>
-														</select>
-														<span class="input-group-addon" id="basic-addon2">الجنس</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input placeholder="المدينة/القرية" title="العنوان" type="text" id="ADaddress" name="ADaddress" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">العنوان</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="رقم الهاتف" type="number" id="ADphone" name="ADphone" required="required" data-validate-length-range="100" data-validate-words="1" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">رقم الهاتف</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" class="form-control col-md-7 col-xs-12" value="User_Avatar-512.png">
-														<span class="input-group-addon" id="basic-addon2">الصورة الشخصية</span>
-													</div>
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image" required="required" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">ملف/صورة الهوية</span>
-													</div>
-
-													<hr/>
-
-
-													<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
-														<input title="الراتب" type="number" id="ADsalary" name="ADsalary" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-														<span class="input-group-addon" id="basic-addon2">الراتب</span>
-													</div>
-
-									
-													
-													<div class="ln_solid"></div>
-													<div class="form-group">
-													<div class="col-md-6 col-md-offset-5">
-														  <button id="send" type="submit" onClick="" class="btn btn-success"><i class="fa fa-floppy-o"></i> اضف</button>
-											  <a id="cancel" type="submit" href="" class="btn btn-primary"><i class="fa fa-times"></i> الغاء</a>
-													</div>
-													</div>
-												</div>
-
+							@foreach($nurses as $nurse)
+								<tr>
+									<th>{{ $nurse->user_name }}</th>
+									<th>
+									<form method="get" action="/file/download/{{$nurse->id_image}}">  
+										<button type="submit" class="btn btn-success btn-sm">عرض/تحميل</button>
 										</form>
-										</div>
+										</th>
+									<th>{{ $nurse->name }}</th>
+									<th>{{ $nurse->email }}</th>
+									<th>{{ $nurse->address }}</th>
+									<th>{{ $nurse->phone }}</th>
+									<th>{{ $nurse->gender }}</th>
+									<th>{{ $nurse->salary }}</th>
+									
+									<th>
+									<a id="editNurse" onclick = "" data="{{ $nurse->user_name }}" class="btn btn-success btn-xs editNurse"><i class="fa fa-edit"></i> تعديل </a>
+
+									<a id="deleteNurse" href="/ajax/delete/nurse/{{ $nurse->user_name }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> حذف </a>
+									</th>
+														</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /page content -->
 
 
-        @endsection
+
+
+<div id="addNurse" style="display:none;">
+<form id="addNurseform" method="POST" action="/nurses/create" class="form-horizontal form-label-left" enctype="multipart/form-data">
+{{ csrf_field() }}
+<input type="hidden" name="ADclinic" value="{{$clinic->id}}">
+	<span dir="rtl" class="section">اضف معلومات الممرض</span>
+
+	
+
+	<div class="row" dir="ltr">
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADName') ? ' has-error' : '' }}">
+				<input value="{{ old('ADName') }}" title="الاسم" name="ADName" id="ADName" class="form-control col-md-7 col-xs-12"     type="text">
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>الاسم</span>
+			</div>
+			@if ($errors->has('ADName'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADName') }}
+                </div>
+            @endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADuName') ? ' has-error' : '' }}">
+				<input value="{{ old('ADuName') }}" title="اسم المستخدم" type="text" id="ADuName" name="ADuName"   class="form-control col-md-7 col-xs-12">
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>اسم المستخدم</span>
+			</div>
+			@if ($errors->has('ADuName'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADuName') }}
+                </div>
+            @endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADpass') ? ' has-error' : '' }}">
+				<input title="كلمة المرور" type="password" id="ADpass" name="ADpass" class="form-control col-md-7 col-xs-12">
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>كلمة المرور</span>
+			</div>
+			@if ($errors->has('ADpass'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADpass') }}
+                </div>
+						@endif
+						
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADpass_2') ? ' has-error' : '' }}">
+					<input title="تاكيد كلمة المرور" type="password" id="ADpass_2" name="ADpass_2"  class="form-control col-md-7 col-xs-12">
+					<span class="input-group-addon" id="basic-addon2">تاكيد كلمة المرور</span>
+			</div>
+				@if ($errors->has('ADpass_2'))
+					<div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+							{{ $errors->first('ADpass_2') }}
+					</div>
+			@endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADemail') ? ' has-error' : '' }}">
+				<input value="{{ old('ADemail') }}" title="الايميل" type="email" id="ADemail" name="ADemail"    class="form-control col-md-7 col-xs-12">
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>الايميل</span>
+			</div>
+			@if ($errors->has('ADemail'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADemail') }}
+                </div>
+            @endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADgender') ? ' has-error' : '' }}">
+				<select value="{{ old('ADgender') }}" id="ADgender" name="ADgender" class="form-control col-md-7 col-xs-12">
+					<option value="Male">ذكر</option>
+					<option value="Female">انثى</option>
+				</select>
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>الجنس</span>
+			</div>
+			@if ($errors->has('ADgender'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADgender') }}
+                </div>
+            @endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADaddress') ? ' has-error' : '' }}">
+				<input value="{{ old('ADaddress') }}" title="العنوان" type="text" id="ADaddress" name="ADaddress"  class="form-control col-md-7 col-xs-12">
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>العنوان</span>
+			</div>
+			@if ($errors->has('ADaddress'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADaddress') }}
+                </div>
+            @endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADphone') ? ' has-error' : '' }}">
+				<input value="{{ old('ADphone') }}" title="رقم الهاتف" type="text" id="ADphone" name="ADphone"    class="form-control col-md-7 col-xs-12">
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>رقم الهاتف</span>
+			</div>
+			@if ($errors->has('ADphone'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADphone') }}
+                </div>
+            @endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ATimage') ? ' has-error' : '' }}">
+				<input value="{{ old('ATimage') }}" title="الصورة الشخصية" type="file" accept="image/*" id="ATimage" name="ATimage" class="form-control col-md-7 col-xs-12" value="User_Avatar-512.png">
+				<span class="input-group-addon" id="basic-addon2">الصورة الشخصية</span>
+			</div>
+			@if ($errors->has('ATimage'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ATimage') }}
+                </div>
+            @endif
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('id_image') ? ' has-error' : '' }}">
+				<input value="{{ old('id_image') }}" accept="image/*,.doc,.docx,.pdf" title="ملف/صورة الهوية" type="file" id="id_image" name="id_image"  class="form-control col-md-7 col-xs-12">
+				<span class="input-group-addon" id="basic-addon2"><span class="noRequered" style="color:red;">* </span>ملف/صورة الهوية</span>
+			</div>
+			@if ($errors->has('id_image'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('id_image') }}
+                </div>
+            @endif
+
+			<hr/>
+
+
+			<div class="input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12 {{ $errors->has('ADsalary') ? ' has-error' : '' }}">
+				<input value="{{ old('ADsalary') }}" title="الراتب" type="text" id="ADsalary" name="ADsalary"  data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+				<span class="input-group-addon" id="basic-addon2">الراتب</span>
+			</div>
+			@if ($errors->has('ADsalary'))
+                <div class="error-msg input-group col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                    {{ $errors->first('ADsalary') }}
+                </div>
+            @endif
+
+
+			
+			<div class="ln_solid"></div>
+				<div class="form-group">
+					<div class="col-md-6 col-md-offset-5">
+					<button id="send" type="submit" onClick="" class="btn btn-success"><i class="fa fa-floppy-o"></i> اضف</button>
+					<a id="cancel" type="submit" href="" class="btn btn-primary"><i class="fa fa-times"></i> الغاء</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+@endsection

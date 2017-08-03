@@ -7,7 +7,9 @@
            
            $('.showmsg').on('click',function(){
                 var msg_id = $(this).attr('msgid');
-               
+                $('.selected-mail').removeClass('selected-mail');
+                $(this).children().addClass( "selected-mail" ).length;
+                
                  $.get("/ajax/message/show/"+msg_id,function(data){
                    
                      $('.date').html(data.msg.created_at);

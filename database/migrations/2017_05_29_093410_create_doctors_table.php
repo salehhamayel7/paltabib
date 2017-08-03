@@ -17,7 +17,7 @@ class CreateDoctorsTable extends Migration
 
         $table->string('user_name');
         $table->unsignedInteger('id');
-        $table->integer('salary')->default(0);
+        $table->string('salary')->default('0');
         $table->integer('clinic_id');
         $table->string('major')->default('major');
         $table->string('union_number')->default('0000000000');

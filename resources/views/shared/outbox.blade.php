@@ -57,7 +57,7 @@ else{
                         @foreach($msgs as $msg)
                        
                         <a class="showmsg" msgid="{{ $msg->msg_id }}">
-                          <div class="mail_list">
+                          <div class="mail_list {{ $msg->msg_id == $currentmsg->msg_id ? 'selected-mail' : '' }}">
                             
                             <div class="right">
                               <h3 style="display:inline-block;"> {{$msg->name}} </h3>
@@ -157,49 +157,32 @@ else{
             <div class="btn-group pull-right">
           
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-              <select data-width="200px" data-size="5" required="required" class="selectpicker form-control" name="smsgreceiver" id="smsgreceiver" data-live-search="true">
+              <select data-width="200px" data-size="6" required="required" class="selectpicker form-control" name="smsgreceiver" id="smsgreceiver" data-live-search="true">
                             
-                  <optgroup label="الاطباء">
                   <?php
                   foreach($doctors as $doctor){
-                      echo "<option title='".$doctor->name."' value='".$doctor->user_name."'>".$doctor->name."(".$doctor->email.")"."</option>";
+                      echo "<option title='".$doctor->name."' value='".$doctor->user_name."'>".$doctor->name." - ".$doctor->email.""."</option>";
                   }
                   ?>
-                  </optgroup>
 
                   @if($user->role != 'Pacient')
-                  <optgroup label="السكرتاريا">
 
-                    <?php
+                  <?php
                   
                   foreach($secretaries as $secretary){
-                      echo "<option title='".$secretary->name."' value='".$secretary->user_name."'>".$secretary->name."(".$secretary->email.")"."</option>";
+                      echo "<option title='".$secretary->name."' value='".$secretary->user_name."'>".$secretary->name." - ".$secretary->email.""."</option>";
                   }
-                  
-                  ?>
-                      
-                  </optgroup>
-                  <optgroup label="الممرضين">
-                      
-                    <?php
-
+ 
                   foreach($nurses as $nurse){
-                      echo "<option title='".$nurse->name."' value='".$nurse->user_name."'>".$nurse->name."(".$nurse->email.")"."</option>";
+                      echo "<option title='".$nurse->name."' value='".$nurse->user_name."'>".$nurse->name." - ".$nurse->email.""."</option>";
                   }
-                  
-                  ?>
-                  </optgroup>
-
-                  <optgroup label="المرضى">
-                      
-                    <?php
-
+               
                   foreach($pacirnts as $patient){
-                      echo "<option title='".$patient->name."' value='".$patient->user_name."'>".$patient->name."(".$patient->email.")"."</option>";
+                      echo "<option title='".$patient->name."' value='".$patient->user_name."'>".$patient->name." - ".$patient->email.""."</option>";
                   }
                   
                   ?>
-                  </optgroup>
+                 
                   @endif
                   
                 </select>

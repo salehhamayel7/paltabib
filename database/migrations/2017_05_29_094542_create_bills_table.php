@@ -18,6 +18,7 @@ class CreateBillsTable extends Migration
         $table->increments('id');
         $table->string('pacient_id');
         $table->string('doctor_id');
+        $table->string('currency')->default("USD");
         $table->integer('value');
         $table->integer('paid_value');
         $table->string('source')->nullable();

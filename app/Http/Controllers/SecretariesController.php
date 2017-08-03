@@ -10,6 +10,8 @@ use App\Message;
 use App\Event;
 use Carbon\Carbon;
 use DB;
+use Validator;
+use Illuminate\Validation\Rule;
 
 
 class SecretariesController extends Controller
@@ -25,6 +27,27 @@ class SecretariesController extends Controller
 
     public function create(Request $request)
     {
+         $validator = Validator::make($request->all(), [
+            'ADName' => 'required|max:30',
+            'ADemail' => 'required|email|max:255|unique:users,email',
+            'ADpass' => 'required|min:8',
+            'ADpass_2' => 'same:ADpass',
+            'ADgender' => 'required',
+            'ADuName' => 'required|max:50|unique:users,user_name',
+            'ADphone' => 'required|phone',
+            'ADaddress' => 'required|max:255',
+            'ATimage' => 'sometimes|image',
+            'id_image' => 'required|file',
+            'ADsalary' => 'sometimes|numeric'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $this->secretary->createSercretary($request);
         return redirect()->back();
     }

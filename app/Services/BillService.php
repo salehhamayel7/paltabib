@@ -63,6 +63,7 @@ public function getExpenseWithID($expense_id)
     {
         $expense = Expense::find($request->expenseID);
     	$expense->value = $request->expenseValue;
+        $expense->currency = $request->currency;
     	$expense->description = $request->expenseDesc;
         $expense->save();
     }
@@ -73,6 +74,7 @@ public function getExpenseWithID($expense_id)
     	$bill->pacient_id = $request->billPacient;
     	$bill->doctor_id = $request->billDoctor;
     	$bill->value = $request->billValue;
+        $bill->currency = $request->currency;
         $bill->paid_value = $request->billPainValue;
     	$bill->description = $request->billDesc;
         $bill->save();
@@ -93,6 +95,7 @@ public function getExpenseWithID($expense_id)
         $bill->source = Auth::user()->user_name;
     	$bill->value = $request->value;
         $bill->paid_value = $request->paid_value;
+        $bill->currency = $request->currency;
     	$bill->description = $request->description;
         $bill->save();
 
@@ -113,6 +116,7 @@ public function getExpenseWithID($expense_id)
         $expences->id = $id_row->last_id+1;
         $expences->clinic_id = Auth::user()->clinic_id;
     	$expences->value = $request->value;
+        $expences->currency = $request->currency;
         $expences->source = Auth::user()->user_name;
     	$expences->description = $request->description;
         $expences->save();

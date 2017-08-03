@@ -107,6 +107,19 @@ footer {
     margin: 0px;
 }
 
+.input-group-addon{
+	min-width: 127px;
+}
+.input-group input{
+	text-align: right;
+}
+.has-error{
+	border: 1px solid red;
+}
+.error-msg{
+    color:red;
+}
+
 .table {
     width: 100% !important;
 }
@@ -128,6 +141,18 @@ footer {
 .nav-sm footer {
     margin-right: 70px;
     margin-left: 0px;
+}
+
+.mail_list{
+    padding-left: 8px;
+}
+
+.mail_list .right {
+    width: 98%;
+}
+
+.selected-mail{
+    box-shadow: 0px 0px 3px #356b60;
 }
 
 .nav {

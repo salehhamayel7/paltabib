@@ -8,9 +8,7 @@
                // alert(user_name);
                  $.get("/ajax/appointment/delete/"+id,function(data){
                    // alert(data.user.name);
-                   var href=(document.URL).replace("#showArea", "");
-                   window.location.href=(href +  '#showArea');
-                   location.reload();
+                   $('.todayApp'+id).remove();
                  });
 
                

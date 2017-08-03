@@ -12,6 +12,8 @@ use App\Message;
 use App\Services\PacientService;
 use Carbon\Carbon;
 use DB;
+use Validator;
+use Illuminate\Validation\Rule;
 
 
 class PacientController extends Controller
@@ -41,10 +43,29 @@ class PacientController extends Controller
             ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')->get();
             
-             $this->money_notification = DB::table('bills')
-                ->where('clinic_id', '=', $this->user->clinic_id)
-                ->whereRaw('value != paid_value')->count();
-            
+            if($this->user->role == 'Doctor'){
+                $this->money_notification = DB::table('bills')
+                    ->where(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['doctor_id', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->orWhere(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['source', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->count();
+            }
+            else{
+                $this->money_notification = DB::table('bills')
+                    ->where('clinic_id', '=', $this->user->clinic_id)
+                    ->whereRaw('value != paid_value')->count();
+            }
 
             return $next($request);
         });
@@ -85,6 +106,28 @@ class PacientController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'ADName' => 'required|max:30',
+            'ADemail' => 'required|email|max:255|unique:users,email',
+            'ADpass' => 'required|min:8',
+            'ADpass_2' => 'same:ADpass',
+            'ADgender' => 'required',
+            'ADuName' => 'required|max:50|unique:users,user_name',
+            'ADphone' => 'required|phone',
+            'ADaddress' => 'required|max:255',
+            'ATimage' => 'sometimes|image',
+            'id_image' => 'required|file',
+            'ADjob' => 'required|max:100',
+            'ensurance' => 'sometimes|numeric'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
        $this->pacient->createPacient($request);
         return redirect()->back();
     }
@@ -126,6 +169,35 @@ class PacientController extends Controller
      */
     public function update(Request $request, $user_name)
     {
+        $user = User::where('user_name',$user_name)->first();
+        $validator = Validator::make($request->all(), [
+            'ADName' => 'required|max:30',
+            'ADemail' => [
+                'required','email','max:255',
+                'unique:users,email,'.$user->user_name.',user_name'
+            ],
+            'ADpass' => 'sometimes|min:8',
+            'ADpass_2' => 'same:ADpass',
+            'ADgender' => 'required',
+            'ADuName' => [
+                'required','max:50',
+                'unique:users,user_name,'.$user->user_name.',user_name'
+            ],
+            'ADphone' => 'required|phone',
+            'ADaddress' => 'required|max:255',
+            'ATimage' => 'sometimes|image',
+            'id_image' => 'sometimes|file',
+            'ADjob' => 'required|max:100',
+            'ensurance' => 'sometimes|numeric'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $this->pacient->updatePacientWithUsername($request,$user_name);
         return redirect()->back();
     }

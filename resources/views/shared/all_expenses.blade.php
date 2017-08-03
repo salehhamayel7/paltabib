@@ -48,6 +48,7 @@ else{
                     <th>رقم الفاتورة</th>
                      <th>المحرر</th>
                     <th>المبلغ</th>
+                    <th>العملة</th>
                     <th>الملاحظات</th>
                   </tr>
                 </thead>
@@ -59,6 +60,7 @@ else{
                     <th>{{$expense->id}}</th>
                     <th>{{$expense->writter}}</th>
                     <th>{{$expense->value}}</th>
+                    <th>{{$expense->currency}}</th>
                     <th>{{$expense->description}}</th>
                   @endforeach
                 </tbody>
@@ -89,25 +91,68 @@ else{
           <form id="updateBillForm" action="/dashboard/manager/updateExpense" method="POST">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
 
-          <p class="title billLabel"><strong>رقم الفاتورة: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="number" name="expenseID" id="expenseID" readonly>
-            </input></p>
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>رقم الفاتورة: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="number" name="expenseID" id="expenseID" readonly>
+              </div>
+            </div>
 
-            <p class="title billLabel"><strong>التاريخ: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="text" name="expenseTime" id="expenseTime" readonly>
-            </input></p>
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>التاريخ: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="text" name="expenseTime" id="expenseTime" readonly>
+              </div>
+            </div>
 
-            <p class="title billLabel"><strong>المحرر: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="text" name="expenseSource" id="expenseSource" readonly>
-            </input></p>
 
-            <p class="title billLabel"><strong>المبلغ: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="number" name="expenseValue" id="expenseValue">
-            </input></p>
-            <br/>
-            <p class="title billLabel"><strong>الوصف: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="text" id="expenseDesc" name="expenseDesc"></input>
-            </p>
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>المحرر: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="text" name="expenseSource" id="expenseSource" readonly>
+              </div>
+            </div>
+
+             <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>المبلغ: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="number" name="expenseValue" id="expenseValue">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>العملة: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <select data-container="body" id="currency" name="currency"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                        <optgroup label="العملة">
+                            <?php
+                              foreach($currencies as $currency){
+                                echo "<option value='".$currency->currency_code."'>".$currency->currency_code."</option>";
+                              }
+                            ?>
+                        </optgroup>
+                      </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>الوصف: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="text" id="expenseDesc" name="expenseDesc"></input>
+              </div>
+            </div>
             
           </div>
         </article>

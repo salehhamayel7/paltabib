@@ -52,6 +52,7 @@ else{
                     <th>المبلغ المطلوب</th>
                     <th>البلغ المدفوع</th>
                     <th>المبلغ المتبقي</th>
+                    <th>العملة</th>
                     <th>الملاحظات</th>
                   </tr>
                 </thead>
@@ -72,6 +73,7 @@ else{
                     <th>{{$bill->value}}</th>
                     <th>{{$bill->paid_value}}</th>
                     <th>{{$bill->remained_value}}</th>
+                    <th>{{$bill->currency}}</th>
                     <th>{{$bill->description}}</th>
                     
                   @endforeach
@@ -92,7 +94,7 @@ else{
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title pull-right" id="exampleModalLabel">ملخص فاتورة</h3>
+        <h2 class="modal-title pull-right" id="exampleModalLabel">ملخص فاتورة</h2>
         <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -102,22 +104,44 @@ else{
           <div class="media-body">
           <form id="updateBillForm" action="/dashboard/{{$href}}/updateBill" method="POST">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>رقم الفاتورة: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="number" name="billID" id="billID" readonly>
+              </div>
+            </div>
 
-          <p class="title billLabel"><strong>رقم الفاتورة: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="number" name="billID" id="billID" readonly>
-            </input></p>
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>التاريخ: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="text" name="billTime" id="billTime" readonly>
+              </div>
+            </div>
 
-            <p class="title billLabel"><strong>التاريخ: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="text" name="billTime" id="billTime" readonly>
-            </input></p>
 
-             <p class="title billLabel"><strong>المحرر: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="text" name="billSource" id="billSource" readonly>
-            </input></p>
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>المحرر: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="text" name="billSource" id="billSource" readonly>
+              </div>
+            </div>
 
-            <p class="title billLabel"><strong>الطبيب: </strong>
-             <select id="billDoctor" name="billDoctor" class="form-control col-md-5 col-xs-12" required="required">
+
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>الطبيب: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <select data-container="body" data-live-search="true" id="billDoctor" name="billDoctor" class=" selectpicker form-control col-md-5 col-xs-12" required="required">
                  <optgroup label="الاطباء">
+                 @if($href != 'doctor')
                     <?php
                     foreach($doctors as $doctor){
                       echo "<option value='".$doctor->user_name."'>".$doctor->name."(".$doctor->user_name.")"."</option>";
@@ -125,11 +149,22 @@ else{
                     }
                     
                     ?>
+                    @else
+                      <option value='{{$user->user_name}}'>{{$user->name}}({{$user->user_name}})</option>
+                    @endif
                 </optgroup>
               </select>
-            </p>
-            <p class="title billLabel"><strong>المريض: </strong>
-              <select id="billPacient" name="billPacient" class="form-control col-md-5 col-xs-12" required="required">
+              </div>
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>المريض: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <select data-container="body" data-live-search="true" id="billPacient" name="billPacient" class="selectpicker form-control col-md-5 col-xs-12" required="required">
                 <optgroup label="المرضى">
                     <?php
                     foreach($pacients as $pacient){
@@ -140,17 +175,54 @@ else{
                     ?>
                 </optgroup>
               </select>
-            </p>
-            <p class="title billLabel"><strong>المبلغ المطلوب: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="number" name="billValue" id="billValue">
-            </input></p>
-            <p class="title billLabel"><strong>المبلغ المدفوع: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="number" name="billPainValue" id="billPainValue">
-            </input></p>
-            <br/>
-            <p class="title billLabel"><strong>الوصف: </strong>
-            <input class="form-control col-md-5 col-xs-12" type="text" id="billDesc" name="billDesc"></input>
-            </p>
+              </div>
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>المبلغ المطلوب: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="number" name="billValue" id="billValue">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>المبلغ المدفوع: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="number" name="billPainValue" id="billPainValue">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>العملة: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <select data-container="body" id="currency" name="currency"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                        <optgroup label="العملة">
+                            <?php
+                              foreach($currencies as $currency){
+                                echo "<option value='".$currency->currency_code."'>".$currency->currency_code."</option>";
+                              }
+                            ?>
+                        </optgroup>
+                      </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 col-md-push-8 col-sm-12 col-xs-12">
+                <h2>الوصف: </h2>
+              </div>
+              <div class="col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                <input class="form-control col-md-5 col-xs-12" type="text" id="billDesc" name="billDesc"></input>
+              </div>
+            </div>
             
           </div>
         </article>

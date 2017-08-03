@@ -3,7 +3,7 @@
 @section('content')
 
 <?php
-
+$href="sdf;adsf";
 if($user->role == 'Doctor'){
   $href='doctor';
 }
@@ -18,7 +18,7 @@ else{
 }
 ?>
 
-        
+    <input type="hidden" id="userType" value="{{$href}}">
     <!-- selectpicker -->
     <link href="{{asset('vendors/bootstrap-select-master/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
     <!-- FullCalendar -->
@@ -159,7 +159,7 @@ else{
 
                <div class="form-group">
                   <div class="col-sm-9">
-                    <a href="/dashboard/{{$href}}/record/" title="سجل المريض" id="patientLink">
+                    <a title="سجل المريض" id="patientLink">
                       <input type="text" class="form-control" id="Eventpatient" name="patient" readonly>
                     </a>
                     

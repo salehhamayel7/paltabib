@@ -11,7 +11,7 @@
                      $('#expenseValue').val(data.expense.value);
                      $("#expenseDesc").val(data.expense.description);
                      $("#expenseSource").val(data.writter.name);
-                     
+                     $("#currency").selectpicker('val', data.expense.currency);
                      $('#myModal').modal('show');
 
                  });

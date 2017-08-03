@@ -7,16 +7,18 @@
            
            $('.showmsg').on('click',function(){
                 var msg_id = $(this).attr('msgid');
-               
-                 $.get("/ajax/message/show/"+msg_id,function(data){
-                   
-                     $('.date').html(data.msg.created_at);
-                     $('#sender_name').html(data.resiver.name);
-                     $('#sender_mail').html(data.resiver.email);
-                     $('#msgtitle').html(data.msg.title);
-                     $('#msgbody').html((data.msg.message));
-                     $("#deleteMSG").attr("href", "/message/delete/sender/"+data.msg.id);
-                     $("#replyMsg").attr("data", +data.msg.id);
+                $('.selected-mail').removeClass('selected-mail');
+                $(this).children().addClass( "selected-mail" ).length;
+
+                $.get("/ajax/message/show/"+msg_id,function(data){
+
+                    $('.date').html(data.msg.created_at);
+                    $('#sender_name').html(data.resiver.name);
+                    $('#sender_mail').html(data.resiver.email);
+                    $('#msgtitle').html(data.msg.title);
+                    $('#msgbody').html((data.msg.message));
+                    $("#deleteMSG").attr("href", "/message/delete/sender/"+data.msg.id);
+                    $("#replyMsg").attr("data", +data.msg.id);
                   
                  });
             });

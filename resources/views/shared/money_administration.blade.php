@@ -70,12 +70,13 @@ else{
 
                       <form id="addBillsForm" action="/ajax/bill/create" method="post" class="form-horizontal form-label-left">
                           {{ csrf_field() }}
-                      
+                     
                       <div class="item form-group">
                       
                       <div class="col-md-8 col-sm-8 col-xs-12">
-                      <select  id="doctor" name="doctor" data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                      <select  data-container="body" id="doctor" name="doctor" data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
                         <optgroup label="الاطباء">
+                        @if($href != 'doctor')
                             <?php
                             foreach($doctors as $doctor){
                               echo "<option value='".$doctor->user_name."'>".$doctor->name."(".$doctor->user_name.")"."</option>";
@@ -83,6 +84,9 @@ else{
                             }
                             
                             ?>
+                            @else
+                              <option value='{{$user->user_name}}'>{{$user->name}}({{$user->user_name}})</option>
+                            @endif
                         </optgroup>
                       </select>
                       </div>
@@ -90,11 +94,12 @@ else{
                         الطبيب المعالج
                       </label>
                       </div>
+                     
 
                         <div class="item form-group">
                       
                       <div class="col-md-8 col-sm-8 col-xs-12" >
-                      <select id="pacient" name="pacient"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                      <select data-container="body" id="pacient" name="pacient"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
                         <optgroup label="المرضى">
                             <?php
                             foreach($pacients as $pacient){
@@ -122,7 +127,6 @@ else{
                       </div>
 
                       <div class="item form-group">
-                      
                       <div class="col-md-8 col-sm-8 col-xs-12">
                         <input title="المبلغ المدفوع" type="number" id="paid_value" name="paid_value" required="required" class="form-control col-md-7 col-xs-12">
                       </div>
@@ -130,6 +134,27 @@ else{
                         المبلغ المدفوع
                       </label>
                       </div>
+
+                      <div class="item form-group">
+                      
+                      <div class="col-md-8 col-sm-8 col-xs-12" >
+                      <select data-container="body" id="currency" name="currency"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                        <optgroup label="العملة">
+                            <?php
+                            foreach($currencies as $currency){
+                              echo "<option value='".$currency->currency_code."'>".$currency->currency_code."</option>";
+
+                            }
+                            
+                            ?>
+                        </optgroup>
+                      </select>
+                      </div>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="currency">
+                        العملة
+                      </label>
+                      </div> 
+
 
                       <div class="item form-group">
                       
@@ -189,17 +214,19 @@ else{
                             {{$bill->created_at}}
                           </a>
                           <div class="media-body">
+                          <p class="title"><strong>رقم الفاتورة: </strong>{{$bill->id}}</p>
                             <p class="title"><strong>المحرر: </strong>{{$writter->name}}</p>
+                            <br>
                             <p class="title"><strong>الطبيب: </strong>{{$doctorx->name}}</p>
                             <p class="title"><strong>المريض: </strong>{{$pacientx->name}}</p>
                             <br/>
                             <p><strong>الوصف: </strong>{{$bill->description}}</p>
                             <br/>
-                            <p class="title"><strong>المبلغ المطلوب: </strong>{{$bill->value}}</p>
-                            <p class="title"><strong>المبلغ المدفوع: </strong>{{$bill->paid_value}}</p>
+                            <p class="title"><strong>المبلغ المطلوب: </strong>{{$bill->value}} {{$bill->currency}}</p>
+                            <p class="title"><strong>المبلغ المدفوع: </strong>{{$bill->paid_value}} {{$bill->currency}}</p>
                               <a class="pull-left">
                                 <strong> الباقي: </strong>
-                                {{$bill->value - $bill->paid_value}}
+                                {{$bill->value - $bill->paid_value}} {{$bill->currency}}
                               </a>
                             
                           </div>
@@ -239,6 +266,24 @@ else{
                       </div>
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">
                         المبلغ
+                      </label>
+                      </div>
+
+                      <div class="item form-group">
+                      
+                      <div class="col-md-8 col-sm-8 col-xs-12" >
+                      <select data-container="body" id="currency" name="currency"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                        <optgroup label="العملة">
+                            <?php
+                              foreach($currencies as $currency){
+                                echo "<option value='".$currency->currency_code."'>".$currency->currency_code."</option>";
+                              }
+                            ?>
+                        </optgroup>
+                      </select>
+                      </div>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="currency">
+                        العملة
                       </label>
                       </div>
 
@@ -291,8 +336,10 @@ else{
                             {{$expense->created_at}}
                           </a>
                           <div class="media-body">
+                          <p class="title"><strong>رقم الفاتورة: </strong>{{$expense->id}}</p>
                             <p class="title"><strong>المحرر: </strong>{{$writter->name}}</p>
-                            <p class="title"><strong>المبلغ: </strong>{{$expense->value}}</p>
+                            <br>
+                            <p class="title"><strong>المبلغ: </strong>{{$expense->value}} {{$bill->currency}}</p>
                             <p><strong>الوصف: </strong>{{$expense->description}}</p>
                           </div>
                         </article>

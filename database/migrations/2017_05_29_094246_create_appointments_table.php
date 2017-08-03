@@ -21,6 +21,7 @@ class CreateAppointmentsTable extends Migration
             $table->string('doctor_id');
             $table->string('title');
             $table->time('time');
+            $table->time('end_time');
             $table->string('pacient_id');
             $table->unsignedInteger('clinic_id');
             $table->boolean('is_approved')->default(0);

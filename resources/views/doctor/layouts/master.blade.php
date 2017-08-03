@@ -109,7 +109,18 @@ else{
             @include('shared.scripts.patientsRecords_script')
         <?php
         }
-        
+        else if (strpos($url, 'allBills') !== false) {
+        ?>
+            @include('includes.Datatables_scripts')
+            @include('shared.scripts.allBills_script')
+        <?php
+        }
+        else if (strpos($url, 'allExpenses') !== false) {
+        ?>
+            @include('includes.Datatables_scripts')
+            @include('shared.scripts.allExpenses_script')
+        <?php
+        }
         else if (strpos($url, 'record') !== false) {
         ?>
             @include('shared.scripts.record_script')

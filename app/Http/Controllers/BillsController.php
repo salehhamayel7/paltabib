@@ -33,10 +33,29 @@ class BillsController extends Controller
             ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')->get();
             
-             $this->money_notification = DB::table('bills')
-                ->where('clinic_id', '=', $this->user->clinic_id)
-                ->whereRaw('value != paid_value')->count();
-            
+            if($this->user->role == 'Doctor'){
+                $this->money_notification = DB::table('bills')
+                    ->where(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['doctor_id', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->orWhere(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['source', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->count();
+            }
+            else{
+                $this->money_notification = DB::table('bills')
+                    ->where('clinic_id', '=', $this->user->clinic_id)
+                    ->whereRaw('value != paid_value')->count();
+            }
 
             return $next($request);
         });
@@ -98,33 +117,71 @@ class BillsController extends Controller
     public function showAllExpenses(){
         
         list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+        $currencies  = DB::table('countries')->select('currency_code')->where('currency_code', '<>', '')->whereNotNull('currency_code')->distinct()->orderBy('currency_code', 'asc')->get();
+
+        if($user->role == 'Doctor'){
+
+            $expenses = DB::table('expences')->where([
+                ['expences.clinic_id', '=', $user->clinic_id],
+                ['expences.source', '=', $user->user_name],
+            ])
+            ->orWhere([
+                ['expences.clinic_id', '=', $user->clinic_id],
+                ['expences.doctor_id', '=', $user->user_name],
+            ])
+            ->join('users', 'expences.source', '=', 'users.user_name')
+            ->select('expences.*', 'users.name as writter')
+            ->orderBy('expences.created_at', 'desc')
+            ->get();
+
+        }
+        else{
+           $expenses = DB::table('expences')->where([
+                ['expences.clinic_id', '=', $user->clinic_id],
+            ])
+            ->join('users', 'expences.source', '=', 'users.user_name')
+            ->select('expences.*', 'users.name as writter')
+            ->orderBy('expences.created_at', 'desc')
+            ->get();
+        }
+        
 
 
-        $expenses = DB::table('expences')->where([
-            ['expences.clinic_id', '=', $user->clinic_id],
-        ])
-        ->join('users', 'expences.source', '=', 'users.user_name')
-        ->select('expences.*', 'users.name as writter')
-        ->orderBy('expences.created_at', 'desc')
-        ->get();
 
-
-
-        return view('shared/all_expenses' , compact('user','clinic','new_msgs','expenses','money_notification'));
+        return view('shared/all_expenses' , compact('user','clinic','new_msgs','expenses','money_notification','currencies'));
     }
 
      public function showAllBills(){
         
         list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
+        $currencies  = DB::table('countries')->select('currency_code')->where('currency_code', '<>', '')->whereNotNull('currency_code')->distinct()->orderBy('currency_code', 'asc')->get();
 
+        
 
-        $bills = DB::table('bills')->where([
-            ['bills.clinic_id', '=', $user->clinic_id],
-        ])
-        ->join('users', 'bills.doctor_id', '=', 'users.user_name')
-        ->select(DB::raw('bills.value-bills.paid_value AS remained_value, bills.*, users.name, users.user_name'))
-        ->orderBy('bills.created_at', 'desc')
-        ->get();
+        if($user->role == 'Doctor'){
+           $bills = DB::table('bills')->where([
+                ['bills.clinic_id', '=', $user->clinic_id],
+                ['bills.source', '=', $user->user_name],
+            ])
+            ->orWhere([
+                ['bills.clinic_id', '=', $user->clinic_id],
+                ['bills.doctor_id', '=', $user->user_name],
+            ])
+            ->join('users', 'bills.doctor_id', '=', 'users.user_name')
+            ->select(DB::raw('bills.value-bills.paid_value AS remained_value, bills.*, users.name, users.user_name'))
+            ->orderBy('bills.created_at', 'desc')
+            ->get();
+
+        }
+        else{
+            $bills = DB::table('bills')->where([
+                ['bills.clinic_id', '=', $user->clinic_id],
+            ])
+            ->join('users', 'bills.doctor_id', '=', 'users.user_name')
+            ->select(DB::raw('bills.value-bills.paid_value AS remained_value, bills.*, users.name, users.user_name'))
+            ->orderBy('bills.created_at', 'desc')
+            ->get();
+        }
 
          $temp_pacients = DB::table('users')->where([
                 ['role', '=', 'Pacient'],
@@ -146,14 +203,14 @@ class BillsController extends Controller
             ->where('clinic_id', '=', $user->clinic_id)
             ->whereIn('role', ['Doctor', 'Manager,Doctor'])->get();
 
-        return view('shared/all_bills' , compact('user','clinic','new_msgs','bills','pacients','doctors','money_notification'));
+        return view('shared/all_bills' , compact('user','clinic','new_msgs','bills','pacients','doctors','money_notification','currencies'));
     }
 
     public function showrMoneyAdmin(){
         
         list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
-
-
+        
+        $currencies  = DB::table('countries')->select('currency_code')->where('currency_code', '<>', '')->whereNotNull('currency_code')->distinct()->orderBy('currency_code', 'asc')->get();
        $temp_pacients = DB::table('users')->where([
                 ['role', '=', 'Pacient'],
             ])->get();
@@ -174,21 +231,47 @@ class BillsController extends Controller
             ->where('clinic_id', '=', $user->clinic_id)
             ->whereIn('role', ['Doctor', 'Manager,Doctor'])->get();
 
-        $bills = DB::table('bills')->where([
-            ['clinic_id', '=', $user->clinic_id],
-        ])
-        ->orderBy('created_at', 'desc')
-        ->limit(3)
-        ->get();
+        if($user->role == 'Doctor'){
+            $bills = DB::table('bills')->where([
+                    ['clinic_id', '=', $user->clinic_id],
+                    ['source', '=', $user->user_name],
+                ])
+                ->orWhere([
+                    ['clinic_id', '=', $user->clinic_id],
+                    ['doctor_id', '=', $user->user_name],
+                ])
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
 
-        $expenses  = DB::table('expences')->where([
-            ['clinic_id', '=', $user->clinic_id],
-        ])
-        ->orderBy('created_at', 'desc')
-        ->limit(3)
-        ->get();
+            $expenses  = DB::table('expences')->where([
+                    ['clinic_id', '=', $user->clinic_id],
+                    ['source', '=', $user->user_name],
+                    
+                ])
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
 
-        return view('shared/money_administration' , compact('user','clinic','new_msgs','pacients','doctors','bills','expenses','money_notification'));
+        }
+        else{
+            $bills = DB::table('bills')->where([
+                    ['clinic_id', '=', $user->clinic_id],
+                ])
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
+
+            $expenses  = DB::table('expences')->where([
+                    ['clinic_id', '=', $user->clinic_id],
+                ])
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
+        }
+        
+
+        return view('shared/money_administration' , compact('user','clinic','new_msgs','pacients','doctors','bills','expenses','money_notification','currencies'));
     }
 
 

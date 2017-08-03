@@ -13,7 +13,11 @@
                       <li><a href="/dashboard/doctor/outbox">البريد الصادر</a></li>
                     </ul>
                   </li>
-                  <li><a href="/dashboard/doctor/money"><i class="fa fa-usd"></i>المالية</span></a>
+                  <li><a href="/dashboard/doctor/money"><i class="fa fa-usd"></i>المالية
+                    <span class="badge bg-green pull-left notificationsX">
+                      {{$money_notification}}
+                    </span>
+                    </a>
                   </li>
                   <li><a href="/dashboard/doctor/patientsRecords"><i class="fa fa-book"></i>سجل المرضى والمراجعات</span></a>
                   </li>

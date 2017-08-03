@@ -68,7 +68,7 @@
              
                  });
 
-                replaceContentToAddP();
+                replaceContentToAddN();
 
                 $('#ADpass').removeAttr("required");
                 $('#ATimage').removeAttr("required");

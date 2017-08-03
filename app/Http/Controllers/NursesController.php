@@ -9,6 +9,8 @@ use DB;
 use App\Message;
 use Illuminate\Http\Request;
 use App\Services\NurseService;
+    use Validator;
+    use Illuminate\Validation\Rule;
 
 class NursesController extends Controller
 {
@@ -46,7 +48,29 @@ class NursesController extends Controller
      */
     public function store(Request $request)
     {
-       $this->nurse->createNurse($request);
+
+        $validator = Validator::make($request->all(), [
+            'ADName' => 'required|max:30',
+            'ADemail' => 'required|email|max:255|unique:users,email',
+            'ADpass' => 'required|min:8',
+            'ADpass_2' => 'same:ADpass',
+            'ADgender' => 'required',
+            'ADuName' => 'required|max:50|unique:users,user_name',
+            'ADphone' => 'required|phone',
+            'ADaddress' => 'required|max:255',
+            'ATimage' => 'sometimes|image',
+            'id_image' => 'required|file',
+            'ADsalary' => 'sometimes|numeric'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $this->nurse->createNurse($request);
         return redirect()->back();
 
     }
@@ -87,6 +111,35 @@ class NursesController extends Controller
      */
     public function update(Request $request, $user_name)
     {
+        $user = User::where('user_name',$user_name)->first();
+        
+        $validator = Validator::make($request->all(), [
+            'ADName' => 'required|max:30',
+            'ADemail' => [
+                'required','email','max:255',
+                'unique:users,email,'.$user->user_name.',user_name'
+            ],
+            'ADpass' => 'sometimes|min:8',
+            'ADpass_2' => 'same:ADpass',
+            'ADgender' => 'required',
+            'ADuName' => [
+                'required','max:50',
+                'unique:users,user_name,'.$user->user_name.',user_name'
+            ],
+            'ADphone' => 'required|phone',
+            'ADaddress' => 'required|max:255',
+            'ATimage' => 'sometimes|image',
+            'id_image' => 'sometimes|file',
+            'ADsalary' => 'sometimes|numeric'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $this->nurse->updateNurseWithUsername($request,$user_name);
         return redirect()->back();
     }

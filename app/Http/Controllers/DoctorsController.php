@@ -10,6 +10,9 @@ use App\Message;
 use App\Event;
 use Carbon\Carbon;
 use DB;
+use Validator;
+use Illuminate\Validation\Rule;
+
 
 class DoctorsController extends Controller
 {
@@ -34,10 +37,29 @@ class DoctorsController extends Controller
             ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')->get();
             
-             $this->money_notification = DB::table('bills')
-                ->where('clinic_id', '=', $this->user->clinic_id)
-                ->whereRaw('value != paid_value')->count();
-            
+            if($this->user->role == 'Doctor'){
+                $this->money_notification = DB::table('bills')
+                    ->where(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['doctor_id', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->orWhere(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['source', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->count();
+            }
+            else{
+                $this->money_notification = DB::table('bills')
+                    ->where('clinic_id', '=', $this->user->clinic_id)
+                    ->whereRaw('value != paid_value')->count();
+            }
 
             return $next($request);
         });
@@ -116,16 +138,39 @@ class DoctorsController extends Controller
     {
         
         list($user , $clinic ,  $new_msgs , $money_notification) = $this->mainVars();
-
+        $currencies  = DB::table('countries')->select('currency_code')->where('currency_code', '<>', '')->whereNotNull('currency_code')->distinct()->orderBy('currency_code', 'asc')->get();
          $pacients = DB::table('users')->where([
             ['role', '=', 'Pacient'],
         ])->get();
 
-        return view('doctor/doctor_money' , compact('user','clinic','new_msgs','money_notification','pacients'));
+        return view('shared/money_administration' , compact('user','clinic','new_msgs','money_notification','pacients','currencies'));
     }
 
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'ADName' => 'required|max:30',
+            'ADemail' => 'required|email|max:255|unique:users,email',
+            'ADpass' => 'required|min:8',
+            'ADpass_2' => 'same:ADpass',
+            'ADgender' => 'required',
+            'ADuName' => 'required|unique:users,user_name',
+            'ADphone' => 'required|phone',
+            'ADmajor' => 'required|max:50',
+            'ADaddress' => 'required|max:255',
+            'ATimage' => 'sometimes|image',
+            'id_image' => 'required|file',
+            'ADsalary' => 'sometimes|numeric',
+            'ADnumber' => 'required|numeric'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
 
     	$this->doctor->createDoctor($request);
     	return redirect()->back();
@@ -145,6 +190,36 @@ class DoctorsController extends Controller
 
     public function update(Request $request, $user_name)
     {
+        $user = User::where('user_name',$user_name)->first();
+        $validator = Validator::make($request->all(), [
+            'ADName' => 'required|max:30',
+            'ADemail' => [
+                'required','email','max:255',
+                'unique:users,email,'.$user->user_name.',user_name'
+            ],
+            'ADpass' => 'sometimes|min:8',
+            'ADpass_2' => 'same:ADpass',
+            'ADgender' => 'required',
+            'ADuName' => [
+                'required','max:50',
+                'unique:users,user_name,'.$user->user_name.',user_name'
+            ],
+            'ADphone' => 'required|phone',
+            'ADmajor' => 'required|max:50',
+            'ADaddress' => 'required|max:255',
+            'ATimage' => 'sometimes|image',
+            'id_image' => 'sometimes|file',
+            'ADsalary' => 'sometimes|numeric',
+            'ADnumber' => 'required|numeric'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $this->doctor->updateDoctorWithUserName($request,$user_name);
         return redirect()->back();
     }

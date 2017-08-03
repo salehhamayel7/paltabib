@@ -47,6 +47,26 @@
                               </label>
                               </div>
 
+
+                              <div class="item form-group">
+                                <div class="col-md-8 col-sm-8 col-xs-12" >
+                                <select data-container="body" id="currency" name="currency"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                                  <optgroup label="العملة">
+                                      <?php
+                                      foreach($currencies as $currency){
+                                        echo "<option value='".$currency->currency_code."'>".$currency->currency_code."</option>";
+
+                                      }
+                                      
+                                      ?>
+                                  </optgroup>
+                                </select>
+                                </div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="currency">
+                                  العملة
+                                </label>
+                                </div> 
+
                               <div class="item form-group">
                              
                               <div class="col-md-8 col-sm-8 col-xs-12">
@@ -140,6 +160,25 @@
                                 المبلغ المدفوع
                               </label>
                               </div>
+
+                              <div class="item form-group">
+                                <div class="col-md-8 col-sm-8 col-xs-12" >
+                                <select data-container="body" id="currency" name="currency"  data-live-search="true" class="selectpicker form-control col-md-7 col-xs-12" required="required">
+                                  <optgroup label="العملة">
+                                      <?php
+                                      foreach($currencies as $currency){
+                                        echo "<option value='".$currency->currency_code."'>".$currency->currency_code."</option>";
+
+                                      }
+                                      
+                                      ?>
+                                  </optgroup>
+                                </select>
+                                </div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="currency">
+                                  العملة
+                                </label>
+                                </div> 
 
                               <div class="item form-group">
                              

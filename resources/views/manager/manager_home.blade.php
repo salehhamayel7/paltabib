@@ -332,7 +332,7 @@ use App\User;
                               <div id="todaysAppointments" class="x_content">
                                 @foreach($appointments as $appointment)
 
-                                <article class="media event">
+                                <article class="media event todayApp{{$appointment->id}}">
                                   <a class="pull-left">
                                     {{$appointment->time}}
                                   </a>

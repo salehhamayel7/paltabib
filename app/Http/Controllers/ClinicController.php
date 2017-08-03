@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ClinicService;
 use Validator;
+use Illuminate\Validation\Rule;
+
 
 class ClinicController extends Controller
 {
@@ -68,13 +70,21 @@ class ClinicController extends Controller
 
     public function updateClinic(Request $request)
     {
+        $user = User::where('user_name',$request->old_user_name)->first();
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:30',
-            'email' => 'required|email|max:255',
+            'email' => [
+                'required','email','max:255',
+                'unique:users,email,'.$user->user_name.',user_name'
+            ],
             'password' => 'min:8|confirmed',
             'password_confirmation' => 'same:password',
             'gender' => 'required',
-            'user_name' => 'required',
+            'ADuName' => [
+                'required','max:50',
+                'unique:users,user_name,'.$user->user_name.',user_name'
+            ],
             'phone' => 'required|phone',
             'role' => 'required',
             'address' => 'required|max:255',

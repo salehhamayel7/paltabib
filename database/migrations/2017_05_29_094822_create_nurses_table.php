@@ -13,12 +13,12 @@ class CreateNursesTable extends Migration
      */
     public function up()
     {
-      Schema::create('nurses', function (Blueprint $table) {
-          $table->unsignedInteger('id');
-          $table->string('user_name');
-          $table->integer('salary');
-          $table->timestamps();
-      });
+        Schema::create('nurses', function (Blueprint $table) {
+            $table->unsignedInteger('id');
+            $table->string('user_name');
+            $table->string('salary')->default('0');
+            $table->timestamps();
+        });
 
       
         

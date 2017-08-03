@@ -16,7 +16,7 @@ class CreateSecretariesTable extends Migration
         Schema::create('secretaries', function (Blueprint $table) {
             $table->unsignedInteger('id');
             $table->string('user_name');
-            $table->integer('salary')->default(0);
+            $table->string('salary')->default('0');
             $table->timestamps();
         });
 

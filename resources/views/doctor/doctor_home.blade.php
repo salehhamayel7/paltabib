@@ -88,7 +88,7 @@ use App\User;
 
              <div class="row top_tiles">
                 <div style="float:left;" class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                  <a href="/dashboard/manager/inbox">
+                  <a href="/dashboard/doctor/inbox">
                     <div class="tile-stats">
                   <h3>الرسائل </h3>
                    <div class="count">{{count($new_msgs)}}</div>
@@ -211,66 +211,66 @@ use App\User;
                           </div>
                             <div class="x_content">
 
-                    <table class="table table-striped cc">
-                      <thead>
-                        <tr>
-                          
-                          <th>اسم المريض</th>
-                          <th>التاريخ</th>
-                          <th>الوقت</th>
-                          <th>خيارات</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                                  <table class="table table-striped cc">
+                                    <thead>
+                                      <tr>
+                                        
+                                        <th>اسم المريض</th>
+                                        <th>التاريخ</th>
+                                        <th>الوقت</th>
+                                        <th>خيارات</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
 
-                        @foreach($appointmentsx as $appointment)
-                        <tr>
-                        <?php  $pacientx = User::where('user_name' ,'=', $appointment->pacient_id)->first(); ?>
-                          <td>{{$pacientx->name}}</td>
-                          <td>{{$appointment->date}}</td>
-                          <td>{{$appointment->time}}</td>
-                          <th>
-                            <button data="{{$appointment->id}}" type="button" class="btn btn-success btn-sm approveAppointment">تاكيد</button>
-     						            <button data="{{$appointment->id}}" type="button" class="btn btn-danger btn-sm disapprovedAppointment">الغاء</button>
-                          </th>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    </div>
-                  </div>
-                </div>
+                                      @foreach($appointmentsx as $appointment)
+                                      <tr>
+                                      <?php  $pacientx = User::where('user_name' ,'=', $appointment->pacient_id)->first(); ?>
+                                        <td>{{$pacientx->name}}</td>
+                                        <td>{{$appointment->date}}</td>
+                                        <td>{{$appointment->time}}</td>
+                                        <th>
+                                          <button data="{{$appointment->id}}" type="button" class="btn btn-success btn-sm approveAppointment">تاكيد</button>
+                                          <button data="{{$appointment->id}}" type="button" class="btn btn-danger btn-sm disapprovedAppointment">الغاء</button>
+                                        </th>
+                                      </tr>
+                                      @endforeach
+                                    </tbody>
+                                  </table>
+                                  </div>
+                                </div>
+                              </div>
 
-                <div class="col-md-5 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
+                              <div class="col-md-5 col-sm-12 col-xs-12">
+                              <div class="x_panel">
+                                <div class="x_title">
 
-                    <ul class="nav navbar-left panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-					          <h2 style="float:right;">مواعيد اليوم</h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div id="todaysAppointments" class="x_content">
-                     @foreach($appointments as $appointment)
+                                  <ul class="nav navbar-left panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                  </ul>
+                                  <h2 style="float:right;">مواعيد اليوم</h2>
+                                  <div class="clearfix"></div>
+                                </div>
+                                <div id="todaysAppointments" class="x_content">
+                                  @foreach($appointments as $appointment)
 
-                    <article class="media event">
-                      <a class="pull-left">
-                        {{$appointment->time}}
-                      </a>
-                      <div class="media-body">
-                        <?php  $pacientx = User::where('user_name' ,'=', $appointment->pacient_id)->first(); ?>
-                        <a class="title">{{$pacientx->name}}</a>
-						            <button id="cancelAppointment" data="{{$appointment->id}}" type="button" class="btn btn-danger btn-xs cancelAppointment">الغاء</button>
-                      </div>
-                    </article>
-                    <hr/>
-                  @endforeach
-                  </div>
-                  {{$appointments->links()}}
-                </div>
-              </div>
+                                  <article class="media event todayApp{{$appointment->id}}">
+                                    <a class="pull-left">
+                                      {{$appointment->time}}
+                                    </a>
+                                    <div class="media-body">
+                                      <?php  $pacientx = User::where('user_name' ,'=', $appointment->pacient_id)->first(); ?>
+                                      <a class="title">{{$pacientx->name}}</a>
+                                      <button id="cancelAppointment" data="{{$appointment->id}}" type="button" class="btn btn-danger btn-xs cancelAppointment">الغاء</button>
+                                    </div>
+                                  </article>
+                                  <hr/>
+                                @endforeach
+                                </div>
+                                {{$appointments->links()}}
+                              </div>
+                            </div>
                  
                           </div>                          
                           <div dir="rtl" role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">

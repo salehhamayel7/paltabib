@@ -31,10 +31,29 @@ class MessageController extends Controller
             ->select('users.*', 'messages.*', 'messages.id as msg_id' , 'messages.created_at as msg_time')
             ->orderBy('messages.created_at', 'desc')->get();
             
-             $this->money_notification = DB::table('bills')
-                ->where('clinic_id', '=', $this->user->clinic_id)
-                ->whereRaw('value != paid_value')->count();
-            
+            if($this->user->role == 'Doctor'){
+                $this->money_notification = DB::table('bills')
+                    ->where(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['doctor_id', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->orWhere(function ($query) {
+                        $query->whereRaw('value != paid_value')
+                            ->where([
+                                ['clinic_id', '=', $this->user->clinic_id],
+                                ['source', '=', $this->user->user_name],
+                            ]);
+                        })
+                    ->count();
+            }
+            else{
+                $this->money_notification = DB::table('bills')
+                    ->where('clinic_id', '=', $this->user->clinic_id)
+                    ->whereRaw('value != paid_value')->count();
+            }
 
             return $next($request);
         });

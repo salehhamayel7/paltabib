@@ -86,10 +86,11 @@ Route::get('/dashboard/manager/myClinic','ManagerController@showClinic')->middle
 Route::get('/dashboard/doctor','DoctorsController@showDoctor')->middleware(['https','auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/inbox/{msg_id?}','MessageController@showInbox')->middleware(['https','auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/outbox','MessageController@showOutbox')->middleware(['https','auth','doctor','notBanned']);
-Route::get('/dashboard/doctor/money','DoctorsController@showDoctorMoney')->middleware(['https','auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/money','BillsController@showrMoneyAdmin')->middleware(['https','auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/secretaries','SecretariesController@showAllSecretaries')->middleware(['https','auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/nurses','NursesController@showAllNurses')->middleware(['https','auth','doctor','notBanned']);
 Route::get('/dashboard/doctor/pacients','PacientController@showAllPacients')->middleware(['https','auth','doctor','notBanned']);
+Route::get('/dashboard/doctor/allBills','BillsController@showAllBills')->middleware(['https','auth','doctor','notBanned']);
 
 Route::get('/ajax/edit/doctor/{username}','DoctorsController@edit')->middleware(['https','auth','stuff','notBanned']);
 Route::post('/doctor/update/{username}','DoctorsController@update')->middleware(['https','auth','stuff','notBanned']);
