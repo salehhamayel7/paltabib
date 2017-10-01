@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ClinicService;
 use Validator;
+use User;
 use Illuminate\Validation\Rule;
 
 

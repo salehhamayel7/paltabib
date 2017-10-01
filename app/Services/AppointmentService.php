@@ -51,7 +51,8 @@ class AppointmentService{
             'appointments' => $appointments,
         ];
         return $data;
-	}
+    }
+    
     public function getAppointmentWithid($id){
         $appointment = DB::table('appointments')->where('id', '=', $id)->first();
         $doctor= DB::table('users')->where('user_name',$appointment->doctor_id)->first();
@@ -73,8 +74,13 @@ class AppointmentService{
     
 
     public function changeAppointmentDate($date,$id){
-        DB::table('appointments')->where('id', '=', $id)->update(['date' => $date]);;
-       return;
+
+        $ldate = date('Y-m-d');
+        if($date > $ldate){
+            DB::table('appointments')->where('id', '=', $id)->update(['date' => $date]);
+        }
+       
+        return;
     }
     
      public function editAppointment(Request $request)
@@ -90,14 +96,35 @@ class AppointmentService{
              $title =" مراجعة لـ ";
         }
     	$appointment->title = $title;
-    	$appointment->time = $request->time;
-    	$appointment->pacient_id = $request->patient;
-        $appointment->save();
+        $appointment->time = $request->time;
+        $timestamp = strtotime($request->time) + 60*$request->duration;
+        $appointment->end_time = date('H:i', $timestamp);
+        $appointment->pacient_id = $request->patient;
+        
+        $Intersect = false;
+        $appoints = DB::table('appointments')
+            ->where([
+                ['doctor_id', '=', $appointment->doctor_id],
+                ['date', '=', $appointment->date],
+            ])
+            ->whereNotIn('id', [$request->appoinmentID])
+            ->get();
+
+            foreach($appoints as $app){
+                if($app->end_time > $appointment->time AND  $app->time < $appointment->end_time){
+                    $Intersect = true;
+                }
+            }
+
+        if(!$Intersect){
+            $appointment->save();
+        }
+
 
     }
     
 
-     public function createAppointment(Request $request)
+    public function createAppointment(Request $request)
     {
         $user = Auth::user();
     	$appointment = new Appointment;
@@ -119,6 +146,9 @@ class AppointmentService{
         }
     	$appointment->title = $title;
     	$appointment->time = $request->time;
+        $timestamp = strtotime($request->time) + 60*$request->duration;
+        $appointment->end_time = date('H:i', $timestamp);
+       
     	$appointment->pacient_id = $request->patient;
         if(Auth::user()->role == "Pacient"){
             $doc = User::where('user_name',$appointment->doctor_id)->first();
@@ -134,9 +164,22 @@ class AppointmentService{
         else{
             $appointment->is_approved = 1;
         }
-    	
-       $appointment->save();
+        $Intersect = false;
+        $appoints = DB::table('appointments')
+            ->where([
+                ['doctor_id', '=', $appointment->doctor_id],
+                ['date', '=', $appointment->date],
+            ])->get();
 
+            foreach($appoints as $app){
+                if($app->end_time > $appointment->time AND  $app->time < $appointment->end_time){
+                    $Intersect = true;
+                }
+            }
+
+        if(!$Intersect){
+            $appointment->save();
+        }
     }
     
 

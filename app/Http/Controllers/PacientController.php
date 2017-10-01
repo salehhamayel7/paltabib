@@ -185,7 +185,7 @@ class PacientController extends Controller
             ],
             'ADphone' => 'required|phone',
             'ADaddress' => 'required|max:255',
-            'ATimage' => 'sometimes|image',
+            'ATimage' => 'sometimes',
             'id_image' => 'sometimes|file',
             'ADjob' => 'required|max:100',
             'ensurance' => 'sometimes|numeric'

@@ -31,6 +31,12 @@
             $('#editEventDate').attr('value', data.appointment.date);
             $('#Eventtitle').selectpicker('val', data.appointment.color);
             $('#Eventtime').val(data.appointment.time);
+             
+            var startDate = new Date("1/1/1900 " + data.appointment.time);
+            var endDate = new Date("1/1/1900 " + data.appointment.end_time );
+            var difftime=(endDate - startDate)/60000;
+
+            $('#duration').val(difftime);
             $('#Eventdoctor').val(data.doctor.name);
             $('.deleteEvent').attr('data', data.appointment.id);
             if( data.appointment.is_approved){
@@ -68,7 +74,17 @@
     },
     eventDrop: function(event, delta, revertFunc) {
 
-        $.get("/ajax/appointment/changeDate/" + event.start.format() + "/" + event.id);
+        currentdate = new Date();
+        date = new Date(event.start);
+        cdate = currentdate.getFullYear() + "-" + (currentdate.getMonth()+1) + "-" +currentdate.getDate();
+        todate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" +date.getDate();
+
+        if(todate > cdate){
+            $.get("/ajax/appointment/changeDate/" + event.start.format() + "/" + event.id);
+        }
+        else{
+            revertFunc();
+        }
 
     },
 

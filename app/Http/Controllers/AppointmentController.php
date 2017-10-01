@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use App\Clinic;
 use App\Message;
+use Validator;
 
 class AppointmentController extends Controller
 {
@@ -226,6 +227,23 @@ class AppointmentController extends Controller
 
     public function createAppointment(Request $request)
     {
+        
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date|after_or_equal:tomorrow',
+            'doctor_id' => 'sometimes|exists:users,user_name',
+            'time' => 'required|date_format:H:i',
+            'patient' => 'required|exists:users,user_name',
+            'duration' => 'required|numeric|max:60',
+            
+        ]);
+
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $this->appointment->createAppointment($request);
         return redirect()->back();
     }

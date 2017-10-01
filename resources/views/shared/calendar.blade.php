@@ -97,6 +97,13 @@ else{
                   <label class="col-sm-3 control-label">الوقت</label>
                 </div>
 
+                <div class="form-group">
+                  <div class="col-sm-9">
+                    <input type="number" name="duration" value="10" class="form-control">
+                  </div>
+                  <label class="col-sm-3 control-label">مدة الموعد(دقيقة)</label>
+                </div>
+
                <div class="form-group">
                   <div class="col-sm-9">
                     <select data-size="5" class="selectpicker form-control" data-live-search="true" name="patient" required="required">
@@ -157,6 +164,13 @@ else{
                   <label class="col-sm-3 control-label">الوقت</label>
                 </div>
 
+                <div class="form-group">
+                <div class="col-sm-9">
+                  <input type="number" id="duration" name="duration" value="10" class="form-control">
+                </div>
+                <label class="col-sm-3 control-label">مدة الموعد(دقيقة)</label>
+              </div>
+
                <div class="form-group">
                   <div class="col-sm-9">
                     <a title="سجل المريض" id="patientLink">
@@ -177,6 +191,42 @@ else{
           </div>
            
            </form>
+        </div>
+      </div>
+    </div>
+   </div>
+
+    <div id="CalenderModalshow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close pull-left" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title pull-right" id="myModalLabel">وقت الموعد </h4>
+          </div>
+          <div class="modal-body" style="display: flow-root;">
+            <div id="testmodal" style="padding: 5px 20px;">
+               
+                <div class="form-group">
+                  <div class="col-sm-9">
+                    <input type="time" id="showEventtime" name="time" value="09:00" class="form-control">
+                  </div>
+                  <label class="col-sm-3 control-label">الوقت</label>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-9">
+                    <input type="number" id="showduration" name="duration" value="10" class="form-control">
+                  </div>
+                  <label class="col-sm-3 control-label">مدة الموعد(دقيقة)</label>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="pull-left">
+              <button type="button" class="btn btn-default antoclose" data-dismiss="modal">اغلاق</button>
+          </div>
+           
         </div>
       </div>
     </div>

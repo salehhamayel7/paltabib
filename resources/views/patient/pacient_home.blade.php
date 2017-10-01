@@ -79,7 +79,7 @@
 							<ul class="nav navbar-left panel_toolbox">
 							  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							  </li>		
-                   <a href="/dashboard/pacient/allAppointments" class="btn btn-round btn-success"><i class="fa fa-calendar"></i> كافة المواعيد </a>					  
+                   <a href="/dashboard/pacient/myCalendar" class="btn btn-round btn-success"><i class="fa fa-calendar"></i> كافة المواعيد </a>					  
 							</ul>
 							<h2 style="float:right;"> المواعيد القادمة </h2>
 							<div class="clearfix"></div>

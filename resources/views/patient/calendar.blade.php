@@ -89,6 +89,13 @@ else{
                   <label class="col-sm-3 control-label">الوقت</label>
                 </div>
 
+                <div class="form-group">
+                  <div class="col-sm-9">
+                    <input type="number" name="duration" value="10" class="form-control">
+                  </div>
+                  <label class="col-sm-3 control-label">مدة الموعد(دقيقة)</label>
+                </div>
+
                <div class="form-group">
                   <div class="col-sm-9">
                     <select data-size="5" class="selectpicker form-control" data-live-search="true" name="doctor_id" required="required">
@@ -144,6 +151,13 @@ else{
                     <input type="time" id="Eventtime" name="time" value="09:00" class="form-control">
                   </div>
                   <label class="col-sm-3 control-label">الوقت</label>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-9">
+                    <input type="number" id="duration" name="duration" value="10" class="form-control">
+                  </div>
+                  <label class="col-sm-3 control-label">مدة الموعد(دقيقة)</label>
                 </div>
 
                <div class="form-group">

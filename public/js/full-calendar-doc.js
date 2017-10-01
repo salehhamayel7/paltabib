@@ -29,6 +29,12 @@ $('#calendar').fullCalendar({
             $('#editEventDate').attr('value', data.appointment.date);
             $('#Eventtitle').selectpicker('val', data.appointment.color);
             $('#Eventtime').val(data.appointment.time);
+           
+            var startDate = new Date("1/1/1900 " + data.appointment.time);
+            var endDate = new Date("1/1/1900 " + data.appointment.end_time );
+            var difftime=(endDate - startDate)/60000;
+
+            $('#duration').val(difftime);
             $('#Eventpatient').val(data.appointment.pacient_id);
             $('.deleteEvent').attr('data', data.appointment.id);
 
@@ -61,9 +67,17 @@ $('#calendar').fullCalendar({
 
     },
     eventDrop: function(event, delta, revertFunc) {
+        currentdate = new Date();
+        date = new Date(event.start);
+        cdate = currentdate.getFullYear() + "-" + (currentdate.getMonth()+1) + "-" +currentdate.getDate();
+        todate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" +date.getDate();
 
-        $.get("/ajax/appointment/changeDate/" + event.start.format() + "/" + event.id);
-
+        if(todate > cdate){
+            $.get("/ajax/appointment/changeDate/" + event.start.format() + "/" + event.id);
+        }
+        else{
+            revertFunc();
+        }
     },
 
 
